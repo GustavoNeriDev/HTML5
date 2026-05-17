@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+</head>
+    <link rel="stylesheet" href="style.css">
+</head>
+    <meta charset="UTF-8">
+    <meta  name="viewport" content="width=device-width,inicial-scale=1.0">
+    <title>
+        trabalhando com links
+    </title> <!--tiulo do site-->
+
+</head>
+<body>
+    <h1>Usando links externos</h1> <!--titulo numero 1 do site-->
+    <p>Você pode acessar meu <a href="https://github.com/nerigustavo828-png/estudos-JS.git">link do repositorio</a></p><!--p = paragrafo-->
+    <img src="foto.png" alt="exemplo de foto">
+</body>
+</html>
+
+<!-- html e conteudo
+ css em estilo(design)
+ javascript e em interações-->
