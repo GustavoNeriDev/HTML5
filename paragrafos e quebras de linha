@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paragrafos</title>
+</head>
+<body>
+    <h1>paragrafos e quebras de linha</h1>
+    <p> pode quebrar a linha 
+        contanto que esteja dentro do P
+    </p>
+    <p>se precisar quebra  a linha onde voce deseja e so uar
+        a tag br
+    </p>
+    
+</body>
+</html>
