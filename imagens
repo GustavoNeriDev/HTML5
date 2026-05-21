@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imagens</title>
+</head>
+<body>
+    <h1>imagens</h1>
+    <p>direitos autorais de iamgem: <br>
+    ferramentas clica nela e depois aperta em direitos de uso, e marca oq você quer escolher <br>
+    site: usnplash, pexels...</p>
+
+    <h2>formato de imagens</h2>
+    <p>exemplos de formatos muito usado e JPEG e o PNG <br>
+    usa png quando o fundo for tranparente e o jpeg para fotos normais</p>
+
+    <h3>colocando imagens</h3>
+    <p>abaixo vai ter uma imagen que esta nos documentos</p>
+
+    <img src="imagem aqui" alt="um texto alternativo, impotante para deficientes">
+</body>
+</html>
