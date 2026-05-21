@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="coloca o icone" href="referência" type="tipo">
     <title>imagens</title>
+    
 </head>
 <body>
     <h1>imagens</h1>
@@ -20,5 +22,8 @@
     <p>abaixo vai ter uma imagen que esta nos documentos</p>
 
     <img src="imagem aqui" alt="um texto alternativo, impotante para deficientes">
+
+    <h4>mudar a favicon de um site</h4>
+    <p>procurar arquivo icon e coloca dentro da pasta do seu site</p>
 </body>
 </html>
