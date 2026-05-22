@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hierarquia de titulos</title>
+</head>
+<body>
+    <h1>titulo principal</h1>
+    <h3>fica dentro de um subtitulo</h3>
+    <p>paragrafos, usado para textos maiores</p>
+    <h3>obs: pode se repetir varias vezes</h3>
+    <h2>sub titulo</h2>
+    <h3>ordenamento do territorio</h3>
+    <h4>outro subtitulo obs: os numeros deles são para ordenar umk dentro do outro</h4>
+    <p>pode se repetir, usar dentro de todos os subtitulo</p>
+</body>
+</html>

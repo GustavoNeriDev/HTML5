@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formatacao de texto</title>
+</head>
+<body>
+    <h1>pricipais formatações</h1>
+    <h2>Negrito / Destaque</h2>
+    <p>frase com termo em <b>negrito</b> usando a tag B(não semantica)</p>
+    <p>frase com termo em <strong>Destaque</strong>usando a tag STRONG(semantica)</p>
+    <h2>italico / enfase</h2>
+    <p>frase com termo em <i>italico</i> usando a tag I(não semantica)</p>
+    <p>frase com termo em <em>Enfase</em> usando a tag EM(semantica)</p>
+    <!--negrito e italico (b, i) não e recomendavel usar porque pode fututramento
+    não funcionar mais ja que não tem significado (pode futuramente ser usado em css)-->
+    <h2>Texto marcado</h2>
+    <p>frase com texto <mark>Marcado</mark> usando a tag MARK(sem CSS so fica amarelo)</p>
+    <p>frase com texto marcado mas com cor diferente <mark style="background-color: blue;">Cor azul</mark>
+    usando a tag MARK com cor modificado por CSS</p>
+    <h2>Texto grande e pequeno</h2>
+    <p>Frase com texto pequeno <small>Aqui esta o texto pequeno</small>
+    Usando a tag SMALL</p>
+    <p>texto grande e melhor editar no CSS</p>
+    <h2>Texto Deletado</h2>
+    <p>podemos marcar um <del>texto como excluido</del> para indicar que ele deve ser lido
+       , mas não considerado
+    </p>
+    <h2>Texto Inserido</h2>
+    <p>podemos marcar um <ins>texto como inserido</ins> para dar uma ênfase e indicar que ele foi adicionado depois usando a tag INS(semântica)</p>
+    <p>existe tambem o <u>sublinhado</u> que e com a tag U(não semântica)</p>
+    <h2>Texto sobrescrito</h2>
+    <p>para inserir uma coisa do tipo x<sup>29</sup>+5 usando a tag SUP</p>
+    <h2>Texto subscrito</h2>
+    <p>para inserir uma coisa do tipo H<sub>2</sub>O usando a tag SUB</p>
+</body>
+</html>
