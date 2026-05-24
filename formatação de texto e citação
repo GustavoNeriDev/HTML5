@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>formatacao de texto</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>pricipais formatações</h1>
@@ -34,5 +35,27 @@
     <p>para inserir uma coisa do tipo x<sup>29</sup>+5 usando a tag SUP</p>
     <h2>Texto subscrito</h2>
     <p>para inserir uma coisa do tipo H<sub>2</sub>O usando a tag SUB</p>
+    <h2>outras formatações</h2>
+    <h3>codigo fonte</h3>
+    <p>o comando <code>document.getElementById('teste)</code> e escrito em javascript(escrevi usando a tag CODE)</p>
+    <h3>usando a tag PRE(mais usado quando vai digitar codigo)</h3>
+    <p><pre>giosaniosnvuisanvlsadjvsuvndflvnjsabvuisnl safnksbvn
+fvbafkj vfdn ifbvkjf vmdfivdfnvadfnviuavndvni
+hfvbhubvs avnkbsvbskv fnvsfbjv sfvbsvm,sa b
+hvsbvsadhjv asklbvyousavkjsa gkjsdyvbjasnvuiosgi </pre>
+    </p>
+    <h2>citações e codigos</h2>
+    <p>quando for uma <q>citação</q> use o Q para dar sentido</p>
+    <h2>citações completas</h2>
+    <p>coloca livro ou alguma outra coisa e usa o BLOCKQUOTE dps do P(paragrafo) e o cite dentro do BLOCKQUOTE,<br>
+    para colocar o link da onde veio esta citação</p>
+    <blockquote cite="link da citação">
+        aqui e a citação de alguma coisa
+    </blockquote>
+    <h2>abreviações</h2>
+    <p>exemplo usando HTML <abbr title="Hyper Text Markup Language"></abbr> colocando a palara HTML entre o ABBR e colocando <br>
+    no TITLE o siginicado dela</p>
+
+
 </body>
 </html>
