@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>listas UL e OL</title>
+</head>
+<body>
+    <h1>listas</h1>
+    <h2>lsitas ordenadas</h2>
+    <p>Listas com a Tag OL e o TYPE 1</p>
+    <ol type="1">
+    <li>trabalho de alta performace</li>
+    <li>atenção aos detalhes</li>
+    <li>conforto e qualidae</li>
+    </ol>
+
+    <h2>Listas não ordenadas</h2>
+    <p>usando a tag UL</p>
+    <ul type="disc">
+        <li>agua</li>
+        <li>sabao</li>
+        <li>queijo</li>
+    </ul>
+
+</body>
+</html>
