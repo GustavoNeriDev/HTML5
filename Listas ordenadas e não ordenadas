@@ -22,6 +22,31 @@
         <li>sabao</li>
         <li>queijo</li>
     </ul>
+    <h2>misturando  listas</h2>
+    <ol>
+        <li>user 1 nomes</li>
+        <ul> <!--tambem posso colocar a tag OL-->
+            <li>Neri</li>
+            <li>Alves</li>
+        </ul>
+    </ol>
+    <ol>
+        <li>user 2 idades</li>
+        <ul>
+            <li>17 age</li>
+            <li>16 age</li>
+        </ul>
+    </ol>
+    <h2>Listas de definição</h2>
+    <dt>HTML
+        <dd>A parte base do site</dd>
+    </dt>
+    <dt>CSS
+        <dd>Personalização do site</dd>
+    </dt>
+    <dt>JAVASCRIPT
+        <dd>Interação do site</dd> <!--a lista de definição usa a tag DT e DD, serve para definir alguma coisa
+        não e muito utilizado-->
+    </dt>
+    
 
-</body>
-</html>
