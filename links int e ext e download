@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links e Ancoras</title>
+</head>
+<body>
+    <h1>Links e Âncoras</h1>
+    <h2>Links externos</h2>
+    <p>voçê pode acessar meu <a href="link aqui" target="_blank" rel="external">instagram</a></p> 
+    <!--o target e e o rel e para acessar o outro link, mas o link do seu site continuar aberto, então vai ter dois links abertos-->
+
+    <h2>links internos</h2>
+    <p>Acesse esta pagina <a href="link" target="_blank" rel="nofollow"> exemplo</a></p> 
+    <!--o rel NOFOLLOW faz com que você não dê o haval do link, mas o link ainda funciona, mas pode não ser confiavel-->
+    <p>abrir minha segunda pagina <a href="projeto/index.html" target="_self" rel="next" >aqui</a></p> <!--
+    usa o self para quanndo for abrir a pagina ter a opção de abrir as duas na mesma navegação mas sem ser ao mesmo tempo
+    mas tem a opção de voltar a pagina onde você estava-->
+    <!--quando vai abrir sua segunda pagina e necessario que você tenha criado ela dentro da sua pasta principal
+    e na outra pagina faz o retorno para a sua usando o mesmo codigo mas com o rel prev-->
+    <h2>Links para download</h2>
+    <p><a href="link do que isntalar aqui" download="link do que e e coloca um ponto e zip ou outras forma" type="aplication/ alguma coisa ex:PDF"></a>clique aqui</p>
+</body>
+</html>
