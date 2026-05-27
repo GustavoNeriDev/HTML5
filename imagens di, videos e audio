@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imagens</title>
+</head>
+<body>
+    <h1>imagens, audios, videos</h1>
+    <h2>imagens dinmâicas</h2>
+    <p>faz tres imagens uma usando tamanho pequeno a segunda media e a terceira grande</p>
+    <h2>continuação, imagens que se adaptam sozinhas</h2>
+    <p>abrir imagens em dispositivos diferentes</p>
+    <picture>
+        <source media="(min-width: 750px )" srcset="imagem pequena" type="tipo da imagem">
+        <source media="(max-width: 1050px)" srcset="imagem media,
+        caso a imagem for menor que 1000 px, ela e trocada automaticamente " type="coloca tipo de imagen aqui">
+        <img src="imagem grande aqui"alt="imagem flexivel">
+    </picture>
+
+    <h2>audios</h2>
+    <p>reproduzir audio</p>
+    <h3>simples</h3>
+    <audio src="audio aqui" controls autoplay></audio>
+
+    <h3>mais avançado</h3>
+    <audio preload="metadata" autoplay controls>  <!--pode usar a tag LOOP para quando acabar o audio ele reproduzir-->
+        <!--não e recomendado usar o wav porque ele e pesado-->
+        <source src="link da msc mp3" type="tipo mpeg">
+        <source src="link msc ogg" type="tipo ogg">
+        <source src="link wav" type="tipo wav">
+        <p>infelizmente seu navegador não carrega audio <a href="link do audio">Clique aqui para instalar</a></p>
+    </audio>
+    <h2>videos</h2>
+    <p>importante isntalar o handbrake para converter os videos em mp4 ou outras opções <br>
+    converta os videos em todos os formatos para ele funcionar em todos os tipos de navegadores e dispositivos</p>
+    <h3>simples</h3>
+    <video src="link aqui" width="ajustar o tamanho" controls></video>
+    <h3>avançado</h3>
+    <!--cuidado usando essa tag porque pode custar caro ao cliente e prejudica-lo-->
+    <video width="500" poster="arquivo(link) da capa do video" controls>
+        <source src="link mp4" type="tipo mp4">
+        <source src="link m4v" type="tipo mp4">
+        <source src="link webm" type="tipo webm">
+        <source src="link ogv" type="tipo ogg">
+        <p>seu navegador não tem compatividade com reprodução do video</p>
+    </video>
+
+    <h2>incorporação de videos</h2>
+    <p>vai ao video aperta para compartilhar e tem a opção incorporar e você copia o codigo HTML</p>
+    <!--mais leve ao seu cliente-->
+</body>
+</html>
