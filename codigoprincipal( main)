@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>site exemplo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main> <!--codigo principal(conteudo princ)-->
+        <h1>Site exemplo</h1>
+        <h2>Titulo 1</h2>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis cupiditate eaque dolorem ipsa porro quaerat, doloremque minus ducimus pariatur excepturi! Harum labore nemo id minima dignissimos, corrupti magni blanditiis sapiente.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, enim ipsam hic maiores velit impedit unde vero quam eaque beatae possimus aspernatur provident tempore, quaerat consequatur mollitia, nobis maxime tenetur?</p>
+        <h2>titulo 2</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat voluptas recusandae laborum amet vel voluptates perferendis suscipit quasi. Voluptatem molestias sint earum magni vitae doloribus minima? Adipisci laborum dolorum aperiam?</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro dolorum vel rerum voluptate nobis ad dolorem, consequuntur molestiae ipsam expedita mollitia eos, sed hic? Minima magnam tempore eius corporis odio.</p>
+        <h2>titulo 3</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum dolorum voluptates modi magni minus veritatis ullam beatae aliquam exercitationem similique nam laudantium, suscipit saepe molestias sapiente architecto tempore rem! Voluptatum.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iste in aperiam aut sint soluta impedit, commodi voluptate ipsum porro pariatur culpa maiores recusandae vero cum at delectus eos consequuntur.</p>
+        
+    </main>
+</body>
+</html>
