@@ -3,3 +3,21 @@
     <h1 class="destaque basico">HTML</h1> <!--duas classes em um so titulo-->
     <h2 class="basico">basico</h2> <!--uma classe que vai definir oque e o texto para classificar o texto, obs: pode usar mais de uma vez-->
     <h2 class="basico">basico</h2> repetição de class
+
+
+
+<body>
+   
+    <div>01</div> <!--e um espaço qualquer e ocupa todo o espaço que ela esta inserida no documento-->
+    <div>02</div>
+    <div>03</div> 
+</body>
+<body>
+    <h1>texto 1</h1>
+    <p>passe o mouse aqui</p>
+    <div class="escondido">
+        passe o mouse aqui
+        <p>texto escondido</p>
+    </div>
+</body>
+</html>
