@@ -1,0 +1,5 @@
+    <h1 id="principal">HTML, CSS</h1> <!--identificador de elemento dizendo que e principal-->
+    <!--so se pode usar um id no elementos. mas em compensação tem a class-->
+    <h1 class="destaque basico">HTML</h1> <!--duas classes em um so titulo-->
+    <h2 class="basico">basico</h2> <!--uma classe que vai definir oque e o texto para classificar o texto, obs: pode usar mais de uma vez-->
+    <h2 class="basico">basico</h2> repetição de class
