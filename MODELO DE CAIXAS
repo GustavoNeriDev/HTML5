@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>modelos de caixas</title>
+    <style>
+        h1 {
+            height: 200px;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>tipos de caixa em html 
+            <h3>tipos box level
+                <ul>
+                    <li><div>uma div, ela quebra a linha</div></li>
+                    <li>um h1</li>
+                    <li>um p</li>
+                    <li>uma main</li>
+                    <li>header</li>
+                    <li>um nav</li>
+                    <li>um article</li>
+                    <li>aside</li>
+                    <li>footer</li>
+                    <li>form</li>
+                    <li>video</li>
+                </ul>
+            </h3>
+            <h3>tipos inline box
+                <ul>
+                    <li><span>uma span, ela não quebra a linha</span></li>
+                    <li>a</li>
+                    <li>code</li>
+                    <li>small</li>
+                    <li>strong</li>
+                    <li>em</li>
+                    <li>sup e sub</li>
+                    <li>label</li>
+                    <li>button</li>
+                    <li>input</li>
+                    <li>select</li>
+                </ul>
+            </h3>
+    </h1>
+    <h1>tags semântica</h1>
+    <header>
+        <h1>titlo</h1>
+        <nav>
+            link
+        </nav>
+    </header>
+    <main>
+        <section id="assuntos">
+
+        </section>
+        <section id="noticias">
+            <article>
+                <h2>noticia sobre algo</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde magni, blanditiis eum porro consequuntur enim hic magnam doloremque error suscipit! Saepe delectus voluptates libero necessitatibus laborum, perferendis maxime pariatur omnis?
+                </p>
+                <aside>
+                    <p>artigo escrito por tal pessoa</p>
+                </aside>
+            </article>
+            <article>
+                <aside>
+
+                </aside>
+            </article>
+        </section>
+
+    </main>
+    <footer>
+        <p>paragrafo</p>
+    </footer>
+</body>
+</html>
