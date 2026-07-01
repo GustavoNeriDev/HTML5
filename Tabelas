@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*COLOCAR LINHA NAS TABELAS */
+        table {
+            border-collapse: collapse; /*deixa as linhas juntas uma das outras ou não */
+        }
+        td {
+            border-radius: 1px;
+            border: solid;
+            border-color: black;
+            vertical-align: middle; /* alinhao elemento no meio da tela, mais usado em imagens e textos, de preferencia veerticais*/
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TABELA</h1>
+    </header>
+    <!--HIERARQUIA DE TABELAS
+    
+    ESTRUTURA DE UMA TABELA:
+
+    table = tabela
+        table row = linhas de tabela
+            table header = cabeçalho de tabela
+                table data = dado de tabela-->
+ 
+    <!--ESTUTURA BASICA DE UMA TABELA-->
+    <table> <!--tabela-->
+        <tr> <!--linha da tabela-->
+            <td> <!--dado da tabela-->
+
+            </td>
+        </tr>
+        <tr> <!--segunda linha da tabela-->
+            <td>
+
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
