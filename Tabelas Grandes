@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>TABELAS GRANDES</h1>
+    </header>
+    <!--ANATOMIA PARA TABELAS GRANDES
+    TABLE
+        CAPTION
+        THEAD
+            TR, TD, TH
+        TBODY
+            TR, TD, TH
+        TFOOT
+            TR, TD, TH
+    -->
+    <table>
+        <caption>legenda</caption> <!--legenda da tabela-->
+        <thead> <!--cabeçalho da tabela, onde ficam os títulos -->
+            <tr>
+                <th scope="col"> <!--o scope deve ser usado para indicar qual é a coluna, usar em todos os th-->
+
+                </th>
+            </tr>
+        </thead>
+        <tbody> <!--corpo da tabela, onde ficam os dados -->
+            <tr>
+                <td>
+
+                </td>
+            </tr>
+        </tbody>
+        <tfoot> <!--rodapé da tabela, onde ficam os dados finais -->
+            <tr>
+                <th scope="row"> <!--o scope no foot deve ser usado para indicar qual é a linha-->
+                    <td>
+
+                    </td>
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>
