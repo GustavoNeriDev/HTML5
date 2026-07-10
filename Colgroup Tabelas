@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            font-size: 23px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .nome {
+            background-color: #ffcccc;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <colgroup> <!-- usando essa tag vc pode configurar uma coluna inteira só com uma classe-->
+            <col class="nome">
+            <col class="idade">
+            <col class="dia">
+        </colgroup>
+        <caption>col</caption>
+        <tr>
+            <th scope="col">Nome</td>
+            <th scope="col">Idade</td>
+            <th scope="col">Dia</td>
+        </tr>
+        <tr>
+            <td>Joana</td>
+            <td>23</td>
+            <td>Segunda-feira</td>
+        </tr>
+        <tr>
+            <td>Neri</td>
+            <td>25</td>
+            <td>Terça-feira</td>
+        </tr>
+    </table>
+</body>
+</html>
