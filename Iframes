@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iframe</title>
+</head>
+<body>
+    <header>
+        <h1>IFRAME</h1>
+    </header>
+    <main>
+        <p>
+            <!--tamanho padrão 300x150-->
+            Acessando o conteudo de um site usando iframe
+            
+            <iframe src="https://www.cursoemvideo.com" frameborder="0" >
+                <a href="https://www.cursoemvideo.com" target="_blank">Curso em video</a> <!-- caso o navegador não suporte iframe, ele vai mostrar a mensagem que está dentro do iframe -->
+            </iframe> <!-- o iframe é usado para mostrar um site dentro do seu site, e vc conseguir rodar o site sem precisar entrar no site.-->
+        </p>
+        <p>
+            Acessando um repositorio usando iframe 
+            
+            <iframe src="https://gustavoguanabara.github.io" frameborder="0">
+                <a href="https://gustavoguanabara.github.io">Git Hub</a> <!-- caso o navegador não suporte iframe, ele vai mostrar a mensagem que está dentro do iframe -->
+            </iframe>
+        </p>
+
+
+        <!--IFRAME ACESSANDO UM SITE SEU INTERNO-->
+        <iframe src="index.html" frameborder="0">
+            <a href="index.html">site interno</a>
+        </iframe>
+
+
+
+        <!--ACESSANDO VARIOS SITES-->
+
+        <ul>
+            <li><a href="projeto/index.html" target="frame">link1</a></li>
+            <li><a href="index.html" target="frame">link2</a></li>
+            <li><a href="projeto/flamengopng-removebg-preview.png" target="frame">link3</a></li>
+        </ul>
+
+
+        <iframe src="projeto/index.html"  name="frame" id="if">
+            <p>seu navegador não é compativel</p>
+        </iframe>
+
+
+        <!---------SEGURANÇA DO IFRAME------------>
+        <iframe src="index.html" frameborder="0" sandbox="sandbox ou allow-forms ou allow-same-origin ou allow-scripts" referrerpolicy="no-referter"> <!--os allow permite certo tipo de execução ex: allow-forms, permite que o usuario possa enviar o conteudo preenchido no formulario, mesmo que não seja seguro-->
+            <p>seu dispositvo não é compativel</p>
+        </iframe>
+    </main>
+
+    
+</body>
+</html>
