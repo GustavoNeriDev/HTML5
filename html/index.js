@@ -78,3 +78,78 @@ function verificarCadastro() {
 }
 
 botao.addEventListener("click", verificarCadastro);
+
+
+
+
+
+
+
+
+
+
+const nome = document.getElementById("nome");
+const nota = document.getElementById("nota");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+function verificarNota() {
+
+    if (Number(nota.value) === 5) {
+      resultado.textContent = nome.value + "voce esta de recuperação" + nota.value
+    } else if (Number(nota.value) > 5) {
+      resultado.textContent = nome.value +"voce esta de aprovado" + nota.value
+    } else {
+      resultado.textContent = nome.value + "voce esta reprovado" + nota.value
+    }
+
+}
+
+botao.addEventListener("click", verificarNota);
+
+
+
+
+
+
+
+
+
+//VALIDAÇÂO DE CAMPOS ///
+
+
+
+const nome = document.getElementById("nome");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+
+function validarCadastro() {
+
+    if (nome.value === "") {
+        resultado.textContent = "Digite seu nome";
+    } else {
+        resultado.textContent = "Cadastro realizado!";
+    }
+
+}
+
+
+botao.addEventListener("click", validarCadastro);
+
+
+
+
+
+const senha = document.getElementById("senha");
+
+
+if (senha.value.length < 6) {
+
+    resultado.textContent = "Senha muito curta";
+
+} else {
+
+    resultado.textContent = "Senha válida";
+
+}
