@@ -193,3 +193,106 @@ function comprar() {
 }
 
 botao.addEventListener("click", comprar);
+
+
+
+
+
+
+const nome = document.getElementById("nome");
+const idade = document.getElementById("idade");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+function cadastrar() {
+
+    if (nome.value === "" || idade.value === "") {
+        resultado.textContent = "Preencha todos os campos.";
+        return;
+    }
+
+    if (Number(idade.value) >= 18) {
+        resultado.textContent = `Bem-vindo, ${nome.value}! Cadastro realizado com sucesso!`;
+    } else {
+        resultado.textContent = `${nome.value}, você é menor de idade.`;
+    }
+
+}
+
+botao.addEventListener("click", cadastrar);
+
+
+
+
+
+
+
+
+
+const usuario = document.getElementById("usuario");
+const senha = document.getElementById("senha");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+function entrar() {
+
+    if (usuario.value === "" || senha.value === "") {
+        resultado.textContent = "Preencha todos os campos.";
+        return;
+    } else if (usuario.value === "go" && senha.value === "1234") {
+        resultado.textContent = "Login realizado com sucesso!";
+
+        usuario.value = "";
+        senha.value = "";
+    } else {
+        resultado.textContent = "Usuário ou senha incorretos.";
+    }
+}
+
+botao.addEventListener("click", entrar);
+
+
+
+
+
+
+
+
+
+const nome = document.getElementById("nome");
+const idade = document.getElementById("idade");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+function comprarIngresso() {
+
+    if (nome.value === "" || idade.value === "") {
+      resultado.textContent = "Preencha todos os campos"
+      return
+    } else if (Number(idade.value) <= 0) {
+      resultado.textContent = "Digite uma idade valida"
+      return
+    } else if (Number(idade.value) >= 18) {
+      resultado.textContent = `${nome.value}, compra realizada com sucesso`
+      idade.value = ""
+      nome.value = ""
+    } else {
+      resultado.textContent = `${nome.value}, voce não pode comprar esse ingresso`
+
+      idade.value = ""
+      nome.value = ""
+
+    }
+}
+
+botao.addEventListener("click", comprarIngresso);
+
+
+
+
+
+
+
+
+
+
