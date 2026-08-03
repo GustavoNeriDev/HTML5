@@ -173,3 +173,43 @@ function comprarIngresso() {
 }
 
 botao.addEventListener("click", comprarIngresso);
+
+
+
+
+
+
+const saldo = document.getElementById("saldo");
+const saque = document.getElementById("saque");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+function sacar() {
+
+    if (saque.value === "" || saldo.value === "") {
+        resultado.textContent = "Preencha todos os campos"
+        return
+    } 
+
+    const saque = Number(saque.value)
+    const saldo = Number(saldo.value)
+
+    if (saque <= 0 || saldo <= 0) {
+        resultado.textContent = "Preencha os valores corretamente"
+        return
+    } 
+    
+    saldo -= saque
+
+    if (saque > saldo) {
+        resultado.textContent = "Saldo insuficiente"
+        return
+    } else {
+        resultado.textContent = `saque realizado com sucesso! <br>
+        saque R$: ${saque.toFixed(2)} <br>
+        saldo R$: ${saldo.toFixed(2)}`
+    }
+   
+}
+
+botao.addEventListener("click", sacar);
