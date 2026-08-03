@@ -7,12 +7,55 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 id="titulo">Digite seu nome:</h1>
+  <h1>Carteira Digital</h1>
 
-<input type="text" id="nome">
+<input type="number" id="saldo" placeholder="Saldo disponível">
 
-<button id="botao">Mostrar nome</button>
+<input type="number" id="saque" placeholder="Valor do saque">
+
+<button id="botao">Sacar</button>
 
 <p id="resultado"></p>
+
+<script>
+const saldo = document.getElementById("saldo");
+const saque = document.getElementById("saque");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+function sacar() {
+
+    if (saldo.value === "" || saque.value === "") {
+        resultado.textContent = "Preencha todos os campos.";
+        return;
+    }
+
+    const saldoAtual = Number(saldo.value);
+    const valorSaque = Number(saque.value);
+
+    if (saldoAtual <= 0 || valorSaque <= 0) {
+        resultado.textContent = "Digite valores válidos.";
+        return;
+    }
+
+    if (valorSaque > saldoAtual) {
+        resultado.textContent = "Saldo insuficiente.";
+        return;
+    }
+
+    const saldoRestante = saldoAtual - valorSaque;
+
+    resultado.innerHTML = `
+        Saque realizado com sucesso! <br>
+        Valor do saque: R$ ${valorSaque.toFixed(2)} <br>
+        Saldo restante: R$ ${saldoRestante.toFixed(2)}
+    `;
+
+    saldo.value = "";
+    saque.value = "";
+}
+
+botao.addEventListener("click", sacar);
+</script>
 </body>
 </html>

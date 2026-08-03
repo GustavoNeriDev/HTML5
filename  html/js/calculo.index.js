@@ -178,7 +178,6 @@ botao.addEventListener("click", comprarIngresso);
 
 
 
-
 const saldo = document.getElementById("saldo");
 const saque = document.getElementById("saque");
 const botao = document.getElementById("botao");
@@ -186,30 +185,77 @@ const resultado = document.getElementById("resultado");
 
 function sacar() {
 
-    if (saque.value === "" || saldo.value === "") {
-        resultado.textContent = "Preencha todos os campos"
-        return
-    } 
-
-    const saque = Number(saque.value)
-    const saldo = Number(saldo.value)
-
-    if (saque <= 0 || saldo <= 0) {
-        resultado.textContent = "Preencha os valores corretamente"
-        return
-    } 
-    
-    saldo -= saque
-
-    if (saque > saldo) {
-        resultado.textContent = "Saldo insuficiente"
-        return
-    } else {
-        resultado.textContent = `saque realizado com sucesso! <br>
-        saque R$: ${saque.toFixed(2)} <br>
-        saldo R$: ${saldo.toFixed(2)}`
+    if (saldo.value === "" || saque.value === "") {
+        resultado.textContent = "Preencha todos os campos.";
+        return;
     }
-   
+
+    const saldoAtual = Number(saldo.value);
+    const valorSaque = Number(saque.value);
+
+    if (saldoAtual <= 0 || valorSaque <= 0) {
+        resultado.textContent = "Digite valores válidos.";
+        return;
+    }
+
+    if (valorSaque > saldoAtual) {
+        resultado.textContent = "Saldo insuficiente.";
+        return;
+    } else {
+
+    const saldoRestante = saldoAtual - valorSaque;
+
+    resultado.innerHTML = `
+        Saque realizado com sucesso! <br>
+        Valor do saque: R$ ${valorSaque.toFixed(2)} <br>
+        Saldo restante: R$ ${saldoRestante.toFixed(2)}
+    `;
+    }
+
+    saldo.value = "";
+    saque.value = "";
 }
 
 botao.addEventListener("click", sacar);
+
+
+
+
+
+
+
+
+const salario = document.getElementById("salario");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+function calcularImposto() {
+
+    if (salario.value === "") {
+        resultado.textContent = "Preencha o campo"
+        return
+    } 
+
+    const salarioAtual = Number(salario.value)
+
+    if (salarioAtual <= 0) {
+        resultado.textContent = "Digite um valor valido"
+        return
+    }
+
+    const imposto = salarioAtual * 0.08
+    const salarioLiquido = salarioAtual - imposto
+     
+    if (salarioAtual > 3000) {
+        resultado.innerHTML = `voce sofreu um imposto de 8% <br>
+        salario antes do imposto: R$ ${salarioAtual.toFixed(2)} <br>
+        imposto de: R$ ${imposto.toFixed(2)} <br>
+        salario liquido de: R$ ${salarioLiquido.toFixed(2)}`
+    } else {
+        resultado.textContent = "voce não sofreu imposto"
+    }
+
+    salario.value = ""
+}
+
+botao.addEventListener("click", calcularImposto);
