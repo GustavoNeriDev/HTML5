@@ -1,61 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.js" />
     <title>Document</title>
-</head>
-<body>
-  <h1>Carteira Digital</h1>
+  </head>
+  <body>
+    <h1>Carteira Digital</h1>
 
-<input type="number" id="saldo" placeholder="Saldo disponível">
+    <input type="number" id="saldo" placeholder="Saldo disponível" />
 
-<input type="number" id="saque" placeholder="Valor do saque">
+    <input type="number" id="saque" placeholder="Valor do saque" />
 
-<button id="botao">Sacar</button>
+    <button id="botao">Sacar</button>
 
-<p id="resultado"></p>
+    <p id="resultado"></p>
 
-<script>
-const saldo = document.getElementById("saldo");
-const saque = document.getElementById("saque");
-const botao = document.getElementById("botao");
-const resultado = document.getElementById("resultado");
+    <script>
+      const saldo = document.getElementById("saldo");
+      const saque = document.getElementById("saque");
+      const botao = document.getElementById("botao");
+      const resultado = document.getElementById("resultado");
 
-function sacar() {
+      function sacar() {
+        if (saldo.value === "" || saque.value === "") {
+          resultado.textContent = "Preencha todos os campos.";
+          return;
+        }
 
-    if (saldo.value === "" || saque.value === "") {
-        resultado.textContent = "Preencha todos os campos.";
-        return;
-    }
+        const saldoAtual = Number(saldo.value);
+        const valorSaque = Number(saque.value);
 
-    const saldoAtual = Number(saldo.value);
-    const valorSaque = Number(saque.value);
+        if (saldoAtual <= 0 || valorSaque <= 0) {
+          resultado.textContent = "Digite valores válidos.";
+          return;
+        }
 
-    if (saldoAtual <= 0 || valorSaque <= 0) {
-        resultado.textContent = "Digite valores válidos.";
-        return;
-    }
+        if (valorSaque > saldoAtual) {
+          resultado.textContent = "Saldo insuficiente.";
+          return;
+        }
 
-    if (valorSaque > saldoAtual) {
-        resultado.textContent = "Saldo insuficiente.";
-        return;
-    }
+        const saldoRestante = saldoAtual - valorSaque;
 
-    const saldoRestante = saldoAtual - valorSaque;
-
-    resultado.innerHTML = `
+        resultado.innerHTML = `
         Saque realizado com sucesso! <br>
         Valor do saque: R$ ${valorSaque.toFixed(2)} <br>
         Saldo restante: R$ ${saldoRestante.toFixed(2)}
     `;
 
-    saldo.value = "";
-    saque.value = "";
-}
+        saldo.value = "";
+        saque.value = "";
+      }
 
-botao.addEventListener("click", sacar);
-</script>
-</body>
+      botao.addEventListener("click", sacar);
+    </script>
+  </body>
 </html>
+
+//////filter retorna varios objetos e find so retorna 1 objeto // então o filter
+usa o for ou forEach e o find so o elemento.nome ////////////
