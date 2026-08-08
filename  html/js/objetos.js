@@ -309,3 +309,142 @@ function listarEquipe() {
 
 adicionar.addEventListener("click", adicionarNinja);
 listar.addEventListener("click", listarEquipe);
+
+//////filter retorna varios objetos e find so retorna 1 objeto
+// então o filter usa o for ou forEach e o find so o elemento.nome ////////////
+
+const nome = document.getElementById("nome");
+const poder = document.getElementById("poder");
+
+const adicionar = document.getElementById("adicionar");
+const maisForte = document.getElementById("maisForte");
+
+const resultado = document.getElementById("resultado");
+
+const ninjas = [];
+
+function adicionarNinja() {
+  if (nome.value === "" || poder.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+
+  const poderDigitado = Number(poder.value);
+
+  if (poder <= 0) {
+    resultado.textContent = "Digite um poder valido";
+    return;
+  }
+
+  const ninja = {
+    nome: nome.value,
+    poder: poderDigitado,
+  };
+
+  ninjas.push(ninja);
+
+  let texto = "";
+
+  ninjas.forEach(function (nin) {
+    texto += `${nin.nome} - ${nin.poder} <br>`;
+  });
+
+  resultado.innerHTML = texto;
+  nome.value = "";
+  poder.value = "";
+}
+
+function encontrarMaisForte() {
+  if (ninjas.length === 0) {
+    resultado.textContent = "Nenhum ninja cadastrado";
+    return;
+  }
+
+  let maisForte = ninjas[0];
+
+  ninjas.forEach(function (ninja) {
+    if (ninja.poder > maisForte.poder) {
+      maisForte = ninja;
+    }
+  });
+
+  resultado.textContent = `${maisForte.nome} poder: ${maisForte.poder} <br>`;
+
+  nome.value = "";
+  poder.value = "";
+}
+
+adicionar.addEventListener("click", adicionarNinja);
+maisForte.addEventListener("click", encontrarMaisForte);
+
+const nome = document.getElementById("nome");
+const transformacao = document.getElementById("transformacao");
+const poder = document.getElementById("poder");
+
+const adicionar = document.getElementById("adicionar");
+const buscar = document.getElementById("buscar");
+
+const resultado = document.getElementById("resultado");
+
+const guerreiros = [];
+
+function adicionarGuerreiro() {
+  if (nome.value === "" || transformacao.value === "" || poder.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+
+  const poderDigitado = Number(poder.value);
+
+  if (poderDigitado <= 0) {
+    resultado.textContent = "Digite um poder valido";
+    return;
+  }
+
+  const guerreiro = {
+    nome: nome.value,
+    transformacao: transformacao.value,
+    poder: poderDigitado,
+  };
+  guerreiros.push(guerreiro);
+  let texto = "";
+  guerreiros.forEach(function (boneco) {
+    texto += `${boneco.nome} transformação: ${boneco.transformacao} poder: ${boneco.poder} <br>`;
+  });
+
+  resultado.innerHTML = texto;
+
+  nome.value = "";
+  transformacao.value = "";
+  poder.value = "";
+}
+
+function buscarTransformacao() {
+  if (transformacao.value === "") {
+    resultado.textContent = "Preencha o campo";
+    return;
+  }
+
+  const encontrarTransformacao = guerreiros.filter(function (boneco) {
+    return boneco.transformacao === transformacao.value;
+  });
+
+  if (encontrarTransformacao.length === 0) {
+    resultado.textContent = "Nenhum encontrado";
+    return;
+  }
+
+  let texto = "";
+
+  encontrarTransformacao.forEach(function (boneco) {
+    texto += `${boneco.nome} transformação: ${boneco.transformacao} poder: ${boneco.poder} <br>`;
+  });
+
+  texto += `<br>Total de tranformação: ${encontrarTransformacao.length}`;
+  resultado.innerHTML = texto;
+
+  transformacao.value = "";
+}
+
+adicionar.addEventListener("click", adicionarGuerreiro);
+buscar.addEventListener("click", buscarTransformacao);
