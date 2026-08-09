@@ -448,3 +448,260 @@ function buscarTransformacao() {
 
 adicionar.addEventListener("click", adicionarGuerreiro);
 buscar.addEventListener("click", buscarTransformacao);
+
+const nome = document.getElementById("nome");
+const poder = document.getElementById("poder");
+
+const adicionar = document.getElementById("adicionar");
+const ranking = document.getElementById("ranking");
+
+const resultado = document.getElementById("resultado");
+
+const guerreiros = [];
+
+function adicionarGuerreiro() {
+  if (nome.value === "" || poder.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+
+  const poderDigitado = Number(poder.value);
+
+  if (poderDigitado <= 0) {
+    resultado.textContent = "Poder invalido";
+    return;
+  }
+  const guerreiro = {
+    nome: nome.value,
+    poder: poderDigitado,
+  };
+
+  guerreiros.push(guerreiro);
+  let texto = "";
+  guerreiros.forEach(function (warrior) {
+    texto += `${warrior.nome} - poder: ${warrior.poder} <br>`;
+  });
+  resultado.innerHTML = texto;
+
+  nome.value = "";
+  poder.value = "";
+}
+
+function mostrarRanking() {
+  const organizarRankin = guerreiros.sort(function (a, b) {
+    return b.poder - a.poder;
+  });
+
+  let texto = "";
+
+  organizarRankin.forEach(function (warrior) {
+    texto += `${warrior.nome} - Poder: ${warrior.poder} <br>`;
+  });
+
+  resultado.innerHTML = texto;
+}
+
+adicionar.addEventListener("click", adicionarGuerreiro);
+ranking.addEventListener("click", mostrarRanking);
+
+const nome = document.getElementById("nome");
+const poder = document.getElementById("poder");
+const raca = document.getElementById("raca");
+
+const adicionar = document.getElementById("adicionar");
+const ranking = document.getElementById("ranking");
+
+const resultado = document.getElementById("resultado");
+
+const guerreiros = [];
+
+function adicionarGuerreiro() {
+  if (nome.value === "" || poder.value === "" || raca.value === "") {
+    resultado.textContent = "Preencha todos os campo";
+    return;
+  }
+
+  const poderDigitado = Number(poder.value);
+
+  if (poderDigitado <= 0) {
+    resultado.textContent = "Digite um poder valido";
+    return;
+  }
+
+  const guerreiro = {
+    nome: nome.value,
+    poder: poderDigitado,
+    raca: raca.value,
+  };
+  let texto = "";
+  guerreiros.push(guerreiro);
+
+  guerreiros.forEach(function (warrior) {
+    texto += `${warrior.nome} poder: ${warrior.poder} raça: ${warrior.raca}`;
+  });
+  resultado.innerHTML = texto;
+
+  nome.value = "";
+  poder.value = "";
+  raca.value = "";
+}
+
+function mostrarRanking() {
+  const filtrar = guerreiros.filter(function (warrior) {
+    return warrior.raca === raca.value;
+  });
+  if (filtrar.length === 0) {
+    resultado.textContent = "nenhum dessa raça encontrado";
+    return;
+  }
+
+  const organizarRankink = filtrar.sort(function (a, b) {
+    return b.poder - a.poder;
+  });
+  let texto = "";
+
+  organizarRankink.forEach(function (warrior, indice) {
+    texto += `${indice + 1} ${warrior.nome} poder: ${warrior.poder} raça: ${warrior.raca} <br>`;
+  });
+
+  texto += `<br> total guerreiros: ${organizarRankink.length}`;
+  resultado.innerHTML = texto;
+  raca.value = "";
+}
+
+adicionar.addEventListener("click", adicionarGuerreiro);
+ranking.addEventListener("click", mostrarRanking);
+
+const nome = document.getElementById("nome");
+const poder = document.getElementById("poder");
+
+const adicionar = document.getElementById("adicionar");
+const total = document.getElementById("total");
+const maisForte = document.getElementById("maisForte");
+
+const resultado = document.getElementById("resultado");
+
+const guerreiros = [];
+
+function adicionarGuerreiro() {
+  if (nome.value === "" || poder.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+
+  const poderDigitado = Number(poder.value);
+
+  if (poderDigitado <= 0) {
+    resultado.textContent = "Digite um poder valido";
+    return;
+  }
+
+  const guerreiro = {
+    nome: nome.value,
+    poder: poderDigitado,
+  };
+
+  guerreiros.push(guerreiro);
+
+  let texto = "";
+
+  guerreiros.forEach(function (warrior) {
+    texto += `${warrior.nome} poder: ${warrior.poder} <br>`;
+  });
+
+  resultado.innerHTML = texto;
+
+  nome.value = "";
+  poder.value = "";
+}
+
+function calcularTotal() {
+  if (guerreiros.length === 0) {
+    resultado.textContent = "Não existe guerreiros";
+    return;
+  }
+
+  const somaDeTodos = guerreiros.reduce(function (acumulador, guerreiro) {
+    return acumulador + guerreiro.poder;
+  }, 0);
+
+  const media = somaDeTodos / guerreiros.length;
+
+  resultado.innerHTML = `poder total: ${somaDeTodos} <br>
+    total de guerreiros ${guerreiros.length}
+    media: ${media} <br>`;
+}
+
+function encontrarMaisForte() {
+  if (guerreiros.length === 0) {
+    resultado.textContent = "Nenhum guerreiro encontrado";
+    return;
+  }
+
+  const forte = guerreiros.reduce(function (anterior, guerreiro) {
+    if (anterior.poder < guerreiro.poder) {
+      return guerreiro.poder;
+    } else {
+      return anterior.poder;
+    }
+  }, guerreiros[0]);
+
+  resultado.innerHTML = `
+    Guerreiro mais forte: ${forte.nome}
+    poder: ${forte.poder}`;
+}
+
+adicionar.addEventListener("click", adicionarGuerreiro);
+total.addEventListener("click", calcularTotal);
+
+const nome = document.getElementById("nome");
+const raca = document.getElementById("raca");
+
+const adicionar = document.getElementById("adicionar");
+const contar = document.getElementById("contar");
+
+const resultado = document.getElementById("resultado");
+
+const guerreiros = [];
+
+function adicionarGuerreiro() {
+  if (nome.value === "" || raca.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+
+  const guerreiro = {
+    nome: nome.value,
+    raca: raca.value,
+  };
+
+  guerreiros.push(guerreiro);
+
+  let texto = "";
+
+  guerreiros.forEach(function (warrior) {
+    texto += `${warrior.nome} raça: ${warrior.raca}`;
+  });
+  resultado.innerHTML = texto;
+  nome.value = "";
+  raca.value = "";
+}
+
+function contarRacas() {
+  if (guerreiros.length === 0) {
+    resultado.textContent = "Nenhum guerreiro cadastrado";
+    return;
+  }
+
+  const quantidade = guerreiros.reduce(function (acumulador, guerreiro) {
+    if (guerreiro.raca === raca.value) {
+      return acumulador + 1;
+    }
+    return acumulador;
+  }, 0);
+
+  resultado.innerHTML = `Quantidade: ${quantidade}`;
+}
+
+adicionar.addEventListener("click", adicionarGuerreiro);
+contar.addEventListener("click", contarRacas);
