@@ -293,3 +293,8 @@ function calcularMensalidade() {
 }
 
 botao.addEventListener("click", calcularMensalidade);
+
+////calcular /////
+const soma = busca.reduce((soma, { salario }) => {
+  return soma + salario;
+}, 0);
