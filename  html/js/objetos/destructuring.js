@@ -290,3 +290,115 @@ function gerarRelatorio() {
 }
 
 botao.addEventListener("click", gerarRelatorio);
+
+const idMissao = document.getElementById("idMissao");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+const missoes = [
+  {
+    id: 1,
+    nome: "Proteger a vila",
+    ninja: "Naruto",
+    rank: "S",
+    recompensa: 5000,
+    concluida: true,
+  },
+  {
+    id: 2,
+    nome: "Capturar criminoso",
+    ninja: "Sasuke",
+    rank: "A",
+    recompensa: 3500,
+    concluida: false,
+  },
+  {
+    id: 3,
+    nome: "Escoltar comerciante",
+    ninja: "Gaara",
+    rank: "B",
+    recompensa: 2000,
+    concluida: true,
+  },
+  {
+    id: 4,
+    nome: "Investigar floresta",
+    ninja: "Kakashi",
+    rank: "A",
+    recompensa: 4000,
+    concluida: true,
+  },
+  {
+    id: 5,
+    nome: "Encontrar pergaminho",
+    ninja: "Sakura",
+    rank: "S",
+    recompensa: 6000,
+    concluida: false,
+  },
+];
+
+function gerarRelatorio() {
+  if (idMissao.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+
+  const busca = missoes.filter(({ concluida }) => {
+    return concluida === true;
+  });
+
+  if (busca.length === 0) {
+    resultado.textContent = "Nenhum ninja ativo encontrado nessa vila";
+    return;
+  }
+
+  const lista = busca.map(({ nome, ninja, rank, recompensa }) => {
+    return `${nome} - Ninja: ${ninja} - Rank: ${rank} - Recompensa: R$ ${recompensa}<br>`;
+  });
+
+  const soma = busca.reduce((soma, { recompensa }) => {
+    return soma + recompensa;
+  }, 0);
+
+  const missaoEncontrada = missoes.find(({ id }) => {
+    return id === Number(idMissao.value);
+  });
+
+  if (!missaoEncontrada) {
+    resultado.textContent = "Ninja não encontrado";
+    return;
+  }
+
+  const {
+    nome,
+    missoes: missoeConcluidas,
+    ninja,
+    recompensa,
+    rank,
+  } = missaoEncontrada;
+  resultado.innerHTML = `
+        <h3>Ninjas ativos</h3>
+
+        ${lista.join("")}
+
+        <br>
+
+        <strong>recompensa total: R$ ${soma}</strong>
+
+        <hr>
+
+        <h3>Ninja pesquisado</h3>
+        id: ${id} <br>
+        Nome: ${nome}<br>
+        
+        Rank: ${rank}<br>
+        recompensa: R$ ${recompensa}<br>
+        
+    `;
+
+  nomeNinja.value = "";
+  vila.value = "";
+}
+
+botao.addEventListener("click", gerarRelatorio);
