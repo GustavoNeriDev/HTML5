@@ -61,6 +61,8 @@ function verificarAprovados() {
 }
 botao.addEventListener("click", verificarAprovados);
 
+//////////////////// ATIVIDADE ////////////////
+
 const poder = document.getElementById("poder");
 const botao = document.getElementById("botao");
 const resultado = document.getElementById("resultado");
@@ -147,6 +149,8 @@ function cadastrarGuerreiro() {
 }
 
 adicionar.addEventListener("click", cadastrarGuerreiro);
+
+//////////////////// ATIVIDADE ////////////////
 
 const nome = document.getElementById("nome");
 const vila = document.getElementById("vila");
@@ -245,6 +249,8 @@ adicionar.addEventListener("click", adicionarPersonagem);
 buscar.addEventListener("click", buscarPersonagem);
 remover.addEventListener("click", removerPersonagem);
 
+//////////////////// ATIVIDADE ////////////////
+
 const nome = document.getElementById("nome");
 const equipe = document.getElementById("equipe");
 
@@ -313,6 +319,7 @@ listar.addEventListener("click", listarEquipe);
 //////filter retorna varios objetos e find so retorna 1 objeto
 // então o filter usa o for ou forEach e o find so o elemento.nome ////////////
 
+//////////////////// ATIVIDADE ////////////////
 const nome = document.getElementById("nome");
 const poder = document.getElementById("poder");
 
@@ -376,6 +383,8 @@ function encontrarMaisForte() {
 
 adicionar.addEventListener("click", adicionarNinja);
 maisForte.addEventListener("click", encontrarMaisForte);
+
+//////////////////// ATIVIDADE ////////////////
 
 const nome = document.getElementById("nome");
 const transformacao = document.getElementById("transformacao");
@@ -449,6 +458,8 @@ function buscarTransformacao() {
 adicionar.addEventListener("click", adicionarGuerreiro);
 buscar.addEventListener("click", buscarTransformacao);
 
+//////////////////// ATIVIDADE ////////////////
+
 const nome = document.getElementById("nome");
 const poder = document.getElementById("poder");
 
@@ -503,6 +514,8 @@ function mostrarRanking() {
 
 adicionar.addEventListener("click", adicionarGuerreiro);
 ranking.addEventListener("click", mostrarRanking);
+
+//////////////////// ATIVIDADE ////////////////
 
 const nome = document.getElementById("nome");
 const poder = document.getElementById("poder");
@@ -571,6 +584,8 @@ function mostrarRanking() {
 
 adicionar.addEventListener("click", adicionarGuerreiro);
 ranking.addEventListener("click", mostrarRanking);
+
+//////////////////// ATIVIDADE ////////////////
 
 const nome = document.getElementById("nome");
 const poder = document.getElementById("poder");
@@ -653,6 +668,8 @@ function encontrarMaisForte() {
 
 adicionar.addEventListener("click", adicionarGuerreiro);
 total.addEventListener("click", calcularTotal);
+
+//////////////////// ATIVIDADE ////////////////
 
 const nome = document.getElementById("nome");
 const raca = document.getElementById("raca");

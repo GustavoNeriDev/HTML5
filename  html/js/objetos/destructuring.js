@@ -71,6 +71,8 @@ function mostrarNinja() {
 
 botao.addEventListener("click", mostrarNinja);
 
+//////////////////// ATIVIDADE ////////////////
+
 const vila = document.getElementById("vila");
 const botao = document.getElementById("botao");
 const resultado = document.getElementById("resultado");
@@ -188,6 +190,8 @@ function mostrarMissoes() {
 
 botao.addEventListener("click", mostrarMissoes);
 
+//////////////////// ATIVIDADE ////////////////
+
 const vila = document.getElementById("vila");
 const nomeNinja = document.getElementById("nomeNinja");
 const botao = document.getElementById("botao");
@@ -290,6 +294,8 @@ function gerarRelatorio() {
 }
 
 botao.addEventListener("click", gerarRelatorio);
+
+//////////////////// ATIVIDADE ////////////////
 
 const idMissao = document.getElementById("idMissao");
 const botao = document.getElementById("botao");

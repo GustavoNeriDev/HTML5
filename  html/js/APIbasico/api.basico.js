@@ -105,6 +105,8 @@ function gerarRelatorio() {
 
 botao.addEventListener("click", gerarRelatorio);
 
+//////////////////// ATIVIDADE ////////////////
+
 const categoria = document.getElementById("categoria");
 const idProduto = document.getElementById("idProduto");
 const botao = document.getElementById("botao");
@@ -220,6 +222,8 @@ function gerarRelatorio() {
 }
 
 botao.addEventListener("click", gerarRelatorio);
+
+//////////////////// ATIVIDADE ////////////////
 
 const cliente = document.getElementById("cliente");
 const idPedido = document.getElementById("idPedido");
