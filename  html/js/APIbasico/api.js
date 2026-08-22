@@ -169,3 +169,157 @@ async function gerarRelatorio() {
 }
 
 botao.addEventListener("click", gerarRelatorio);
+
+///ATIVIDADE/////
+
+const categoria = document.getElementById("categoria");
+const idProduto = document.getElementById("idProduto");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+async function gerarRelatorio() {
+  if (categoria.value === "" || idProduto.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+
+  try {
+    const id = Number(idProduto.value);
+    const buscar = await fetch("https://fakestoreapi.com/products");
+
+    if (!buscar.ok) {
+      resultado.textContent = "não encontrado";
+      return;
+    }
+
+    const user = await buscar.json();
+
+    const filtrar = user.filter(({ category }) => {
+      return category === categoria.value;
+    });
+
+    if (filtrar.length === 0) {
+      resultado.textContent = "Não encontrado";
+      return;
+    }
+
+    const converter = filtrar.map(({ produtos, preco, categoria }) => {
+      return `produtos: ${produtos} preço: ${preco} categoria: ${categoria}`;
+    });
+
+    const calcularTotal = filtrar.reduce((soma, { produtos }) => {
+      return soma + produtos;
+    });
+
+    const procurarId = user.find(({ id }) => {
+      return id === Number(idProduto.value);
+    });
+
+    const { id, produtos, preco, categoria, category } = procurarId;
+
+    resultado.innerHTML = `<h2>categorias ${categoria.value}</h2>
+
+            ${converter.join("")}
+
+            <strong>
+                Total de Produtos: ${calcularTotal}
+            </strong>
+
+            <hr>
+
+            <h2>Produto pesquisado</h2>
+
+            ID: ${id}<br>
+            Produtos: ${produtos}<br>
+            Preço: ${preco}<br>
+            categoria do produto: ${categoria}<br>
+            categoria: ${category}
+        `;
+  } catch (erro) {
+    resultado.textContent = "Erro ao buscar produtos";
+  }
+}
+
+botao.addEventListener("click", gerarRelatorio);
+
+//////ATIVIDADE/////
+
+const categoria = document.getElementById("categoria");
+const idProduto = document.getElementById("idProduto");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+async function gerarRelatorio() {
+  if (categoria.value === "" || idProduto.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+  try {
+    const id = Number(idProduto.value);
+    const buscar = await fetch("https://fakestoreapi.com/products");
+
+    if (!buscar.ok) {
+      resultado.textContent = "Não encontrado";
+      return;
+    }
+
+    const user = await buscar.json();
+
+    const filtrar = user.filter(({ category }) => {
+      return category === categoria.value;
+    });
+
+    if (filtrar.length === 0) {
+      resultado.textContent = "Nenhum produto encontrado nessa categoria";
+      return;
+    }
+
+    const text = filtrar.map(({ title, price, rating: { rate } }) => {
+      return `Produto: ${title}<br>
+    Preço: ${price}<br>
+    Nota: ${rate}<br><br>`;
+    });
+    const valores = filtrar.reduce((soma, { price }) => {
+      return soma + price;
+    });
+
+    const enconstrarId = user.find(({ id }) => {
+      return id === Number(idProduto.value);
+
+      if (!enconstrarId) {
+        resultado.textContent = "Produto não encontrado";
+        return;
+      }
+    });
+
+    const {
+      id,
+      title,
+      price,
+      category,
+      rating: { rate },
+    } = enconstrarId;
+
+    resultado.innerHTML = `<h2>categorias ${categoria.value}</h2>
+
+            ${text.join("")}
+
+            <strong>
+                Total de Produtos: ${valores}
+            </strong>
+
+            <hr>
+
+            <h2>Produto pesquisado</h2>
+
+            ID: ${id}<br>
+            Produtos: ${title}<br>
+            Preço: ${price}<br>
+            categoria do produto: ${category}<br>
+            Nota: ${rate}
+        `;
+  } catch (erro) {
+    resultado.textContent = "Erro";
+  }
+}
+botao.addEventListener("click", gerarRelatorio);
