@@ -170,78 +170,6 @@ async function gerarRelatorio() {
 
 botao.addEventListener("click", gerarRelatorio);
 
-///ATIVIDADE/////
-
-const categoria = document.getElementById("categoria");
-const idProduto = document.getElementById("idProduto");
-const botao = document.getElementById("botao");
-const resultado = document.getElementById("resultado");
-
-async function gerarRelatorio() {
-  if (categoria.value === "" || idProduto.value === "") {
-    resultado.textContent = "Preencha todos os campos";
-    return;
-  }
-
-  try {
-    const id = Number(idProduto.value);
-    const buscar = await fetch("https://fakestoreapi.com/products");
-
-    if (!buscar.ok) {
-      resultado.textContent = "não encontrado";
-      return;
-    }
-
-    const user = await buscar.json();
-
-    const filtrar = user.filter(({ category }) => {
-      return category === categoria.value;
-    });
-
-    if (filtrar.length === 0) {
-      resultado.textContent = "Não encontrado";
-      return;
-    }
-
-    const converter = filtrar.map(({ produtos, preco, categoria }) => {
-      return `produtos: ${produtos} preço: ${preco} categoria: ${categoria}`;
-    });
-
-    const calcularTotal = filtrar.reduce((soma, { produtos }) => {
-      return soma + produtos;
-    });
-
-    const procurarId = user.find(({ id }) => {
-      return id === Number(idProduto.value);
-    });
-
-    const { id, produtos, preco, categoria, category } = procurarId;
-
-    resultado.innerHTML = `<h2>categorias ${categoria.value}</h2>
-
-            ${converter.join("")}
-
-            <strong>
-                Total de Produtos: ${calcularTotal}
-            </strong>
-
-            <hr>
-
-            <h2>Produto pesquisado</h2>
-
-            ID: ${id}<br>
-            Produtos: ${produtos}<br>
-            Preço: ${preco}<br>
-            categoria do produto: ${categoria}<br>
-            categoria: ${category}
-        `;
-  } catch (erro) {
-    resultado.textContent = "Erro ao buscar produtos";
-  }
-}
-
-botao.addEventListener("click", gerarRelatorio);
-
 //////ATIVIDADE/////
 
 const categoria = document.getElementById("categoria");
@@ -322,4 +250,96 @@ async function gerarRelatorio() {
     resultado.textContent = "Erro";
   }
 }
+botao.addEventListener("click", gerarRelatorio);
+
+////////////ATIVIDADE//////////
+
+const categoria = document.getElementById("categoria");
+const idProduto = document.getElementById("idProduto");
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+async function gerarRelatorio() {
+  if (categoria.value === "" || idProduto.value === "") {
+    resultado.textContent = "Preencha todos os campos";
+    return;
+  }
+
+  try {
+    const id = Number(idProduto);
+    const buscarProduto = await fetch("https://fakestoreapi.com/products");
+
+    if (!buscarProduto.ok) {
+      resultado.textContent = "não encontrado";
+      return;
+    }
+
+    const produto = await buscarProduto.json();
+
+    const filtrar = buscarProduto.filter(({ category }) => {
+      return category === categoria.value;
+    });
+
+    if (filtrar.length === 0) {
+      resultado.textContent = "Não encontrado";
+      return;
+    }
+
+    const mapear = filtrar.map(({ title, price, rating: { rate, count } }) => {
+      return `Produto: ${title}<br>
+        Preço: ${price}<br>
+        Nota: ${rate}<br>
+        Avaliação: ${count}`;
+    });
+
+    const calculo = filtrar.reduce((soma, { price }) => {
+      return soma + price;
+    }, 0);
+
+    const totalAvaliacoes = filtrar.reduce((soma, { rating: { count } }) => {
+      return soma + count;
+    }, 0);
+
+    const enconstrarId = produto.find(({ id }) => {
+      return id === Number(idProduto.value);
+    });
+
+    if (!encontrarId) {
+      resultado.textContent = "Produto não encontrado";
+      return;
+    }
+
+    const {
+      id,
+      price,
+      title,
+      category,
+      rating: { rate, count },
+    } = enconstrarId;
+
+    resultado.innerHTML = `<h2>categorias ${category.value}</h2>
+
+            ${mapear.join("")}
+
+            <strong>
+                Total de Produtos: ${calculo.toFixed(2)}
+                Total de avaliações: ${totalAvaliacoes}
+            </strong>
+
+            <hr>
+
+            <h2>Produto pesquisado</h2>
+
+            ID: ${id}<br>
+            Produtos: ${title}<br>
+            Preço: ${price}<br>
+            categoria do produto: ${category}<br>
+            Nota: ${rate}
+            avaliações: ${count}
+        `;
+  } catch (error) {
+    resultado.textContent = "Erro";
+  }
+}
+
 botao.addEventListener("click", gerarRelatorio);
