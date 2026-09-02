@@ -343,3 +343,29 @@ async function gerarRelatorio() {
 }
 
 botao.addEventListener("click", gerarRelatorio);
+
+
+
+const botao = document.getElementById("botao");
+const resultado = document.getElementById("resultado");
+
+async function buscarUsuarios() {
+
+    const userId = await fetch("https://jsonplaceholder.typicode.com/users");
+
+    const response = await userId.json();
+
+    let texto = "";
+
+    response.forEach((usuario) => {
+        texto += `
+            Nome: ${usuario.name}<br>
+            Username: ${usuario.username}<br>
+            Email: ${usuario.email}<br><br>
+        `;
+    });
+
+    resultado.innerHTML = texto;
+}
+
+botao.addEventListener("click", buscarUsuarios);

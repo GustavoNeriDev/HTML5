@@ -1,0 +1,73 @@
+/*| CRUD       | Seu código                         |
+| ---------- | ---------------------------------- |
+| **Create** | `push()` + `setItem()`             |
+| **Read**   | `getItem()` + `forEach()`          |
+| **Update** | `find()` + alteração + `setItem()` |
+| **Delete** | `filter()` + `setItem()`           |
+
+
+
+
+    ****Se já existem usuários, transforma o JSON em array
+    Se não existem, começa com um array vazio
+     const usuarios = dadosSalvos ? JSON.parse(dadosSalvos) : [];
+
+
+  *****Pega os usuários que já estão salvos
+    const dadosSalvos = localStorage.getItem("usuarios");
+
+    Salva novamente no localStorage
+    localStorage.setItem("usuarios", dados) 
+
+
+
+    
+   ****Ela faz o sistema descobrir o maior ID existente e criar o próximo
+    const criarId = usuarios.reduce((maior, usuario) => {
+        return usuario.id > maior ? usuario.id : maior 
+        
+
+
+
+
+        ********FLUXO **************
+
+
+        CADASTRAR
+   ↓
+cria ID automaticamente
+   ↓
+push()
+   ↓
+localStorage
+
+
+MOSTRAR
+   ↓
+getItem()
+   ↓
+JSON.parse()
+   ↓
+forEach()
+
+
+ATUALIZAR
+   ↓
+ID
+   ↓
+find()
+   ↓
+modifica objeto
+   ↓
+setItem()
+
+
+EXCLUIR
+   ↓
+ID
+   ↓
+filter()
+   ↓
+setItem()
+
+*/
