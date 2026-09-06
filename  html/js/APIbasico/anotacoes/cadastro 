@@ -1,0 +1,6 @@
+/*
+function cadastrarUsuario(event) {
+************impedir que o navegador envie automaticamente
+    event.preventDefault(); 
+
+    */
