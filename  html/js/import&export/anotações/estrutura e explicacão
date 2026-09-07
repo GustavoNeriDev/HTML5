@@ -1,0 +1,64 @@
+/*  storage.js
+   ↓
+salvarUsuarios()
+buscarUsuarios()
+
+usuarios.js
+   ↓
+criarUsuario()
+encontrarUsuarioPorEmail()
+gerarNovoId()
+
+script.js
+   ↓
+coordena tudo
+
+
+
+o import conecta um arquivo no outro, fazendo tudo que fique organizado e separado, export 
+ela faz com que a função possa ser usado por outro arquivo
+
+
+criacão de variavel constante, que vai valer pelo import buscarusuario, sempre usar 
+    antes de aplicar  a logica  
+    const usuarios = buscarUsuarios() 
+    
+
+    const usuarioExistente = encontrarUsuarioPorEmail(
+    email.value,
+    usuarios
+);
+
+
+
+
+
+
+
+
+                                                *****ESTRUTURA*******
+
+
+
+                                                     PROJETO
+                                                        │
+                                            ┌───────────┴───────────┐
+                                            ↓                       ↓
+                                    storage.js              usuarios.js
+                                            │                       │
+                                            │                       ├── criarUsuario()
+                                            │                       ├── encontrarUsuarioPorEmail()
+                                            │                       └── gerarNovoId()
+                                            │
+                                            ├── salvarUsuarios()
+                                            └── buscarUsuarios()
+                                                        │
+                                                        ↓
+                                                    script.js
+                                                        │
+                                                        ├── DOM
+                                                        ├── validações
+                                                        ├── cadastro
+                                                        └── exibição
+
+                                                        */

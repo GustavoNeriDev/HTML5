@@ -728,15 +728,21 @@ function excluirUsuario() {
   if (idExcluir.value === "") {
     resultado.textContent = "Preencha o campo";
     return;
-    const novoId = Number(idExcluir.value);
   }
+    const novoId = Number(idExcluir.value);
+  
   const recuperarUser = localStorage.getItem("user");
-  const tranformar = salvarDados ? JSON.parse(recuperarUser) : [];
+  const tranformar = recuperarUser ? JSON.parse(recuperarUser) : [];
 
+  const usuarioExiste = tranformar.find(({ id }) => { return id === novoId; });
+  if(!usuarioExiste) {
+    resultado.textContent = "Usuario não existe"
+    return
+  }
   const filtrar = tranformar.filter(({ id }) => {
     return id !== novoId;
   });
-
+ 
   localStorage.setItem("user", JSON.stringify(filtrar));
   resultado.textContent = "Usuário excluído com sucesso!";
   idExcluir.value = "";

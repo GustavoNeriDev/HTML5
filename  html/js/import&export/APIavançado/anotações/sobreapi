@@ -1,0 +1,86 @@
+| Método   | Função                      |
+| -------- | --------------------------- |
+| `GET`    | Buscar dados                |
+| `POST`   | Criar dados                 |
+| `PUT`    | Atualizar o recurso inteiro |
+| `PATCH`  | Atualizar parte do recurso  |
+| `DELETE` | Excluir                     |
+
+
+
+
+API REST
+
+API = meio de comunicação entre o cliente
+e o servidor.
+
+Cliente
+↓
+API
+↓
+Servidor / Banco de dados
+
+
+MÉTODOS HTTP:
+
+GET
+→ buscar dados
+
+POST
+→ criar dados
+
+PUT
+→ atualizar/substituir o recurso
+
+PATCH
+→ atualizar parte do recurso
+
+DELETE
+→ excluir dados
+
+
+FETCH:
+
+const response = await fetch(url);
+
+fetch()
+→ faz a requisição.
+
+response
+→ representa a resposta HTTP.
+
+response.json()
+→ transforma a resposta JSON em dados
+que podemos usar no JavaScript.
+
+
+POST:
+
+fetch(url, {
+    method: "POST",
+
+    headers: {
+        "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify(dados)
+});
+
+
+JSON.stringify()
+→ objeto JavaScript → JSON
+
+response.json()
+→ resposta JSON → dados JavaScript
+
+
+response.ok
+→ verifica se a resposta HTTP foi bem-sucedida.
+
+
+CRUD:
+
+CREATE → POST
+READ   → GET
+UPDATE → PUT / PATCH
+DELETE → DELETE
