@@ -20,15 +20,15 @@ export async function criarProduto(produto) {
     headers: {
       "Content-Type": "application/json",
     },
-    //conteudo que estou enviando ao servidor
-    body: JSON.stringify(produto),
+    //body é o conteudo que estou enviando ao servidor
+    body: JSON.stringify(produto), // tranforma obj em json
   });
-  //caso dar erro
+  //caso o HTTP indicar sucesso continua, mas se houver erro, havera exceção
   if (!response.ok) {
     throw new Erro("Erro");
   }
 
   //tranformando em uma variavel nova para retornar no script
-  const novoProduto = await response.json();
+  const novoProduto = await response.json(); //tranforma em objeto para enviar ao javascript
   return novoProduto;
 }

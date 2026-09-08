@@ -1,0 +1,28 @@
+API REST → arquitetura para comunicação entre cliente e servidor através do protocolo HTTP.
+
+Endpoint → endereço específico de um recurso da API, como /products.
+
+Request → requisição enviada pelo cliente.
+
+Response → resposta retornada pelo servidor.
+
+Payload → dados enviados no corpo da requisição.
+
+HTTP methods → GET, POST, PUT, PATCH, DELETE.
+Status code → 200, 201, 400, 404, 500 etc.
+
+Assíncrono → operações que não bloqueiam a execução enquanto aguardam uma resposta.
+
+Promise → objeto que representa o resultado futuro de uma operação assíncrona.
+
+Modularização → divisão do código em módulos com responsabilidades específicas.
+
+Persistência → manutenção dos dados mesmo depois de recarregar a página.
+
+CRUD → Create, Read, Update, Delete.
+
+Autenticação → processo de verificar a identidade do usuário.
+
+Autorização → determinar o que aquele usuário pode acessar/fazer.
+
+Token → credencial usada para representar uma sessão/autenticação
