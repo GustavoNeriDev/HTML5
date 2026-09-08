@@ -28,15 +28,14 @@ async function cadastrarProduto(event) {
     return;
   }
   try {
-    const produt = await buscarProdutos();
 
     const produto = {
-      title: "...",
-      price: 100,
-      category: "...",
+      title: titulo.value.trim(),
+      price: Number(preco.value),
+      category: categoria.value.trim(),
     };
 
-    await criarProduto(produt);
+    await criarProduto(produto);
     resultado.textContent = "Criado com sucesso";
     formulario.reset();
   } catch (error) {
@@ -67,3 +66,164 @@ async function listarProdutos() {
 formulario.addEventListener("submit", cadastrarProduto);
 
 listar.addEventListener("click", listarProdutos);
+
+
+
+
+
+//////ATUALIZANDO USANDO O PUT/////
+
+
+
+import { atualizarProduto } from "./api.js";
+
+const formulario = document.getElementById("formulario");
+
+const id = document.getElementById("id");
+const titulo = document.getElementById("titulo");
+const preco = document.getElementById("preco");
+const categoria = document.getElementById("categoria");
+
+const resultado = document.getElementById("resultado");
+
+async function editarProduto(event) {
+    event.preventDefault();
+
+    if (id.value === "") {
+      resultado.textContent = "Preencha o campo"
+      return 
+    }
+  if (titulo.value.trim().length < 3) {
+    resultado.textContent = "Invalido";
+    return;
+  }
+
+  if (Number(preco.value) <= 0) {
+    resultado.textContent = "invalido";
+    return;
+  }
+
+  if (categoria.value.trim() === "") {
+    resultado.textContent = "Preencha o campo";
+    return;
+  }
+
+
+    try {
+        
+
+        const produto = {
+          
+          title: titulo.value.trim(),
+          price: Number(preco.value),
+          category: categoria.value.trim()
+        }
+
+
+        
+        await atualizarProduto(id.value, produto)
+
+        resultado.textContent = "Produto atualizado com sucesso";
+
+        formulario.reset();
+
+    } catch (error) {
+        resultado.textContent = "Erro ao atualizar produto";
+        console.error(error);
+    }
+}
+
+formulario.addEventListener("submit", editarProduto);
+
+
+/////ATIVIDADE PATCH//////
+
+
+
+import { alterarProduto } from "./api.js";
+
+const formulario = document.getElementById("formulario");
+
+const id = document.getElementById("id");
+const preco = document.getElementById("preco");
+
+const resultado = document.getElementById("resultado");
+
+async function alterarPreco(event) {
+    event.preventDefault();
+
+    if(id.value === "") {
+      resultado.textContent = "Preencha o campo"
+      return
+    }
+    if(Number(preco.value) <= 0) {
+      resultado.textContent = "Invalido"
+      return
+    }
+
+
+    try {
+
+       
+        const dados = {
+          price: Number(preco.value)
+        }
+
+
+        await alterarProduto(id.value, dados)
+
+
+        resultado.textContent = "Preço atualizado com sucesso";
+
+        formulario.reset();
+
+    } catch (error) {
+        resultado.textContent = "Erro ao atualizar preço";
+        console.error(error);
+    }
+}
+
+formulario.addEventListener("submit", alterarPreco);
+
+
+
+////DELETANDO PRODUTO /////
+
+import { excluirProduto } from "./api.js";
+
+const formulario = document.getElementById("formulario");
+
+const id = document.getElementById("id");
+
+const resultado = document.getElementById("resultado");
+
+async function deletarProduto(event) {
+    event.preventDefault();
+
+    if(id.value === "") {
+      resultado.textContent = "Preencha o campo"
+      return
+    }
+
+
+    try {
+
+        
+      await excluirProduto(id.value)
+
+        resultado.textContent = "Produto excluído com sucesso";
+
+        formulario.reset();
+
+    } catch (error) {
+        resultado.textContent = "Erro ao excluir produto";
+        console.error(error);
+    }
+}
+
+formulario.addEventListener("submit", deletarProduto);
+
+
+
+
+
