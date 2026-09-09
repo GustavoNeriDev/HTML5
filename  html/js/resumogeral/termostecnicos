@@ -6,7 +6,7 @@ Request → requisição enviada pelo cliente.
 
 Response → resposta retornada pelo servidor.
 
-Payload → dados enviados no corpo da requisição.
+Payload → conjunto de dados enviado para o servidor por meio de requisições.
 
 HTTP methods → GET, POST, PUT, PATCH, DELETE.
 Status code → 200, 201, 400, 404, 500 etc.
@@ -26,3 +26,17 @@ Autenticação → processo de verificar a identidade do usuário.
 Autorização → determinar o que aquele usuário pode acessar/fazer.
 
 Token → credencial usada para representar uma sessão/autenticação
+
+code review -> revisar o codigo, melhorar a segurança e refatorar 
+
+testes unitarios -> testar functions, classe, obj isoladamente e garantir que funcione
+
+task(tarefa) -> unidade de trabalho independente que um programa executa 
+ex: baixar arquivos mas permitindo que o programa rode outras coisas 
+pratica: assincronia o codigo inicia a task usando o comando await e permintindo que seja pausado sem travamentos até que a reposta chegue
+
+thread -> unidade de codigo que executa de forma independente
+ex: ações ao mesmo tempo, igual o navegador
+mesmo espaço de memoria, oq torna as trocas de informações mais rapidas
+
+DDD (domain-driven-design) -> focado na arquitetura de negocio em sistemas complexos, entendendo regras e negocios e não ainda no banco de dados

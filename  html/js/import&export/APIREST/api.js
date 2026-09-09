@@ -33,36 +33,25 @@ export async function criarProduto(produto) {
   return novoProduto;
 }
 
-
-
-
 ////  ATIVIDADE USANDO O PUT/////
-
 
 const API_URL = "https://fakestoreapi.com/products";
 
 export async function atualizarProduto(id, produto) {
-     const response = await fetch(`${API_URL}/${id}`, {
-
-     method: "PUT",
-     headers: {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
       "Content-type": "application/json",
-     },
-     body: JSON.stringify(produto),
-     })
-     if(!response.ok) {
-  throw new Error("erro");
-  
+    },
+    body: JSON.stringify(produto),
+  });
+  if (!response.ok) {
+    throw new Error("erro");
+  }
+
+  const produtoAtualizado = await response.json();
+  return produtoAtualizado;
 }
-
-
-const produtoAtualizado = await response.json()
-return produtoAtualizado
-
-}
-
-
-
 
 /////ATIVIDADE APLICANDO PATCH ////////
 
@@ -70,154 +59,135 @@ const API_URL = "https://fakestoreapi.com/products";
 
 export async function alterarProduto(id, dados) {
   //REQUISIÇÃO HTTP
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: "PATCH",
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PATCH",
 
-      headers:{
-          "Content-type" : "application/json"
-      } ,
-      ///CAMPO QUE QUERO MODIFICAR
-      body: JSON.stringify(dados)
-    
-})
-if(!response.ok) {
-  throw new Error("erro");
+    headers: {
+      "Content-type": "application/json",
+    },
+    ///CAMPO QUE QUERO MODIFICAR
+    body: JSON.stringify(dados),
+  });
+  if (!response.ok) {
+    throw new Error("erro");
+  }
+  //TRANSFORMANDO EM JS
+  const atualizar = await response.json();
+  return atualizar;
 }
-//TRANSFORMANDO EM JS 
-const atualizar = await response.json()
-return atualizar
- }
 
+///////DELETE //////
 
-
-
- ///////DELETE //////
-
- 
 const API_URL = "https://fakestoreapi.com/products";
 
 export async function excluirProduto(id) {
-    const response = await fetch(`${API_URL}/${id}`,{
-      method: "DELETE",
-    }) 
-    if(!response.ok) {
-      throw new Error("erro");
-    
-    }
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("erro");
+  }
 
-    const deletar = await response.json()
-    return deletar
+  const deletar = await response.json();
+  return deletar;
 }
 
-
-
 /////////completo //////
-
 
 const API_URL = "https://fakestoreapi.com/products";
 
 // GET
 export async function buscarProdutos() {
-    const response = await fetch(API_URL)
+  const response = await fetch(API_URL);
 
-    if(!response.ok) {
-      throw new Error("error");
-    }
+  if (!response.ok) {
+    throw new Error("error");
+  }
 
-    const produtos = await response.json()
-    return produtos
+  const produtos = await response.json();
+  return produtos;
 }
-
 
 // POST
 export async function criarProduto(produto) {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-type" : "application/json"
-      },
-      body: JSON.stringify(produto)
-    })
-    if(!response.ok) {
-      throw new Error("error");
-      
-    }
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(produto),
+  });
+  if (!response.ok) {
+    throw new Error("error");
+  }
 
-    const novoProduto = await response.json()
-    return novoProduto
+  const novoProduto = await response.json();
+  return novoProduto;
 }
-
 
 // PATCH
 export async function alterarPreco(id, dados) {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: "PATCH" ,
-      headers: {
-        "Content-type" : "application/json"
-      },
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
 
-      body: JSON.stringify(dados)
-    })
-    if(!response.ok) {
-      throw new Error("error");
-    }
-    const atualizar = await response.json()
-    return atualizar
+    body: JSON.stringify(dados),
+  });
+  if (!response.ok) {
+    throw new Error("error");
+  }
+  const atualizar = await response.json();
+  return atualizar;
 }
-
 
 // DELETE
 export async function excluirProduto(id) {
-    const response = await fetch(`${API_URL}/${id}`,{
-      method: "DELETE"
-    })
-    if(!response.ok) {
-      throw new Error("error");
-    }
-    const deletar = await response.json()
-    return deletar
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("error");
+  }
+  const deletar = await response.json();
+  return deletar;
 }
 
-
-
-
-
-
-
-    /////simplificado////
+/////simplificado////
 const API_URL = "https://fakestoreapi.com/products";
 
 async function api(url, options) {
-    const response = await fetch(API_URL + url, options);
+  const response = await fetch(API_URL + url, options);
 
-    if (!response.ok) {
-        throw new Error("Erro na requisição");
-    }
+  if (!response.ok) {
+    throw new Error("Erro na requisição");
+  }
 
-    return response.json();
+  return response.json();
 }
 
 export const buscarProdutos = () => api("");
 
-export const criarProduto = produto =>
-    api("", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(produto)
-    });
+export const criarProduto = (produto) =>
+  api("", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(produto),
+  });
 
 export const alterarPreco = (id, dados) =>
-    api(`/${id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dados)
-    });
+  api(`/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dados),
+  });
 
-export const excluirProduto = id =>
-    api(`/${id}`, {
-        method: "DELETE"
-    });
+export const excluirProduto = (id) =>
+  api(`/${id}`, {
+    method: "DELETE",
+  });

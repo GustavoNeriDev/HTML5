@@ -84,3 +84,9 @@ CREATE → POST
 READ   → GET
 UPDATE → PUT / PATCH
 DELETE → DELETE
+
+
+
+REST é um estilo de arquitetura para APIs que normalmente trabalha com recursos e métodos HTTP.
+
+
