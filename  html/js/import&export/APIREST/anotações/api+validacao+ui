@@ -1,0 +1,11 @@
+200
+ ↓
+Recebeu dados
+ ↓
+Os dados têm title?
+ ├── Sim → produto válido
+ └── Não → dados inválidos
+
+
+
+ verifica se os dados que foram recebido esta com estrutura esperada

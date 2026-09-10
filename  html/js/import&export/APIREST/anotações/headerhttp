@@ -1,0 +1,16 @@
+/*Header é uma informação enviada junto com uma requisição HTTP
+ para explicar ao servidor como aquela requisição deve ser interpretada.
+
+
+
+
+ ********************** INFORMA ***************
+ "Os dados que estou enviando estão no formato JSON.
+
+
+Ele é utilizado para autenticação/autorização.
+ headers: {
+    Authorization: "Bearer TOKEN"
+}
+
+ */

@@ -1,0 +1,15 @@
+/*
+fetch()
+   ↓
+response.status
+   ↓
+┌──────────────┬──────────────┬──────────────┐
+│    404       │     400      │    sucesso   │
+│              │              │              │
+│ não existe   │ dados ruins  │ produto      │
+└──────────────┴──────────────┴──────────────┘
+
+a separação é o meio de separar front com back, a api só fará os implementos com relação com o front, mas
+o front não pegará nada da api para colocar no codigo dele, e a api não pegará nada do front
+conhecida como separação de responsabilidades, cada arquivo de ocdigo tem sua função.
+*/

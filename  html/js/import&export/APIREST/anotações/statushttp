@@ -1,0 +1,89 @@
+/*Quando fazemos uma requisição, o servidor responde com um status code — um número que indica o resultado da operação.
+
+
+| Status | Significado                           |
+| ------ | ------------------------------------- |
+| `200`  | Requisição realizada com sucesso      |
+| `201`  | Recurso criado com sucesso            |
+| `204`  | Sucesso, mas sem conteúdo na resposta |
+| `400`  | Requisição inválida                   |
+| `401`  | Não autenticado                       |
+| `403`  | Sem permissão                         |
+| `404`  | Recurso não encontrado                |
+| `500`  | Erro no servidor                      |
+
+
+POST
+ ↓
+API
+ ↓
+201 Created 
+
+
+ex :               if (!response.ok) {
+                         throw new Error("Erro");
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    ************** ATIVIDADE QUE EU FIZ ****************
+
+                    🔄 O fluxo agora é:
+
+                        Clique no botão
+                        ↓
+                        buscarProdutoPorId()
+                        ↓
+                        verifica o ID
+                        ↓
+                        buscarProduto(id) → api.js
+                        ↓
+                        API responde
+                        ↓
+                        sucesso: mostra produto
+                        404: throw new Error("Produto não encontrado")
+                        ↓
+                        catch recebe o erro
+                        ↓
+                        error.message aparece no DOM.
+
+
+
+
+
+
+
+
+
+                        ************** MOTIVO QUE FINALLY DEPOIS DO CATH É IMPORTANTE *******************
+
+                                                        Clique
+                                                        ↓
+                                                        Botão desativa
+                                                        ↓
+                                                        Carregando...
+                                                        ↓
+                                                        API retorna 404
+                                                        ↓
+                                                        catch executa
+                                                        ↓
+                                                        "Produto não encontrado"
+                                                        ↓
+                                                        finally executa
+                                                        ↓
+                                                        Botão é ativado novamente
+*/

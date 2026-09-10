@@ -16,4 +16,8 @@ electronics → valor
 
                                           EXPLICAÇÂO
                 ela filtra os dados da api, exemplo categoria, type, etc
+
+                /products?category=electronics
+                              ↑
+                          Query Param
     */

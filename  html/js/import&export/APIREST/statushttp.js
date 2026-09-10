@@ -65,4 +65,75 @@ async function buscarProdutoId(event) {
   }
 }
 
-buscar.addEventToListener("click", resultado);
+buscar.addEventListener("click", buscarProdutoId);
+
+/////////////////////////  FAZENDO COM QUE DESTIVE O BOTÃO ENQUANTO ESTÁ CARREGANDO ///////////////////////////////
+
+import { buscarProduto } from "./api.js";
+
+const id = document.getElementById("id");
+const buscar = document.getElementById("buscar");
+const resultado = document.getElementById("resultado");
+
+async function buscarProdutoId(event) {
+  event.preventDefault();
+
+  if (id.value === "") {
+    resultado.textContent = "Preencha o campo";
+    return;
+  }
+
+  try {
+    //desativar botão enquanto está carregando
+    buscar.disabled = true;
+    resultado.textContent = "Carregando...";
+    const produto = await buscarProduto(id.value);
+
+    resultado.textContent = `
+    ID: ${produto.id}
+    Título: ${produto.title}
+    Categoria: ${produto.category}
+    Preço: ${produto.price}
+`;
+  } catch (error) {
+    resultado.textContent = error.message;
+  } finally {
+    ////garantir que o botão  funcione mesmo se houver erro
+    buscar.disabled = false;
+  }
+}
+
+buscar.addEventListener("click", buscarProdutoId);
+
+//////////////////////////  LOADING DE ENTRADA /////////////////////////
+import { buscarProduto } from "./api.js";
+
+const id = document.getElementById("id");
+const buscar = document.getElementById("buscar");
+const resultado = document.getElementById("resultado");
+
+async function buscarProdutoId(event) {
+  event.preventDefault();
+
+  if (id.value === "") {
+    resultado.textContent = "Preencha o campo";
+    return;
+  }
+
+  try {
+    //quando está carregando aparece essa mensagem ao usuario
+    resultado.textContent = "Carregando...";
+    const produto = await buscarProduto(id.value);
+
+    resultado.textContent = `
+    ID: ${produto.id}
+    Título: ${produto.title}
+    Categoria: ${produto.category}
+    Preço: ${produto.price}
+`;
+  } catch (error) {
+    resultado.textContent = error.message;
+  }
+}
+
+buscar.addEventListener("click", buscarProdutoId);

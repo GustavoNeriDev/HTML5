@@ -1,0 +1,3 @@
+/products/1?category=electronics
+          ↑              ↑
+         path          query
