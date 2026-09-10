@@ -1,0 +1,11 @@
+/*
+High-Order-Function -> e um fução que recebe outra função como argumento e retorna uma nova função  
+
+Provider HTTP -> ferramenta que busca o dados 
+ex: fetch ou axios
+
+
+wrapper -> é um termo usado para simplificar o codigo, usando uma função ou classe que  "envolve"
+uma bilbioteca de terceiros como fetch ou axios para torna-los mais simples de usar, uma unica função
+que esconde as partes repetitivas
+*/
