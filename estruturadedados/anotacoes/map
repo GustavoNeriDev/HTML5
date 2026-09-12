@@ -1,0 +1,24 @@
+## Método Função
+
+set() adiciona/altera
+get() pega um valor
+has() verifica se existe
+delete() remove
+size quantidade
+
+Usuário digita
+↓
+clica no botão
+↓
+id.value
+↓
+Number()
+↓
+Map
+↓
+set() / has() / get()
+↓
+resultado.textContent
+
+get so quer um valor.
+ForEach percorre tdos os valores

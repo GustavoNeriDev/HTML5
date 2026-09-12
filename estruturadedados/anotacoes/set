@@ -1,0 +1,32 @@
+/* SET não permite valores duplicdos
+
+
+                                 principais funções 
+
+                                 add -> adicionar valor
+                                 has -> verifica se existe o valor
+                                 delete -> deleta valor
+                                 size -> quantidade de valores
+                                 foreach -> percorrer todos os dados
+
+
+
+
+
+
+
+                                   Set
+                                    │
+                                    ├── add()      → adiciona
+                                    ├── has()      → verifica se existe
+                                    ├── delete()   → remove
+                                    ├── size       → quantidade
+                                    └── forEach()  → percorre os valores
+
+
+
+                                    metodos usa o "()"
+                                    propiedade não usa 
+
+
+SPREAD OPERATOR --> pega os valores do set e coloca no array

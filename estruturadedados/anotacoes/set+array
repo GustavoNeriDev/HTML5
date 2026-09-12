@@ -1,0 +1,24 @@
+SPREAD OPERATOR --> pega os valores do set e coloca no array
+exemplo: listaArray = [...nome]
+os tres pontinhos significa o SPREAD OPERATOR
+
+[nomes] --> coloca o set inteiro no array
+[...nomes] --> pega os valores do set
+VALOR --> é o dado guardado dentro de uma variavel
+
+
+
+                                    Variável:
+                                    nome = "Gustavo"
+                                        ↑
+                                        valor
+
+                                    Set:
+                                    ["Gustavo", "Maria", "João"]
+                                    ↑          ↑        ↑
+                                    valores    valores  valores
+
+                                    Map:
+                                    1 → "Gustavo"
+                                    ↑       ↑
+                                    chave  valor
