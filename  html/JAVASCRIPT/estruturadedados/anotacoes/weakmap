@@ -1,0 +1,53 @@
+/*
+Por que existe o WeakMap?
+
+Ele é útil quando queremos associar informações extras a um objeto sem alterar o próprio objeto.
+
+valores null signifca que não tem nada dentro dela
+
+outra referencia significa que aponta para o mesmo obj do usuario atual 
+
+                                        
+                                        usuarioAtual ───────┐
+                                                            ↓
+                                                    { nome: ... }
+                                                            ↑
+                                        outraReferencia ────┘
+
+Se usuarioAtual for null, dadosPrivados.has(usuarioAtual)
+pode causar problema, porque WeakMap exige uma chave que seja objeto. então o null deve ser preenchido pelo usuario
+
+
+
+null → intencionalmente nenhum valor
+undefined → valor ainda não definido
+=== null → verifica se é exatamente null
+!== null → verifica se não é null
+
+
+
+
+//////////////////////////////////////// logica dos if que verifica 
+
+usuarioAtual existe?
+       ↓
+      SIM
+       ↓
+está no WeakMap?
+       ↓
+      SIM
+       ↓
+mostra nome + status
+       ↓
+existe outraReferencia?
+       ↓
+      SIM
+       ↓
+está no WeakMap?
+   ↙           ↘
+ SIM           NÃO
+  ↓             ↓
+mesmo        não encontrada
+usuário
+
+*/

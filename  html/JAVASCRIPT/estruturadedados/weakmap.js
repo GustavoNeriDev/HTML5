@@ -192,7 +192,7 @@ function cadastrarUsuario() {
 }
 
 function criarOutraReferencia() {
-    //null significa que não tem nemhum valor dentro dela
+  //null significa que não tem nemhum valor dentro dela
   if (usuarioAtual === null) {
     resultado.textContent = "Cadastre um usuário primeiro";
     return;
@@ -203,12 +203,12 @@ function criarOutraReferencia() {
 }
 
 function verificarUsuario() {
-    // se a variavel não ter nemhum valor dentro dela, vai ser validado
-    if(usuarioAtual === null || outraReferencia === null) {
-       resultado.textContent = "Digite"
-       return
-    }
-    //PRIMEIRO VERIFICA OS USUARIOS ESTÁ NO WEAKMAP E DEPOIS SÓ A REFERÊNCIA
+  // se a variavel não ter nemhum valor dentro dela, vai ser validado
+  if (usuarioAtual === null || outraReferencia === null) {
+    resultado.textContent = "Digite";
+    return;
+  }
+  //PRIMEIRO VERIFICA OS USUARIOS ESTÁ NO WEAKMAP E DEPOIS SÓ A REFERÊNCIA
   if (dadosPrivados.has(usuarioAtual)) {
     if (dadosPrivados.has(outraReferencia)) {
       resultado.textContent = "Usuario encontrado pela referência";
@@ -223,10 +223,7 @@ cadastrar.addEventListener("click", cadastrarUsuario);
 criarReferencia.addEventListener("click", criarOutraReferencia);
 verificar.addEventListener("click", verificarUsuario);
 
-
-
 ///    NULL
-
 
 const criar = document.getElementById("criar");
 const removerReferencia = document.getElementById("removerReferencia");
@@ -238,51 +235,45 @@ const dados = new WeakMap();
 let usuario = null;
 
 function criarUsuario() {
-
-    const usuarioNovo = {
-      //usuario sem referência
-      nome: null
-    }
-    usuario = usuarioNovo
-    dados.set(usuarioNovo, "Usuario ativo")
-   
+  const usuarioNovo = {
+    //usuario sem referência
+    nome: null,
+  };
+  usuario = usuarioNovo;
+  dados.set(usuarioNovo, "Usuario ativo");
 }
 
 function removerUsuario() {
-//verficando se o usuario é encontrado
+  //verficando se o usuario é encontrado
   if (usuario === null) {
-    resultado.textContent = "Não encontrado"
-    return
+    resultado.textContent = "Não encontrado";
+    return;
   }
 
-  const remover = dados.delete(usuario)
-  if(remover) {
-    usuario = null
-    resultado.textContent = `usuario removido`
+  const remover = dados.delete(usuario);
+  if (remover) {
+    usuario = null;
+    resultado.textContent = `usuario removido`;
   } else {
-    resultado.textContent = `não foi removido`
+    resultado.textContent = `não foi removido`;
   }
-
 }
 
 function verificarUsuario() {
-//verificando se ele tem referência
-    if(usuario === null) {
-      resultado.textContent = "não existe uma referência para o usuario"
-      return 
-    } else if (dados.has(usuario)) {
-      resultado.textContent = "Usuario encontrado"
-    } else {
-      resultado.textContent = "Não encontrado"
-    }
+  //verificando se ele tem referência
+  if (usuario === null) {
+    resultado.textContent = "não existe uma referência para o usuario";
+    return;
+  } else if (dados.has(usuario)) {
+    resultado.textContent = "Usuario encontrado";
+  } else {
+    resultado.textContent = "Não encontrado";
+  }
 }
 
 criar.addEventListener("click", criarUsuario);
 removerReferencia.addEventListener("click", removerUsuario);
 verificar.addEventListener("click", verificarUsuario);
-
-
-
 
 ////////////// ATIVIDADE FINAL
 
@@ -305,19 +296,17 @@ function cadastrarUsuario() {
     return;
   }
   const usuario = {
-    nome: nomeUser
+    nome: nomeUser,
   };
 
   usuarioAtual = usuario;
   dados.set(usuarioAtual, "Cadastrado");
 
   resultado.textContent = "Usuario cadastrado";
-    
 }
 
-
 function criarOutraReferencia() {
-    //null significa que não tem nemhum valor dentro dela
+  //null significa que não tem nemhum valor dentro dela
   if (usuarioAtual === null) {
     resultado.textContent = "Cadastre um usuário primeiro";
     return;
@@ -328,34 +317,44 @@ function criarOutraReferencia() {
 }
 
 function verificarUsuario() {
-     // se a variavel não ter nemhum valor dentro dela, vai ser validado
-    if(usuarioAtual === null || outraReferencia === null) {
-       resultado.textContent = "Digite"
-       return
-    }
-    //PRIMEIRO VERIFICA OS USUARIOS ESTÁ NO WEAKMAP E DEPOIS SÓ A REFERÊNCIA
-    if (usuarioAtual === null) {
-      resultado.textContent = "Sem referência"
-    }
-    if (dados.has(usuarioAtual)) {
-    const dadoInformado = dados.get(usuarioAtual) 
+  if (usuarioAtual === null) {
+    resultado.textContent = "Sem referência";
+  }
+  //PRIMEIRO VERIFICA OS USUARIOS ESTÁ NO WEAKMAP E DEPOIS SÓ A REFERÊNCIA
+  if (dados.has(usuarioAtual)) {
+    //pegando os dados informados , usuario atual existe ?
+    const dadoInformado = dados.get(usuarioAtual);
     resultado.innerHTML = `
     nome: ${usuarioAtual.nome} <br>
-    status ${usuarioAtual}`
-    if(outraReferencia !== null) {
-       if (dados.has(outraReferencia) ) {
-      resultado.textContent = "Usuario encontrado pela referência";
-    
-        } else {
-          resultado.textContent = "referência aponta pro mesmo usuario";
-          return;
-        }
+    status: ${dadoInformado}`;
+    //verificando se encontra usuario usando a referência
+    if (outraReferencia !== null) {
+      //se encontra a ref se esta no weakmap
+      if (dados.has(outraReferencia)) {
+        resultado.innerHTML += `referênia aponta pro mesmo usuario`;
+      } else {
+        resultado.innerHTML += `não encontrada`;
+        return;
+      }
     }
-    
+  }
 }
 
 function removerUsuario() {
-    // faça aqui
+  //se não encontrar o usuario
+  if (usuarioAtual === null) {
+    resultado.textContent = "Nenhum usuário cadastrado";
+    return;
+  }
+  //remover usuario se caso foi encontrado
+  const removido = dados.delete(usuarioAtual);
+  if (removido) {
+    usuarioAtual = null;
+    outraReferencia = null;
+    resultado.textContent = "Removido com sucesso";
+  } else {
+    resultado.textContent = "Não encontrado";
+  }
 }
 
 cadastrar.addEventListener("click", cadastrarUsuario);
