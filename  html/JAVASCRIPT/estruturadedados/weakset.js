@@ -200,3 +200,96 @@ cadastrar.addEventListener("click", cadastrarUsuario);
 referencia.addEventListener("click", criarReferencia);
 verificar.addEventListener("click", verificarUsuario);
 remover.addEventListener("click", removerUsuario);
+
+//// weakset com referência, delte etc
+
+const nome = document.getElementById("nome");
+const cadastrar = document.getElementById("cadastrar");
+const referencia = document.getElementById("referencia");
+const removerWeakSet = document.getElementById("removerWeakSet");
+const removerReferencia = document.getElementById("removerReferencia");
+const verificar = document.getElementById("verificar");
+const resultado = document.getElementById("resultado");
+
+const usuariosAtivos = new WeakSet();
+
+let usuarioAtual = null;
+let outraReferencia = null;
+
+function cadastrarUsuario() {
+  const nomeUser = nome.value.trim();
+  if (nomeUser === "" || nomeUser.length < 3 || nomeUser.length > 120) {
+    resultado.textContent = "Verifique os caracteres";
+    return;
+  }
+
+  const usuario = {
+    nome: nomeUser,
+  };
+
+  usuarioAtual = usuario;
+  usuariosAtivos.add(usuarioAtual);
+  resultado.textContent = "Cadastrado com sucesso";
+}
+
+function criarReferencia() {
+  if (usuarioAtual === null) {
+    resultado.textContent = "Cadastre primeiro";
+    return;
+  }
+
+  outraReferencia = usuarioAtual;
+  resultado.textContent = "Criado com sucesso";
+}
+
+function removerDoWeakSet() {
+  if (usuarioAtual === null) {
+    resultado.textContent = "Erro";
+    return;
+  }
+
+  const removido = usuariosAtivos.delete(usuarioAtual);
+  if (removido) {
+    resultado.textContent = "Usuario removido do weakset";
+  } else {
+    resultado.textContent = "Não foi removido";
+  }
+}
+
+function removerReferenciaUsuario() {
+  if (usuarioAtual !== null) {
+    //remove a referência que a variavel tinha para o objeto
+    usuarioAtual = null;
+  }
+  if (outraReferencia !== null) {
+    //remove a referência que a variavel tinha para o objeto
+    outraReferencia = null;
+  }
+  resultado.textContent = "referência removida";
+}
+
+function verificarUsuario() {
+  if (usuarioAtual === null) {
+    resultado.textContent = "Não existe referência para usuario";
+    return;
+  }
+  if (usuariosAtivos.has(usuarioAtual)) {
+    resultado.textContent = "Usuario ativo";
+    if (outraReferencia !== null) {
+      if (usuariosAtivos.has(outraReferencia)) {
+        resultado.innerHTML += `
+            <br> aponta para o mesmo usuario`;
+      } else {
+        resultado.innerHTML += `
+            <br> não aponta pro mesmo usuario`;
+      }
+    }
+  } else {
+    resultado.textContent = "Não está ativo";
+  }
+}
+cadastrar.addEventListener("click", cadastrarUsuario);
+referencia.addEventListener("click", criarReferencia);
+removerWeakSet.addEventListener("click", removerDoWeakSet);
+removerReferencia.addEventListener("click", removerReferenciaUsuario);
+verificar.addEventListener("click", verificarUsuario);

@@ -50,4 +50,44 @@ está no WeakMap?
 mesmo        não encontrada
 usuário
 
+
+
+
+
+### WeakMap e WeakSet
+
+Durante os estudos de JavaScript, aprendi sobre `WeakMap` e `WeakSet`, duas estruturas de dados que trabalham especificamente com referências de objetos.
+
+O `WeakMap` funciona armazenando uma relação entre um objeto e um valor. Diferente de um `Map`, a chave do `WeakMap` precisa obrigatoriamente ser um objeto. Os principais métodos estudados foram `set()`, usado para adicionar uma informação associada a um objeto, `get()`, usado para recuperar essa informação, `has()`, usado para verificar se existe uma associação, e `delete()`, usado para remover essa associação.
+
+Também aprendi que objetos são trabalhados por referência. Por exemplo, quando uma variável recebe outro objeto por meio de uma atribuição, as duas variáveis podem apontar para o mesmo objeto. Por isso, um `WeakMap` consegue reconhecer duas variáveis diferentes como sendo a mesma chave quando elas apontam para o mesmo objeto.
+
+Outro conceito estudado foi o `null`. Quando uma variável recebe `null`, significa que ela não possui mais uma referência para um objeto. Isso é diferente de usar `delete()`, que remove a associação existente dentro do `WeakMap`. Também estudei de forma básica o Garbage Collector, mecanismo do JavaScript responsável por liberar objetos que não são mais alcançáveis pelo programa. O `WeakMap` não impede que seus objetos-chave sejam coletados quando não existem mais referências fortes para eles.
+
+Depois estudei o `WeakSet`. Ele é parecido com o `Set`, mas trabalha com referências de objetos. Enquanto o `WeakMap` relaciona um objeto a um valor, o `WeakSet` apenas mantém objetos como membros do conjunto. Seus principais métodos são `add()`, usado para adicionar um objeto, `has()`, usado para verificar se um objeto está presente, e `delete()`, usado para removê-lo. Diferentemente do `WeakMap`, o `WeakSet` não possui `get()`, porque ele não armazena um valor associado ao objeto.
+
+Nas atividades práticas, utilizei `WeakMap` para cadastrar usuários e armazenar informações associadas a eles, como idade e outros dados. Também pratiquei a verificação, recuperação e remoção dessas informações. Com `WeakSet`, pratiquei o controle de usuários ativos, verificando se determinado objeto estava presente, adicionando usuários e removendo usuários do conjunto.
+
+O principal aprendizado dessas atividades foi entender que `WeakMap` e `WeakSet` trabalham com objetos por referência. Também aprendi a diferença entre um
+
+
+
+
+
+
+
+
+
+
+🗑️ E o Garbage Collector?
+
+Você também viu a ideia de Garbage Collector.
+
+É o mecanismo do JavaScript que pode liberar memória de objetos que não são mais alcançáveis pelo programa.
+
+O diferencial do WeakMap/WeakSet é que eles não mantêm uma referência forte ao objeto-chave.
+
+Por isso, se não existir mais nenhuma referência forte para determinado objeto, ele pode ser coletado pelo Garbage Collector.
+
+Importante: WeakMap/WeakSet não obrigam o JavaScript a apagar o objeto imediatamente. Eles apenas não impedem essa coleta
 */
