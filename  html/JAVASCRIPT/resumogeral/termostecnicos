@@ -40,3 +40,5 @@ ex: ações ao mesmo tempo, igual o navegador
 mesmo espaço de memoria, oq torna as trocas de informações mais rapidas
 
 DDD (domain-driven-design) -> focado na arquitetura de negocio em sistemas complexos, entendendo regras e negocios e não ainda no banco de dados
+
+Garbage Colletor --> no javascript siginica que é uma lixeira usada para identificar objetos que não são mais usados e libera a memoria deles

@@ -1,0 +1,9 @@
+o weakset é diferente do weakmap porque o weakset guarda objeto unicos, e el não possui get
+só delete, set, add
+
+
+
+
+Mesmo objeto → mesma referência → has() encontra.
+
+Objeto diferente, mesmo conteúdo → outra referência → has() não encontra.
