@@ -1,0 +1,20 @@
+o id não aparecerá.
+
+Isso acontece porque Object.keys() retorna as chaves de propriedades comuns do objeto, mas não as propriedades criadas com Symbol.
+então se o symbol estiver no id, usando object.keys, faz com que o id não apareça
+
+para encontrar as propriedades symbol temos que executar Object.getOwnPropertySymbols(usuario)
+
+reflect.ownkeys retorna todas as chaves da propriedade
+
+Symbol
+  ↓
+usar como chave
+  ↓
+objeto[Symbol]
+  ↓
+Object.getOwnPropertySymbols()
+  ↓
+encontrar o Symbol
+  ↓
+objeto[SymbolEncontrado]

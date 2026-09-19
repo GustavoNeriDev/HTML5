@@ -1,0 +1,44 @@
+/*
+Um iterator é um objeto que permite percorrer uma coleção um elemento por vez, controlando manualmente qual será o próximo elemento.
+
+Você já usa isso sem perceber quando utiliza coisas como
+
+for...of
+EX:                const nomes = ["Gustavo", "João", "Maria"];
+
+                        for (const nome of nomes) {
+                            console.log(nome);
+                        }
+
+O JavaScript consegue fazer isso porque o array possui um iterador.
+
+Podemos acessar esse iterador manualmente usando:
+const iterador = nomes[Symbol.iterator]();
+iterador.next();
+
+Cada chamada retorna um objeto parecido com:
+{
+    value: "Gustavo",
+    done: false
+}
+
+value → valor atual.
+done → indica se terminou.
+false = ainda existem elementos.
+true = terminou
+
+
+EX:
+const nomes = ["Gustavo", "João"];
+
+const iterador = nomes[Symbol.iterator]();
+
+console.log(iterador.next());
+console.log(iterador.next());
+console.log(iterador.next());
+
+resultado:
+{ value: "Gustavo", done: false }
+{ value: "João", done: false }
+{ value: undefined, done: true }
+*/
