@@ -1,0 +1,11 @@
+/*
+symbol é coniderado como uma chave para especificar objeto, usuario etc, é declarado só uma vez para cada usuario ou objeto
+const idUsuario = Symbol("id");
+const outroId = Symbol("id");
+
+
+tem que levar em consideração que o symbol não é uma propriedade privada, ela pode ser acessado aplicando metodo como getOwnPropertySymbol
+
+
+
+*/
