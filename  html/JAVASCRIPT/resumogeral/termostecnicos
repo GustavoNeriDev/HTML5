@@ -48,3 +48,17 @@ Você também viu a ideia de Garbage Collector.
 O diferencial do WeakMap/WeakSet é que eles não mantêm uma referência forte ao objeto-chave.
 Por isso, se não existir mais nenhuma referência forte para determinado objeto, ele pode ser coletado pelo Garbage Collector.
 Importante: WeakMap/WeakSet não obrigam o JavaScript a apagar o objeto imediatamente. Eles apenas não impedem essa coleta
+
+
+iterable --> um objeto que pode ser percorrido com mecanismo de iteração 
+
+
+Um detalhe profissional importante
+Generators são úteis quando queremos produzir dados sob demanda.
+Lazy evaluation --> Significa, de maneira simples: produzir o valor somente quando for necessario
+Significa que pode ser util para trabalhar com grande sequência de dados que não precisam ser criados inteiramente na memoria de um vez
+
+
+comunicação bidirecional --> pode receber e enviar um valor (dois sentidos)
+
+Iterator Protocol: um padrão do JavaScript que define como um objeto fornece seus valores um por vez.

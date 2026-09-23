@@ -1,0 +1,59 @@
+/*
+função do js que pode parar e pausar sua execução e depois continuar de onde ele parou
+ele tambem controla um iterator de forma mais simples
+
+function* indica que é uma function generator 
+yield, indica que a função pausa, diferente do return que retorna para o começo ou algum elemento, o yield pausa e depois continua a função
+
+qunado voce chama a função ex: nome() ela  não vai retornar um função  igaul a função comum, e sim uma generator object
+gerador de objeto, exemplo uma const com objeto atribuido a ela, e então você tem o poder de controlar esse objeto e função
+
+yield tambem pode receber valores, chamado de comunicação  bidirecional
+
+
+
+
+| `yield`                                  | `return`             |
+| ---------------------------------------- | -------------------- |
+| Pausa o Generator                        | Encerra o Generator  |
+| Pode continuar com `next()`              | Não continua         |
+| Produz valores durante a execução        | Produz o valor final |
+| Pode receber valor pelo próximo `next()` | Finaliza a função    |
+
+
+
+Iterator Protocol: um padrão do JavaScript que define como um objeto fornece seus valores um por vez.
+
+
+
+
+
+
+
+
+
+
+
+gerador.next()
+      ↓
+yield "Digite seu nome"
+      ↓
+Generator pausa
+      ↓
+gerador.next("Gustavo")
+      ↓
+"Gustavo" entra no yield
+      ↓
+yield "Digite sua idade"
+      ↓
+Generator pausa
+      ↓
+gerador.next("20")
+      ↓
+"20" entra no yield
+      ↓
+return
+      ↓
+done: true
+
+*/

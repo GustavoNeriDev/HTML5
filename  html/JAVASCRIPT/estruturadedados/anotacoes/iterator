@@ -41,4 +41,24 @@ resultado:
 { value: "Gustavo", done: false }
 { value: "João", done: false }
 { value: undefined, done: true }
+
+
+
+
+
+
+for...of
+↓
+percorre automaticamente
+
+Iterator + next()
+↓
+você controla manualmente o próximo elemento
+
+
+
+
+Iterator: é um objeto que controla a passagem por uma coleção, entregando um elemento por vez. No mercado, você pode encontrar esse conceito em estruturas de dados e APIs que precisam percorrer dados de maneira controlada
+
+Iterator Protocol: um padrão do JavaScript que define como um objeto fornece seus valores um por vez.
 */
