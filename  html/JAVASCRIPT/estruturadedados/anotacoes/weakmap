@@ -2,7 +2,7 @@
 Por que existe o WeakMap?
 
 Ele é útil quando queremos associar informações extras a um objeto sem alterar o próprio objeto.
-
+o uso de objetos no WeakMap é associado a guardar dados privado ou ocutar detalhes de implementação
 valores null signifca que não tem nada dentro dela
 
 outra referencia significa que aponta para o mesmo obj do usuario atual 

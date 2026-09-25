@@ -2,7 +2,7 @@ const nome = document.getElementById("nome");
 const cadastrar = document.getElementById("cadastrar");
 const verificar = document.getElementById("verificar");
 const resultado = document.getElementById("resultado");
-
+//onde os dados ficam privados e implementações privadas
 const usuarios = new WeakMap();
 
 let usuarioAtual = null;
@@ -361,6 +361,3 @@ cadastrar.addEventListener("click", cadastrarUsuario);
 criarReferencia.addEventListener("click", criarOutraReferencia);
 verificar.addEventListener("click", verificarUsuario);
 remover.addEventListener("click", removerUsuario);
-
-
-

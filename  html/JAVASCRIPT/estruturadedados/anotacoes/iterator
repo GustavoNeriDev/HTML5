@@ -55,7 +55,7 @@ Iterator + next()
 ↓
 você controla manualmente o próximo elemento
 
-
+o laço for in, interage sobre as propriedades enumeradas(propriedades que tem um valor  já atribuido)
 
 
 Iterator: é um objeto que controla a passagem por uma coleção, entregando um elemento por vez. No mercado, você pode encontrar esse conceito em estruturas de dados e APIs que precisam percorrer dados de maneira controlada

@@ -91,3 +91,18 @@ function proximoManual() {
 adicionar.addEventListener("click", adicionarNome);
 listar.addEventListener("click", listarNomes);
 manual.addEventListener("click", proximoManual);
+
+///////////////////////////////////////////////////////////
+//Objeto
+const obj = { a: 1, b: 2, c: 3 };
+// o laço for in, interage sobre as propriedades enumeradas(propriedades que tem um valor  já atribuido)
+//Para prop (propriedade) in obj (objeto) faça
+for (const prop in obj) {
+  // ctrl+shift+k (para abrir o console no mozilla firefox)
+  console.log("obj." + prop + " = " + obj[prop]);
+}
+
+//A saída (output) deverá ser:
+// "obj.a = 1"
+// "obj.b = 2"
+// "obj.c = 3"
