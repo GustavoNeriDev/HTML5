@@ -1,0 +1,63 @@
+` arrayBuffer é usado para armazenar dados binarios tipo em arquivos, fotos e videos
+
+dados binarios são representados por bytes internamente, em vez de objeto javascript etc
+
+ex: 
+const buffer = new ArrayBuffer(8);
+
+ArrayBuffer
+┌────┬────┬────┬────┬────┬────┬────┬────┐
+│byte│byte│byte│byte│byte│byte│byte│byte│
+└────┴────┴────┴────┴────┴────┴────┴────┘
+                  8 bytes
+
+Obs: o arrayBuffer não é usado sozinho, para identificar ele precisamos usar o typedArray
+
+ex:
+
+const numeros = new Uint8Array(buffer);
+
+U -> unsigned , sem sinal
+int/uint -> tipo inteiro
+8 -> bite
+
+então: 
+const buffer = new ArrayBuffer(4);
+
+const numeros = new Uint8Array(buffer);
+
+numeros[0] = 10;
+numeros[1] = 20;
+numeros[2] = 30;
+numeros[3] = 40;
+
+cada posição consegue  armazenar um tipo inteiro de 0 até 255
+
+ArrayBuffer
+     ↓
+espaço bruto de memória
+     ↓
+Uint8Array
+     ↓
+forma de interpretar/acessar essa memória
+
+descobrir tamanho do array 
+
+ex:
+
+console.log(buffer.byteLength)
+
+Int8Array -> numero inteiro com sinal, aceitar valores negativos
+
+| TypedArray     | Tipo                 | Faixa/precisão aproximada      |
+| -------------- | -------------------- | ------------------------------ |
+| Uint8Array     | inteiro sem negativo | 0 → 255                        |
+| Int8Array      | inteiro com negativo | -128 → 127                     |
+| Uint16Array    | inteiro sem negativo | 0 → 65.535                     |
+| Int16Array     | inteiro com negativo | -32.768 → 32.767               |
+| Uint32Array    | inteiro sem negativo | 0 → 4.294.967.295              |
+| Int32Array     | inteiro com negativo | -2.147.483.648 → 2.147.483.647 |
+| Float32Array   | número decimal       | números com casas decimais     |
+| Float64Array   | número decimal       | maior precisão                 |
+
+`;

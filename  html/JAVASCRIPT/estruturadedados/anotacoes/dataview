@@ -1,0 +1,56 @@
+`data view é aplicado de uma forma diferente do tipo int separado etc, ele  pode 
+selecionar tipos inteiro, float e reduzido em apenas só um lugar
+
+Temperatura → número decimal
+Bateria     → número inteiro
+Status      → número pequeno
+
+ArrayBuffer
+┌─────────────────────────────────────┐
+│ temperatura │ bateria │ status      │
+└─────────────────────────────────────┘
+        ↑           ↑        ↑
+    Float32       Uint8    Uint8
+    
+
+const buffer = new ArrayBuffer(6);
+const view = new DataView(buffer);
+
+view.setFloat32(0, 27.5);
+view.setUint8(4, 90);
+view.setUint8(5, 1);
+
+
+
+setFloat32(0, 27.5) → grava 27.5 começando no byte 0;
+setUint8(4, 90) → grava 90 no byte 4;
+setUint8(5, 1) → grava 1 no byte 5
+
+
+recuperando os tipos 
+view.getFloat32(0)
+view.getUint8(4)
+view.getUint8(5)
+
+
+Esse conceito é usado em situações como:
+
+arquivos binários;
+comunicação com dispositivos;
+sensores;
+protocolos de rede;
+processamento de áudio/imagem;
+formatos de arquivos;
+APIs que trabalham com dados binários
+
+
+
+ArrayBuffer de 6 bytes
+
+byte 0 ────────────────┐
+byte 1                  │
+byte 2   temperatura    │ Float32 = 4 bytes
+byte 3                  │
+byte 4 ─── bateria ─────┤ Uint8 = 1 byte
+byte 5 ─── status ──────┘ Uint8 = 1 byte
+    `
