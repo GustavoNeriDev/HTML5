@@ -66,3 +66,6 @@ Iterator Protocol: um padrão do JavaScript que define como um objeto fornece se
 instaciar --> tranformar a classe em um objeto real que ocupa a memoria do computador
 
 MIME --> é uma forma padronizada de identificar o tipo do arquivo. Por exemplo
+
+
+Blob --> significa Binary Large Object

@@ -1,0 +1,62 @@
+`converte os bytes em texto
+
+const decoder = new TextDecoder();
+
+const texto = decoder.decode(bytes);
+
+
+
+
+Decodificar significa justamente pegar aqueles dados codificados em bytes e interpretá-los novamente como caracteres.
+Esse conceito é muito importante para entender como arquivos, HTTP, APIs e comunicação entre sistemas funcionam``texto encoder é exatamente o contrario do decoder 
+
+
+const encoder = new TextEncoder();
+
+const texto = "Olá, Gustavo";
+
+const bytes = encoder.encode(texto);
+
+console.log(bytes);``
+Blob significa Binary Large Object.
+
+De forma simples:
+
+Um Blob é um objeto que representa uma quantidade de dados que pode ser tratada como um arquivo ou conteúdo binário.7
+
+const blob = new Blob(["Olá, mundo!"]);
+
+informar o tipo 
+
+const blob = new Blob(
+    ["Olá, mundo!"],
+    informa ao navegador que o conteudo é texto
+    { type: "text/plain" }
+
+
+
+
+
+    ex:
+
+
+    //informando ao navegador que o conteudo é um texto
+    const informarNavegador = new Blob(
+        [bytes],
+        {type: "text/plain"}
+    )
+//criando a url temporaria, que aponta para os dados do blob
+    const url = URL.createObjectURL(informarNavegador)
+//criar link para download
+    const link = document.createElement("a")
+
+    link.href = url
+//definindo nome do arquivo
+    link.download = "relatorio.txt"
+//fazendo o download
+    link.click()
+//retirando a url temporaria 
+    URL.revokeObjectURL(url)
+    
+
+);`;

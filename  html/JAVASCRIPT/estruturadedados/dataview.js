@@ -104,3 +104,48 @@ async function analisarArquivo() {
 }
 
 analisar.addEventListener("click", analisarArquivo);
+
+////////////////////////////////////////////////
+
+const arquivoInput = document.getElementById("arquivo");
+const analisar = document.getElementById("analisar");
+const resultado = document.getElementById("resultado");
+
+async function analisarArquivo() {
+  const arquivoselcionado = arquivoInput.files[0];
+
+  if (!arquivoselcionado) {
+    resultado.textContent = "Selcione um arquivo";
+    return;
+  }
+  //representa 2MB
+  const tamanhoMaximo = 2 * 1024 * 1024;
+  //verificando o tamanho do arquivo
+  if (arquivoselcionado.size > tamanhoMaximo) {
+    resultado.textContent = "Arquivo muito grande";
+    return;
+  }
+  //tipos de arquivos permitido
+  const tipoPermitidos = ["application/pdf", "image/jpeg", "image/png"];
+  //veficando o tipo incluindo o array, include verfica se determinado valor existe no array
+  if (!tipoPermitidos.includes(arquivoselcionado.type)) {
+    resultado.textContent = "Tipo de arquivo não permitido";
+    return;
+  }
+
+  const buffer = await arquivoselcionado.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+
+  const limite = Math.min(10, bytes.length);
+  let texto = "";
+  for (let i = 0; i < limite; i++) {
+    texto += `
+    bytes ${bytes[i]}`;
+  }
+
+  resultado.innerHTML = ` Nome: ${arquivoselecionado.name}<br>
+ Tamanho: ${arquivoselecionado.size} bytes<br>
+ Tipo: ${arquivoselecionado.type}<br>
+ Primeiros ${limite} bytes: ${texto} `;
+}
+analisar.addEventListener("click", analisarArquivo);
