@@ -1,0 +1,307 @@
+# Noções básicas sobre o ciclo de vida do ambiente de execução do Lambda
+
+<a name="lambda-runtime-environment"></a>
+
+Os ambientes de execução do Lambda oferecem suporte a funções padrão (até 15 minutos) e funções duráveis (até um ano). Embora ambas compartilhem o mesmo ciclo de vida básico, as funções duráveis adicionam recursos de gerenciamento de estado para fluxos de trabalho de longa duração.
+
+O Lambda invoca a função em um ambiente de execução, que fornece um ambiente do tempo de execução seguro e isolado. O ambiente de execução gerencia os recursos necessários para executar a função. O ambiente de execução também fornece suporte ao ciclo de vida para o runtime da função e qualquer [extensão externa](lambda-extensions.md) associada à função.
+
+**Para funções duráveis, o ambiente de execução inclui componentes adicionais para:**
+
+- Persistência de estado entre etapas
+- Gerenciamento de pontos de verificação
+- Coordenação do estado de espera
+- Acompanhamento de andamento
+
+**Ambiente de execução de instâncias gerenciadas do Lambda**  
+Se você estiver usando [instâncias gerenciadas do Lambda](lambda-managed-instances-execution-environment.md), o ambiente de execução terá diferenças importantes em comparação com as funções do Lambda (padrão). As instâncias gerenciadas oferecem suporte a invocações simultâneas, usam um modelo de ciclo de vida diferente e são executadas na infraestrutura de propriedade do cliente. Para obter informações detalhadas sobre o ambiente de execução de instâncias gerenciadas, consulte [Noções básicas sobre o ambiente de execução das instâncias gerenciadas do Lambda](lambda-managed-instances-execution-environment.md).
+
+O runtime da função se comunica com o Lambda usando a [API de runtime](runtimes-api.md). As extensões se comunicam com o Lambda usando a [API Extensions](runtimes-extensions-api.md). As extensões também podem receber mensagens de log e outras telemetrias da função ao usar a [API de telemetria](telemetry-api.md).
+
+![Diagrama de arquitetura do ambiente de execução.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/telemetry-api-concept-diagram.png)
+
+Quando você cria uma função do Lambda, você especifica informações de configuração, como a quantidade de memória disponível e o tempo máximo de execução permitido para sua função. O Lambda usa essas informações para configurar o ambiente de execução.
+
+O runtime da função e cada extensão externa são processos executados dentro do ambiente de execução. Permissões, recursos, credenciais e variáveis de ambiente são compartilhados entre a função e as extensões.
+
+**Topics**
+
+- [Ciclo de vida do ambiente de execução do Lambda](#runtimes-lifecycle)
+- [Inicializações a frio e latência](#cold-start-latency)
+- [Redução de inicializações a frio com simultaneidade provisionada](#cold-starts-pc)
+- [Otimização da inicialização estática](#static-initialization)
+
+## Ciclo de vida do ambiente de execução do Lambda
+
+<a name="runtimes-lifecycle"></a>
+
+![Fases do ciclo de vida do Lambda: inicialização, invocação, encerramento.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/Overview-Successful-Invokes.png)
+
+Cada fase começa com um evento que o Lambda envia para o runtime e para todas as extensões registradas. O runtime e cada extensão indicam a conclusão enviando uma solicitação de API `Next`. O Lambda congela o ambiente de execução quando o runtime e cada extensão tiverem sido concluídos e não houver eventos pendentes.
+
+**As fases do ciclo de vida das funções duráveis incluem:**
+
+- **Inicializar:** inicialização padrão mais configuração de estado durável
+- **Invocar:** pode incluir execuções em várias etapas com pontos de verificação automáticos
+- **Esperar:** a função pode pausar a execução sem consumir recursos
+- **Retomar:** a função é reiniciada a partir do último ponto de verificação
+- **Desligar:** limpeza do estado e dos recursos duráveis
+
+**Topics**
+
+- [Fase de inicialização](#runtimes-lifecycle-ib)
+- [Falhas durante a fase de inicialização](#runtimes-lifecycle-init-errors)
+- [Fase de restauração (somente para Lambda SnapStart)](#runtimes-lifecycle-restore)
+- [Fase de invocação](#runtimes-lifecycle-invoke)
+- [Falhas durante a fase de invocação](#runtimes-lifecycle-invoke-with-errors)
+- [Fase de desligamento](#runtimes-lifecycle-shutdown)
+
+### Fase de inicialização
+
+<a name="runtimes-lifecycle-ib"></a>
+
+Na fase `Init`, o Lambda executa três tarefas:
+
+- Iniciar todas as extensões (`Extension init`)
+- Realizar bootstrap no runtime (`Runtime init`)
+- Executar o código estático da função (`Function init`)
+- Executar qualquer [hook de runtime](snapstart-runtime-hooks.md) before-checkpoint (somente para Lambda SnapStart)
+
+A fase `Init` termina quando o runtime e todas as extensões sinalizam que estão prontas enviando uma solicitação de API `Next`. A fase `Init` é limitada a 10 segundos. Se todas as três tarefas não forem concluídas em até dez segundos, o Lambda repetirá a fase `Init` no momento da primeira invocação de função com o tempo-limite de função configurado.
+
+Quando o [SnapStart](snapstart.md) está ativado, a fase `Init` ocorre ao você publicar uma versão da função. O Lambda salva um snapshot do estado da memória e do disco do ambiente de execução inicializado, mantém o snapshot criptografado e o armazena em cache para acesso de baixa latência. Se você tiver um [hook de runtime](snapstart-runtime-hooks.md) before-checkpoint, então, o código será executado ao final da fase `Init`.
+
+**nota**  
+O tempo limite de dez segundos não se aplica às funções que estejam usando simultaneidade provisionada, SnapStart ou instâncias gerenciadas do Lambda. Para funções de simultaneidade provisionada, SnapStart e instâncias gerenciadas, seu código de inicialização pode ser executado por até 15 minutos. O limite de tempo é de 130 segundos ou o tempo limite da função configurada (máximo de 900 segundos), o que for maior.
+
+Quando você usa [simultaneidade provisionada](https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html), o Lambda inicializa o ambiente de execução quando você define as configurações do PC para uma função. O Lambda também garante que os ambientes de execução inicializados estejam sempre disponíveis antes das invocações. É possível observar lacunas entre a invocação e as fases de inicialização da sua função. Dependendo do runtime e da configuração de memória da sua função, é possível observar uma latência variável na primeira invocação em um ambiente de execução inicializado.
+
+Para funções que usam simultaneidade sob demanda, o Lambda pode ocasionalmente inicializar ambientes de execução antes das solicitações de invocação. Quando isso acontece, você também pode observar uma lacuna de tempo entre as fases de inicialização e invocação da função. Recomendamos que você não dependa desse comportamento.
+
+### Falhas durante a fase de inicialização
+
+<a name="runtimes-lifecycle-init-errors"></a>
+
+Se uma função falhar ou atingir o tempo limite durante a fase `Init`, o Lambda emite informações de erro no log `INIT_REPORT`.
+
+**Example — log INIT_REPORT para tempo limite**
+
+```
+INIT_REPORT Init Duration: 1236.04 ms Phase: init Status: timeout
+```
+
+**Example — log INIT_REPORT para falha de extensão**
+
+```
+INIT_REPORT Init Duration: 1236.04 ms Phase: init Status: error Error Type: Extension.Crash
+```
+
+Se a fase `Init` tiver êxito, o Lambda não gerará o log `INIT_REPORT`, a não ser que a função [SnapStart](snapstart.md) ou a [simultaneidade provisionada](provisioned-concurrency.md) esteja habilitada. As funções SnapStart e de simultaneidade provisionada sempre geram `INIT_REPORT`. Para obter mais informações, consulte [Monitoramento para o Lambda SnapStart](snapstart-monitoring.md).
+
+### Fase de restauração (somente para Lambda SnapStart)
+
+<a name="runtimes-lifecycle-restore"></a>
+
+Quando você invoca uma função do [SnapStart](snapstart.md) pela primeira vez e à medida que aumenta a escala verticalmente da função, o Lambda retoma novos ambientes de execução a partir do snapshot retido, em vez de inicializar a função do zero. Se você tiver um [hook de runtime](snapstart-runtime-hooks.md) after-restore, o código será executado ao final da fase `Restore`. Serão realizadas cobranças pela duração dos hooks de runtime after-restore. O runtime deve ser carregado e os hooks de runtime after-restore devem ser concluídos dentro do limite de tempo limite (dez segundos). Caso contrário, você obterá uma SnapStartTimeoutException. Quando a fase `Restore` é concluída, o Lambda invoca o manipulador de função (a [Fase de invocação](#runtimes-lifecycle-invoke)).
+
+#### Falhas durante a fase de restauração
+
+<a name="runtimes-lifecycle-restore-errors"></a>
+
+Se a fase `Restore` falhar, o Lambda emite informações de erro no log `RESTORE_REPORT`.
+
+**Example — log RESTORE_REPORT para tempo limite**
+
+```
+RESTORE_REPORT Restore Duration: 1236.04 ms Status: timeout
+```
+
+**Example — log RESTORE_REPORT para falha no hook de runtime**
+
+```
+RESTORE_REPORT Restore Duration: 1236.04 ms Status: error Error Type: Runtime.ExitError
+```
+
+Para obter mais informações sobre o log `RESTORE_REPORT`, consulte [Monitoramento para o Lambda SnapStart](snapstart-monitoring.md).
+
+### Fase de invocação
+
+<a name="runtimes-lifecycle-invoke"></a>
+
+Quando uma função do Lambda é invocada em resposta a uma solicitação de API `Next`, o Lambda envia um evento `Invoke` para o runtime e para cada extensão.
+
+A configuração de tempo limite da função limita a duração de toda a fase `Invoke`. Por exemplo, se você definir o tempo limite da função como 360 segundos, a função e todas as extensões precisam ser concluídas em até 360 segundos. Observe que não há fase de pós-invocação independente. A duração é a soma de todo o tempo de invocação (runtime \+ extensões) e não é calculada até que a função e todas as extensões tenham terminado a execução.
+
+A fase de invocação termina após o runtime e todas as extensões sinalizam que elas foram concluídas enviando uma solicitação de API `Next`.
+
+### Falhas durante a fase de invocação
+
+<a name="runtimes-lifecycle-invoke-with-errors"></a>
+
+Se a função do Lambda falhar ou expirar durante o`Invoke`fase, o Lambda redefine o ambiente de execução. O diagrama a seguir ilustra o comportamento do ambiente de execução do Lambda quando há falha de invocação:
+
+![Exemplo de ambiente de execução: inicialização, invocação, invocação com erro, invocação, encerramento.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/Overview-Invoke-with-Error.png)
+
+No diagrama anterior:
+
+- A primeira fase é a fase **INIT**, que é executada sem erros.
+- A segunda fase é a fase **INVOKE**, que é executada sem erros.
+- Suponha que, em algum momento, sua função depare-se com uma falha de invocação (causas comuns incluem tempo limite da função, erros de runtime, esgotamento da memória, problemas de conectividade com a VPC, erros de permissão, limites de simultaneidade e vários problemas de configuração). Para uma lista completa de possíveis falhas de invocação, consulte [Solucionar problemas de invocação no Lambda](troubleshooting-invocation.md). A terceira fase, chamada **INVOKE WITH ERROR**, ilustra esse caso.
+
+  Quando isso ocorre, o serviço do Lambda executa uma redefinição. A redefinição se comporta como um evento `Shutdown`. Primeiro, o Lambda encerra o runtime; depois, envia um evento `Shutdown` para cada extensão externa registrada. O evento inclui o motivo do desligamento. Se esse ambiente for usado para uma nova invocação, o Lambda reinicializará a extensão e o runtime com a próxima invocação.
+
+  Observe que a redefinição do Lambda não limpa o conteúdo do diretório `/tmp` antes da próxima fase de inicialização. Esse comportamento é consistente com a fase de desligamento regular.
+  **nota**  
+  AWSA atualmente está implementando alterações no serviço Lambda. Devido a essas alterações, você pode ver pequenas diferenças entre a estrutura e o conteúdo das mensagens de log do sistema e os segmentos de rastreamento emitidos por diferentes funções do Lambda na sua Conta da AWS.  
+  Se a configuração de log do sistema da função estiver definida como texto simples, essa alteração afetará as mensagens de log capturadas no CloudWatch Logs quando a função apresentar uma falha de invocação. Os exemplos a seguir mostram saídas de log no formato antigo e no formato novo.  
+  Essas alterações serão implementadas durante as próximas semanas, e todas as funções em todas as Regiões da AWS, exceto nas regiões China e GovCloud, passarão a usar o novo formato de mensagens de log e segmentos de rastreamento.
+
+**Example Saída de log do CloudWatch Logs (pane de runtime ou de extensão), estilo antigo**
+
+```
+START RequestId: c3252230-c73d-49f6-8844-968c01d1e2e1 Version: $LATEST
+RequestId: c3252230-c73d-49f6-8844-968c01d1e2e1 Error: Runtime exited without providing a reason
+Runtime.ExitError
+END RequestId: c3252230-c73d-49f6-8844-968c01d1e2e1
+REPORT RequestId: c3252230-c73d-49f6-8844-968c01d1e2e1 Duration: 933.59 ms Billed Duration: 934 ms Memory Size: 128 MB Max Memory Used: 9 MB
+```
+
+**Example Saída de log do CloudWatch Logs (tempo limite da função), estilo antigo**
+
+```
+START RequestId: b70435cc-261c-4438-b9b6-efe4c8f04b21 Version: $LATEST
+2024-03-04T17:22:38.033Z b70435cc-261c-4438-b9b6-efe4c8f04b21 Task timed out after 3.00 seconds
+END RequestId: b70435cc-261c-4438-b9b6-efe4c8f04b21
+REPORT RequestId: b70435cc-261c-4438-b9b6-efe4c8f04b21 Duration: 3004.92 ms Billed Duration: 3117 ms Memory Size: 128 MB Max Memory Used: 33 MB Init Duration: 111.23 ms
+```
+
+O novo formato do CloudWatch Logs inclui um campo adicional `status` na linha `REPORT`. No caso de haver uma pane de runtime ou de extensão, a linha `REPORT` também incluirá um campo `ErrorType`.
+
+**Example Saída de log do CloudWatch Logs (pane de runtime ou de extensão), estilo novo**
+
+```
+START RequestId: 5b866fb1-7154-4af6-8078-6ef6ca4c2ddd Version: $LATEST
+END RequestId: 5b866fb1-7154-4af6-8078-6ef6ca4c2ddd
+REPORT RequestId: 5b866fb1-7154-4af6-8078-6ef6ca4c2ddd Duration: 133.61 ms Billed Duration: 214 ms Memory Size: 128 MB Max Memory Used: 31 MB Init Duration: 80.00 ms Status: error Error Type: Runtime.ExitError
+```
+
+**Example Saída de log do CloudWatch Logs (tempo limite da função), estilo novo**
+
+```
+START RequestId: 527cb862-4f5e-49a9-9ae4-a7edc90f0fda Version: $LATEST
+END RequestId: 527cb862-4f5e-49a9-9ae4-a7edc90f0fda
+REPORT RequestId: 527cb862-4f5e-49a9-9ae4-a7edc90f0fda Duration: 3016.78 ms Billed Duration: 3101 ms Memory Size: 128 MB Max Memory Used: 31 MB Init Duration: 84.00 ms Status: timeout
+```
+
+- A quarta fase representa a fase **INVOKE** imediatamente após uma falha de invocação. Aqui, o Lambda reinicializa o ambiente executando a fase **INIT**. Isso se chama _inicialização suprimida_.
+
+  Quando ocorrem inicializações suprimidas, o Lambda não relata explicitamente uma fase adicional de **INIT** no CloudWatch Logs. Em vez disso, você perceberá que a duração na linha REPORT inclui uma duração adicional de **INIT** mais a duração de **INVOKE**. Por exemplo, digamos que você veja os seguintes logs no CloudWatch:
+
+  ```
+  2022-12-20T01:00:00.000-08:00 START RequestId: XXX Version: $LATEST
+  2022-12-20T01:00:02.500-08:00 END RequestId: XXX
+  2022-12-20T01:00:02.500-08:00 REPORT RequestId: XXX Duration: 3022.91 ms
+  Billed Duration: 3000 ms Memory Size: 512 MB Max Memory Used: 157 MB
+  ```
+
+  Neste exemplo, a diferença entre os carimbos de data e hora REPORT e START é de 2,5 segundos. Isso não corresponde à duração relatada de 3022,91 milissegundos, pois não leva em conta o **INIT** adicional (inicialização suprimida) que o Lambda executou. Neste exemplo, podemos inferir que a fase **INVOKE** exata durou 2,5 segundos.
+
+  Para obter mais insights sobre esse comportamento, você pode usar [Acessar dados de telemetria em tempo real para extensões usando a API Telemetria](telemetry-api.md). A API Telemetry emite eventos `INIT_START`, `INIT_RUNTIME_DONE` e `INIT_REPORT` com `phase=invoke` sempre que ocorrem inicializações suprimidas entre as fases de invocação.
+
+- A quinta fase representa a fase **SHUTDOWN**, que é executada sem erros.
+
+### Fase de desligamento
+
+<a name="runtimes-lifecycle-shutdown"></a>
+
+Quando o Lambda estiver prestes a encerrar o runtime, ele enviará um evento `Shutdown` a cada extensão externa registrada. As extensões podem usar esse tempo para tarefas de limpeza finais. O evento `Shutdown` é uma resposta a uma solicitação de API `Next`.
+
+**Limite de duração**: a duração máxima da fase `Shutdown` depende da configuração das extensões registradas:
+
+- 0 ms: uma função sem extensões registradas
+- 500 ms: uma função com uma extensão interna registrada
+- 2.000 ms: uma função com uma ou mais extensões externas registradas
+
+Se o runtime ou uma extensão não responder ao evento `Shutdown` dentro do limite, o Lambda encerrará o processo usando um sinal `SIGKILL`.
+
+Após a conclusão da função e de todas as extensões, o Lambda mantém o ambiente de execução por algum tempo à espera de uma outra invocação de função. No entanto, o Lambda encerra os ambientes de execução a cada poucas horas para permitir atualizações e manutenção do runtime, mesmo para funções que são invocadas continuamente. Você não deve presumir que o ambiente de execução persistirá indefinidamente. Para obter mais informações, consulte [Implementar a ausência de estado em funções](concepts-application-design.md#statelessness-functions).
+
+Quando a função é invocada novamente, o Lambda descongela o ambiente para reutilização. Reutilizar o ambiente de execução tem as seguintes implicações:
+
+- Os objetos declarados fora do método do manipulador da função permanecem inicializados, fornecendo otimização adicional quando a função é invocada novamente. Por exemplo, se sua função do Lambda estabelecer uma conexão com o banco de dados, em vez de restabelecer a conexão, a conexão original é usada em invocações subsequentes. Recomendamos que você adicione lógica em seu código para verificar se uma há conexão existente antes de criar outra.
+- Cada ambiente de execução fornece entre 512 MB e 10.240 MB, em incrementos de 1 MB, de espaço em disco no diretório `/tmp`. O conteúdo do diretório permanece quando o ambiente de execução é congelado, fornecendo cache transitório que pode ser usado para várias invocações. É possível adicionar um código extra para verificar se o cache tem os dados que você armazenou. Para obter mais informações sobre limites de tamanho de implantação, consulte [Cotas Lambda](gettingstarted-limits.md).
+- Processos em segundo plano ou retornos de chamada que foram iniciados pela função do Lambda e não foram concluídos quando a função terminou serão retomados se o Lambda reutilizar o ambiente de execução. Garanta que todos os processos em segundo plano ou retornos de chamadas no seu código sejam concluídos antes que o código seja encerrado.
+
+## Inicializações a frio e latência
+
+<a name="cold-start-latency"></a>
+
+Quando o Lambda recebe uma solicitação para executar uma função por meio da API do Lambda, o serviço primeiro prepara um ambiente de execução. Durante a fase de inicialização, o serviço baixa o código, inicia o ambiente e executa qualquer código de inicialização fora do manipulador principal. Por último, o Lambda executa o código do manipulador.
+
+![Diagrama mostrando as etapas de uma inicialização a frio do Lambda, incluindo o download do código e a configuração do ambiente de execução.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/perf-optimize-figure-1.png)
+
+Nesse diagrama, as duas primeiras etapas de download do código e configuração do ambiente são frequentemente chamadas de “inicialização a frio”. Você é [cobrado por esse tempo](https://aws.amazon.com/blogs/compute/aws-lambda-standardizes-billing-for-init-phase/), e isso adiciona latência à duração total da invocação.
+
+Após a conclusão da invocação, o ambiente de execução é congelado. Para melhorar o gerenciamento de recursos e a performance, o Lambda retém o ambiente de execução por um período de tempo. Durante esse período, se outra solicitação chegar para a mesma função, o Lambda pode reutilizar o ambiente. Essa segunda solicitação costuma terminar mais rápido, pois o ambiente de execução já está totalmente configurado. Isso é chamado de “inicialização a quente”.
+
+Inicializações a frio geralmente ocorrem em menos de 1% das invocações. A duração de uma inicialização a frio varia de menos de 100 ms a mais de 1 segundo. Em geral, inicializações a frio são mais comuns em funções de desenvolvimento e teste do que em workloads de produção. Isso ocorre porque as funções de desenvolvimento e teste geralmente são invocadas com menos frequência.
+
+## Redução de inicializações a frio com simultaneidade provisionada
+
+<a name="cold-starts-pc"></a>
+
+Se você precisa de horários de início de funções previsíveis para sua workload, a [simultaneidade provisionada](provisioned-concurrency.md) é a solução recomendada para garantir a menor latência possível. Esse recurso faz a pré-inicialização dos ambientes de execução, reduzindo assim as inicializações a frio.
+
+Por exemplo, uma função com uma simultaneidade provisionada de 6 tem 6 ambientes de execução pré-aquecidos.
+
+![Diagrama mostrando a otimização do ambiente de execução do Lambda com sobrecarga de inicialização reduzida.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/perf-optimize-figure-4.png)
+
+## Otimização da inicialização estática
+
+<a name="static-initialization"></a>
+
+A inicialização estática ocorre antes da execução do código do manipulador em uma função. Esse é o código de inicialização que você fornece, fora do manipulador principal. Esse código geralmente é usado para importar bibliotecas e dependências, definir configurações e inicializar conexões com outros serviços.
+
+O exemplo Python a seguir mostra a importação e a configuração de módulos e a criação do cliente Amazon S3 durante a fase de inicialização, antes de a função `lambda_handler` ser executada durante a invocação.
+
+```
+import os
+import json
+import cv2
+import logging
+import boto3
+
+s3 = boto3.client('s3')
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+def lambda_handler(event, context):
+
+  # Handler logic...
+```
+
+O maior fator contribuinte para a latência antes da execução da função é proveniente do código de inicialização. Esse código é executado no momento em que um novo ambiente de execução é criado pela primeira vez. O código de inicialização não será executado novamente se uma invocação usar um ambiente de execução quente. Estes são alguns dos fatores que afetam a latência do código de inicialização:
+
+- O tamanho do pacote de funções, em termos de bibliotecas e dependências importadas, e camadas do Lambda.
+- A quantidade de código e o trabalho de inicialização.
+- A performance de bibliotecas e outros serviços na configuração de conexões e outros recursos.
+
+Existem várias etapas que os desenvolvedores podem seguir a fim de otimizar a latência de inicialização estática. Se uma função tiver muitos objetos e conexões, você poderá redefinir a arquitetura de uma única função em várias funções especializadas. Eles são individualmente menores e cada um tem menos código de inicialização.
+
+É importante que as funções importem apenas as bibliotecas e dependências de que precisam. Por exemplo, se você usa apenas o Amazon DynamoDB no AWS SDK, pode exigir um serviço individual, em vez do SDK inteiro. Compare os três exemplos seguintes:
+
+```
+// Instead of const AWS = require('aws-sdk'), use:
+const DynamoDB = require('aws-sdk/clients/dynamodb')
+
+// Instead of const AWSXRay = require('aws-xray-sdk'), use:
+const AWSXRay = require('aws-xray-sdk-core')
+
+// Instead of const AWS = AWSXRay.captureAWS(require('aws-sdk')), use:
+const dynamodb = new DynamoDB.DocumentClient()
+AWSXRay.captureAWSClient(dynamodb.service)
+```
+
+A inicialização estática geralmente também é o melhor lugar para abrir conexões de banco de dados para permitir que uma função reutilize conexões em várias invocações no mesmo ambiente de execução. No entanto, você pode ter um grande número de objetos que são usados somente em determinados caminhos de execução em sua função. Nesse caso, você pode carregar variáveis lentamente no escopo global para reduzir a duração da inicialização estática.
+
+Evite variáveis globais para obter informações específicas do contexto. Se sua função tiver uma variável global usada somente durante a vida útil de uma única invocação e for redefinida para a próxima invocação, use um escopo de variável que seja local para o manipulador. Isso não apenas evita vazamentos de variáveis globais nas invocações, mas também melhora a performance da inicialização estática.
