@@ -69,3 +69,5 @@ MIME --> é uma forma padronizada de identificar o tipo do arquivo. Por exemplo
 
 
 Blob --> significa Binary Large Object
+
+computed property --> [Symbol.iterator]() 

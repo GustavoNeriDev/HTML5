@@ -1,0 +1,27 @@
+`cria um proprio comportamento de iteração
+
+for (const item of objeto) {
+    // ...
+}
+
+procura um objeto especial chamada
+
+Symbol.iterator
+essa propriedade deve fornecer uma função que retorna um iterator
+
+const produto = {
+    nome: "Notebook",
+    preco: 2500,
+//computed property, usa o valor symbol como nome da propriedade
+    [Symbol.iterator]() {
+        // retorna um iterator
+    }
+};
+
+
+iterator = next()
+iterable = symbol.iterator
+
+iterble --> objeto que possui o symbol
+
+iterator --> objeto que possui next`;
