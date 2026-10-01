@@ -1,0 +1,25 @@
+/*
+{
+    "Version: "2012-10-17",
+    "Id": "default",
+    "Statement": [
+        {
+            "Sid": "lambd-5cad01e-24c-4ef9-a151-4a3941230a96",
+            "Effect": "Allow",
+            "Pricipal": {
+                "Service": "s3.amazonaws.com"
+            },
+            "Action": "lambda:InvokeFunction",
+            "Resource": "arn:aws:lambd:us-west-2:function:my-s3-function",
+            "Condition": {
+                "StringEquals": {
+                    "AWS:SourceAccount": ""
+                },
+                "ArnLike": {
+                    "AWS:SourceArn": "arn:aws:s3:::lambda-lmabda-2"
+                }
+            }
+        }
+    ]
+}
+esta politca é oque da permissão para invocar uma função do Lambda chamada "my-s3-function"*/

@@ -1,0 +1,362 @@
+
+
+# Trabalhar com políticas baseadas em recursos no Lambda
+<a name="access-control-resource-based"></a>
+
+Com as políticas de permissões baseadas em recursos, você pode conceder acesso às suas funções do Lambda a outras Contas da AWS, usuários, organizações e Serviços da AWS. Uma política baseada em recursos é um documento JSON que contém uma ou mais *instruções*. Cada instrução define o seguinte:
++ `Principal`: a entidade para a qual você deseja conceder permissões (outra AWS service (Serviço da AWS), um perfil ou usuário do IAM ou outra Conta da AWS)
++ `Action`: uma lista das ações de API que você deseja permitir ou negar para a entidade principal especificada
++ `Effect`: se você deseja permitir ou negar à entidade principal a capacidade de usar as ações de API escolhidas
++ `Resource`: a função, versão ou alias do Lambda à qual você deseja que a instrução se aplique (você também pode usar um caractere curinga para especificar todas as versões e aliases da sua função)
+
+Você também pode usar elementos opcionais, como `Sid` (um identificador de instrução) e `Condition` (condições lógicas para um controle de acesso mais detalhado). Para ver a lista completa dos elementos da política compatíveis, consulte a [Referência de elemento de política JSON do IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html) no *Guia do usuário do AWS Identity and Access Management*.
+
+## Adicionar permissões baseadas em recursos a uma função do Lambda
+<a name="access-control-resource-based-add"></a>
+
+Você pode adicionar permissões baseadas em recursos à sua função do Lambda usando dois métodos:
++ **Política JSON completa**: use o console do Lambda, AWS CLI ou a ação da API [PutResourcePolicy](https://docs.aws.amazon.com/lambda/latest/api/API_PutResourcePolicy.html) para adicionar um documento com a política JSON completa. Com uma política JSON completa, você pode usar a gama completa de [chaves de condição globais do IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html), adicionar várias instruções com várias entidades principais e criar instruções explícitas de `Deny`. O tamanho máximo para uma política JSON baseada em recursos é de 20 KB.
++ **Permissões individuais**: use o console ou a ação da API [AddPermission](https://docs.aws.amazon.com/lambda/latest/api/API_AddPermission.html) para adicionar instruções `Allow` únicas. As permissões individuais oferecem suporte somente a um conjunto limitado de chaves de condição (`aws:SourceArn`, `aws:SourceAccount` e `aws:PrincipalOrgID`).
+
+Recomendamos que você defina políticas JSON completas para adicionar permissões baseadas em recursos à sua função. A criação de uma política JSON completa oferece mais flexibilidade e controle detalhado sobre suas permissões.
+
+**Importante**  
+O uso de `put-resource-policy` substitui qualquer política existente baseada em recursos no recurso. Se o recurso já tiver as permissões definidas com `add-permission`, `put-resource-policy` as substituirá. Use `get-resource-policy` para recuperar a política existente antes de fazer alterações.
+
+### Permissões obrigatórias
+<a name="access-control-resource-based-permissions"></a>
+
+Para usar as ações de API `PutResourcePolicy`, `GetResourcePolicy` e `DeleteResourcePolicy`, você precisa das seguintes permissões do IAM:
+
+
+| Ação da API | Permissões obrigatórias | 
+| --- | --- | 
+| PutResourcePolicy | lambda:PutResourcePolicy, lambda:AddPermission, e lambda:RemovePermission | 
+| GetResourcePolicy | lambda:GetResourcePolicy e da lambda:GetPolicy | 
+| DeleteResourcePolicy | lambda:DeleteResourcePolicy e da lambda:RemovePermission | 
+
+------
+#### [ Console ]
+
+**Para criar uma política JSON completa baseada em recursos**
+
+1. Abra a [página Funções](https://console.aws.amazon.com/lambda/home#/functions) do console do Lambda.
+
+1. Selecione a função à qual você deseja conceder acesso e, em seguida, selecione a guia **Configuração**.
+
+1. Selecione **Permissões**.
+
+1. No painel **Instruções de política baseadas em recursos**, selecione **Editar**. Essa ação abre o editor de políticas JSON.
+
+1. Adicione instruções à política da sua função. Você pode selecionar ações de API, adicionar entidades principais de diferentes tipos (serviços, contas, perfis do IAM) e adicionar chaves de condição para controlar o acesso.
+
+1. Escolha **Salvar**.
+
+Você também pode editar a política baseada em recursos da sua função diretamente no painel **Política**.
+
+------
+#### [ AWS CLI ]
+
+**Para adicionar uma política JSON completa baseada em recursos**  
+Para adicionar uma política JSON completa à sua função, use o comando `put-resource-policy` da AWS CLI.
+
+O exemplo de comando a seguir adiciona uma política baseada em recursos à sua função usando uma política definida em um arquivo denominado `policy.json` em sua máquina local. Execute o comando a partir do diretório que contém esse arquivo. O `resource-arn` pode especificar uma versão ou alias da função ou você pode usar o ARN da função não qualificada para aplicar a política a toda a função.
+
+```
+aws lambda put-resource-policy --resource-arn arn:aws:lambda:{{us-east-2}}:{{123456789012}}:function:{{my-function}} \
+--policy file://policy.json
+```
+
+------
+#### [ Lambda APIs ]
+
+Para adicionar uma política de permissões JSON completa à sua função, use a ação da API [PutResourcePolicy](https://docs.aws.amazon.com/lambda/latest/api/API_PutResourcePolicy.html). Você também pode excluir a política de uma função usando a ação [DeleteResourcePolicy](https://docs.aws.amazon.com/lambda/latest/api/API_DeleteResourcePolicy.html) ou recuperar a política vinculada atualmente a uma função usando a ação [GetResourcePolicy](https://docs.aws.amazon.com/lambda/latest/api/API_GetResourcePolicy.html).
+
+Para adicionar permissões individuais à política de uma função, use a ação da API [AddPermission](https://docs.aws.amazon.com/lambda/latest/api/API_AddPermission.html).
+
+------
+
+## Como visualizar a política baseada em recursos de uma função
+<a name="access-control-resource-based-view"></a>
+
+------
+#### [ Console ]
+
+**Como visualizar a política baseada em recursos de uma função**
+
+1. Abra a [página Funções](https://console.aws.amazon.com/lambda/home#/functions) do console do Lambda.
+
+1. Escolha uma função.
+
+1. Escolha **Configuração** e, em seguida, escolha **Permissões**.
+
+1. Role para baixo até **Instruções de política baseadas em recursos** para ver a política.
+
+------
+#### [ AWS CLI ]
+
+Para exibir a política baseada em recursos de uma função, use o comando `get-resource-policy`. Você pode usar o ARN não qualificado da função ou especificar uma versão ou alias.
+
+```
+aws lambda get-resource-policy --resource-arn arn:aws:lambda:{{us-east-2}}:{{123456789012}}:function:{{my-function}}
+```
+
+Você também pode usar o comando `get-policy`:
+
+```
+aws lambda get-policy \
+  --function-name my-function \
+  --output text
+```
+
+------
+#### [ Lambda APIs ]
+
+Para recuperar a política baseada em recursos de uma função, use a ação da API [GetResourcePolicy](https://docs.aws.amazon.com/lambda/latest/api/API_GetResourcePolicy.html). Você pode usar o ARN não qualificado da função ou especificar um ARN da versão ou alias.
+
+Você também pode usar a ação da API [GetPolicy](https://docs.aws.amazon.com/lambda/latest/api/API_GetPolicy.html).
+
+------
+
+## Exclusão da política baseada em recursos de uma função
+<a name="access-control-resource-based-delete"></a>
+
+------
+#### [ Console ]
+
+**Para excluir a política baseada em recursos de uma função**
+
+1. Abra a [página Funções](https://console.aws.amazon.com/lambda/home#/functions) do console do Lambda.
+
+1. Selecione a função para a qual você deseja excluir a política de permissões.
+
+1. Selecione a guia **Configuração** e, em seguida, **Permissões**.
+
+1. No painel **Instruções de política baseadas em recursos**, selecione **Excluir**.
+
+------
+#### [ AWS CLI ]
+
+Para excluir a política da função, use o comando `delete-resource-policy` e especifique o ARN da função, versão ou alias do qual você deseja excluir a política.
+
+```
+aws lambda delete-resource-policy --resource-arn arn:aws:lambda:{{us-east-2}}:{{123456789012}}:function:{{my-function}}
+```
+
+Para remover instruções individuais, use `remove-permission`.
+
+```
+aws lambda remove-permission \
+  --function-name example \
+  --statement-id sns
+```
+
+------
+#### [ Lambda APIs ]
+
+Para excluir a política baseada em recursos vinculada a uma função, versão da função ou alias da função, use a ação da API [DeleteResourcePolicy](https://docs.aws.amazon.com/lambda/latest/api/API_DeleteResourcePolicy.html).
+
+Para remover instruções individuais de uma política, use a ação da API [RemovePermission](https://docs.aws.amazon.com/lambda/latest/api/API_RemovePermission.html).
+
+------
+
+## Atualização das políticas existentes
+<a name="access-control-resource-based-update"></a>
+
+Quando você atualiza as permissões atuais baseadas em recursos de uma função, o comportamento depende do método usado:
++ `put-resource-policy` / [PutResourcePolicy](https://docs.aws.amazon.com/lambda/latest/api/API_PutResourcePolicy.html): substitui toda a política existente. Todas as permissões individuais adicionadas anteriormente são substituídas.
++ `add-permission` / [AddPermission](https://docs.aws.amazon.com/lambda/latest/api/API_AddPermission.html): adiciona uma instrução à política atual sem substituí-la. Se você chamar `add-permission` depois de `put-resource-policy`, a nova instrução será vinculada à política JSON existente.
+
+Para evitar a substituição involuntária das permissões existentes durante o uso de `put-resource-policy`, primeiro recupere a política atual da sua função. O resultado `get-resource-policy` inclui um campo `RevisionId`.
+
+```
+aws lambda get-resource-policy --resource-arn arn:aws:lambda:{{us-east-2}}:{{123456789012}}:function:{{my-function}}
+```
+
+Ao vincular uma nova política, forneça o valor `RevisionId` com o parâmetro `--revision-id` para garantir que você esteja atualizando a versão mais recente. Se você fornecer um ID de revisão mais antigo, o Lambda não atualizará a política da função.
+
+```
+aws lambda put-resource-policy \
+  --resource-arn arn:aws:lambda:{{us-east-2}}:{{123456789012}}:function:{{my-function}} \
+  --policy file://policy.json \
+  --revision-id {{a1b2c3d4-5678-90ab-cdef-EXAMPLE11111}}
+```
+
+**nota**  
+As políticas atuais baseadas em recursos criadas com `AddPermission` continuam funcionando sem modificação. Nenhuma alteração no código da função é necessária para usar a nova API `PutResourcePolicy`.
+
+## Práticas recomendadas de segurança
+<a name="access-control-resource-based-security"></a>
+
+Com as políticas JSON baseadas em recursos, você pode seguir padrões de acesso com privilégios mínimos. Você também pode atender aos requisitos regulamentares para negações explícitas. Com políticas JSON completas, você pode:
++ Criar instruções `Deny` explícitas para bloquear entidades principais ou condições específicas.
++ Usar as condições organizacionais (`aws:PrincipalOrgID`, `aws:PrincipalOrgPaths`) para restringir o acesso às suas Organizações sem enumerar contas individuais.
++ Definir o escopo das permissões para contas ou ARNs de origens específicas usando toda a gama de chaves de condição globais do IAM.
+
+## Exemplos de políticas baseadas em recursos
+<a name="access-control-resource-based-examples"></a>
+
+**Example Concessão de permissão ao Amazon S3 com uma instrução de negação**  
+A política a seguir concede a todos os buckets do Amazon S3 em uma conta permissão para invocar uma função, exceto para um bucket que é explicitamente negado.  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "allow-s3",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "s3.amazonaws.com"
+            },
+            "Action": "lambda:InvokeFunction",
+            "Resource": "arn:aws:lambda:us-east-2:111122223333:function:my-function",
+            "Condition": {
+                "StringEquals": {
+                    "aws:SourceAccount": "111122223333"
+                }
+            }
+        },
+        {
+            "Sid": "deny-s3-bucket",
+            "Effect": "Deny",
+            "Principal": {
+                "Service": "s3.amazonaws.com"
+            },
+            "Action": "lambda:InvokeFunction",
+            "Resource": [
+                "arn:aws:lambda:us-east-2:111122223333:function:my-function",
+                "arn:aws:lambda:us-east-2:111122223333:function:my-function:*"
+            ],
+            "Condition": {
+                "ArnLike": {
+                    "aws:SourceArn": "arn:aws:s3:::amzn-s3-demo-bucket"
+                }
+            }
+        }
+    ]
+}
+```
+
+**Example Conceder permissão a contas em uma organização**  
+A política a seguir concede acesso de invocação a todas as Contas da AWS em uma organização.  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "org-access",
+            "Effect": "Allow",
+            "Action": "lambda:InvokeFunction",
+            "Principal": "*",
+            "Resource": "arn:aws:lambda:us-east-2:111122223333:function:my-function",
+            "Condition": {
+                "StringEquals": {
+                    "aws:PrincipalOrgID": "o-a1b2c3d4e5f"
+                }
+            }
+        }
+    ]
+}
+```
+
+**Example Conceder permissões a vários perfis do IAM com condições**  
+A política a seguir concede permissão a dois perfis do IAM para o uso da ação CreateAlias a partir de um endereço IP especificado.  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "allow-roles",
+            "Effect": "Allow",
+            "Action": "lambda:CreateAlias",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::444455556666:role/role-name",
+                    "arn:aws:iam::444455556666:role/role-name2"
+                ]
+            },
+            "Resource": "arn:aws:lambda:us-east-2:111122223333:function:my-function",
+            "Condition": {
+                "IpAddress": {
+                    "aws:SourceIp": "192.0.2.0"
+                }
+            }
+        }
+    ]
+}
+```
+
+**Example Negar acesso, a menos que o chamador faça parte de uma organização específica**  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "deny-access",
+            "Effect": "Deny",
+            "Action": "lambda:InvokeFunction",
+            "Principal": "*",
+            "Resource": "arn:aws:lambda:us-east-2:111122223333:function:my-function",
+            "Condition": {
+                "ForAllValues:StringNotLike": {
+                    "aws:PrincipalOrgPaths": [
+                        "o-a1b2c3d4e5/r-ab12/ou-ab12-11111111/*"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "allow-access",
+            "Effect": "Allow",
+            "Action": "lambda:InvokeFunction",
+            "Principal": "*",
+            "Resource": "arn:aws:lambda:us-east-2:111122223333:function:my-function",
+            "Condition": {
+                "ForAnyValue:StringLike": {
+                    "aws:PrincipalOrgPaths": [
+                        "o-a1b2c3d4e5/r-ab12/ou-ab12-11111111/*"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
+## Ações da API com suporte
+<a name="permissions-resource-api"></a>
+
+As seguintes ações de API do Lambda são compatíveis com as políticas baseadas em recursos:
++ [CreateAlias](https://docs.aws.amazon.com/lambda/latest/api/API_CreateAlias.html)
++ [DeleteAlias](https://docs.aws.amazon.com/lambda/latest/api/API_DeleteAlias.html)
++ [DeleteFunction](https://docs.aws.amazon.com/lambda/latest/api/API_DeleteFunction.html)
++ [DeleteFunctionConcurrency](https://docs.aws.amazon.com/lambda/latest/api/API_DeleteFunctionConcurrency.html)
++ [DeleteFunctionEventInvokeConfig](https://docs.aws.amazon.com/lambda/latest/api/API_DeleteFunctionEventInvokeConfig.html)
++ [DeleteProvisionedConcurrencyConfig](https://docs.aws.amazon.com/lambda/latest/api/API_DeleteProvisionedConcurrencyConfig.html)
++ [GetAlias](https://docs.aws.amazon.com/lambda/latest/api/API_GetAlias.html)
++ [GetFunction](https://docs.aws.amazon.com/lambda/latest/api/API_GetFunction.html)
++ [GetFunctionConcurrency](https://docs.aws.amazon.com/lambda/latest/api/API_GetFunctionConcurrency.html)
++ [GetFunctionConfiguration](https://docs.aws.amazon.com/lambda/latest/api/API_GetFunctionConfiguration.html)
++ [GetFunctionEventInvokeConfig](https://docs.aws.amazon.com/lambda/latest/api/API_GetFunctionEventInvokeConfig.html)
++ [GetPolicy](https://docs.aws.amazon.com/lambda/latest/api/API_GetPolicy.html)
++ [GetProvisionedConcurrencyConfig](https://docs.aws.amazon.com/lambda/latest/api/API_GetProvisionedConcurrencyConfig.html)
++ [Invocar](https://docs.aws.amazon.com/lambda/latest/api/API_Invoke.html)
++ [InvokeFunctionUrl](urls-auth.md) (somente permissão)
++ [ListAliases](https://docs.aws.amazon.com/lambda/latest/api/API_ListAliases.html)
++ [ListFunctionEventInvokeConfigs](https://docs.aws.amazon.com/lambda/latest/api/API_ListFunctionEventInvokeConfigs.html)
++ [ListProvisionedConcurrencyConfigs](https://docs.aws.amazon.com/lambda/latest/api/API_ListProvisionedConcurrencyConfigs.html)
++ [ListTags](https://docs.aws.amazon.com/lambda/latest/api/API_ListTags.html)
++ [ListVersionsByFunction](https://docs.aws.amazon.com/lambda/latest/api/API_ListVersionsByFunction.html)
++ [PublishVersion](https://docs.aws.amazon.com/lambda/latest/api/API_PublishVersion.html)
++ [PutFunctionConcurrency](https://docs.aws.amazon.com/lambda/latest/api/API_PutFunctionConcurrency.html)
++ [PutFunctionEventInvokeConfig](https://docs.aws.amazon.com/lambda/latest/api/API_PutFunctionEventInvokeConfig.html)
++ [PutProvisionedConcurrencyConfig](https://docs.aws.amazon.com/lambda/latest/api/API_PutProvisionedConcurrencyConfig.html)
++ [TagResource](https://docs.aws.amazon.com/lambda/latest/api/API_TagResource.html)
++ [UntagResource](https://docs.aws.amazon.com/lambda/latest/api/API_UntagResource.html)
++ [UpdateAlias](https://docs.aws.amazon.com/lambda/latest/api/API_UpdateAlias.html)
++ [UpdateFunctionCode](https://docs.aws.amazon.com/lambda/latest/api/API_UpdateFunctionCode.html)
++ [UpdateFunctionEventInvokeConfig](https://docs.aws.amazon.com/lambda/latest/api/API_UpdateFunctionEventInvokeConfig.html)

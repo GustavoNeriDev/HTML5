@@ -1,0 +1,130 @@
+# Como conectar endpoints da VPC de interface de entrada para o Lambda
+
+<a name="configuration-vpc-endpoints"></a>
+
+Se você usar a Amazon Virtual Private Cloud (Amazon VPC) para hospedar os recursos da AWS, poderá estabelecer uma conexão entre a VPC e o Lambda. Você pode usar essa conexão para invocar a função do Lambda sem passar pela Internet pública.
+
+Para estabelecer uma conexão privada entre a VPC e o Lambda, crie um [endpoint da VPC de interface](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html). Os endpoints de interface são desenvolvidos pelo [AWS PrivateLink](https://aws.amazon.com/privatelink). Com AWS PrivateLink, você pode acessar as APIs do Lambda de modo privado, sem um gateway da Internet, um dispositivo NAT, uma conexão VPN ou uma conexão do AWS Direct Connect. As instâncias na VPC não precisam de endereços IP públicos para a comunicação com APIs do Lambda. O tráfego de rede entre a VPC e o Lambda não sai da rede da AWS.
+
+Cada endpoint de interface é representado por uma ou mais [interfaces de rede elástica](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) nas sub-redes. Uma interface de rede fornece um endereço IP privado que serve como um ponto de entrada do tráfego para o Lambda.
+
+**Topics**
+
+- [Considerações para endpoints de interface do Lambda](#vpc-endpoint-considerations)
+- [Criar um endpoint de interface para o Lambda](#vpc-endpoint-create)
+- [Criar uma política de endpoint de interface para o Lambda](#vpc-endpoint-policy)
+
+## Considerações para endpoints de interface do Lambda
+
+<a name="vpc-endpoint-considerations"></a>
+
+Antes de configurar um endpoint de interface para o Lambda, analise o tópico [Interface endpoint properties and limitations](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations) no _Manual do usuário da Amazon VPC_.
+
+É possível chamar qualquer uma das operações de API do Lambda pela VPC. Por exemplo, você pode invocar a função do Lambda chamando a API `Invoke` de dentro da VPC. Para obter a lista completa de APIs do Lambda, consulte [Ações](https://docs.aws.amazon.com/lambda/latest/dg/API_Operations.html) na Referência da API do Lambda.
+
+`use1-az3` é uma região de capacidade limitada para funções da VPC do Lambda. Não se deve usar sub-redes nessa zona de disponibilidade com funções do Lambda, pois isso pode resultar em redução da redundância da zona em caso de interrupção.
+
+### Keep-alive para conexões persistentes
+
+<a name="vpc-endpoint-considerations-keepalive"></a>
+
+O Lambda limpa conexões ociosas ao longo do tempo, portanto, é necessário usar uma diretiva de keep-alive para manter conexões persistentes. A tentativa de reutilizar uma conexão ociosa ao invocar uma função resultará em um erro de conexão. Para manter sua conexão persistente, use a diretiva keep-alive associada ao runtime. Para obter um exemplo, consulte [Reutilizar Conexões com keep-alive em Node.js](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/node-reusing-connections.html) no _Guia do desenvolvedor do AWS SDK para JavaScript_.
+
+### Considerações sobre faturamento
+
+<a name="vpc-endpoint-considerations-billing"></a>
+
+Não há custo adicional para acessar uma função do Lambda por meio de um endpoint de interface. Para obter mais informações sobre o preço do Lambda, consulte [Preço do AWS Lambda](https://aws.amazon.com/lambda/pricing/).
+
+O preço padrão para o AWS PrivateLink aplica-se a endpoints de interface para o Lambda. Sua conta da AWS é cobrada por cada hora que um endpoint de interface é provisionado em cada zona de disponibilidade e pelos dados processados por meio do endpoint de interface. Para obter mais informações sobre preço do endpoint de interface, consulte [Preço do AWS PrivateLink](https://aws.amazon.com/privatelink/pricing/).
+
+### Considerações sobre emparelhamento de VPC
+
+<a name="vpc-endpoint-considerations-peering"></a>
+
+É possível conectar outras VPCs à VPC endpoints de interface usando o[Emparelhamento de VPC](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html). O emparelhamento de VPC é uma conexão de rede entre duas VPCs. É possível estabelecer uma conexão de emparelhamento entre suas próprias duas VPCs ou com uma VPC de outra conta da AWS. As VPCs também podem estar em duas regiões da AWS diferentes.
+
+O tráfego entre VPCs emparelhadas permanece na rede da AWS e não passa pela Internet pública. Depois que as VPCs estiverem emparelhadas, recursos como instâncias do Amazon Elastic Compute Cloud (Amazon EC2), instâncias do Amazon Relational Database Service (Amazon RDS) ou funções do Lambda habilitadas para VPC em ambas as VPCs podem acessar a API do Lambda por meio de endpoints de interface criados em uma das VPCs.
+
+## Criar um endpoint de interface para o Lambda
+
+<a name="vpc-endpoint-create"></a>
+
+Você pode criar um endpoint de interface para o Lambda usando o console da Amazon VPC ou a AWS Command Line Interface (AWS CLI). Para obter mais informações, consulte [Criar um endpoint de interface](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#create-interface-endpoint) no _Guia do usuário da Amazon VPC_.
+
+**Para criar um endpoint de interface para o Lambda (console)**
+
+1. Abra a [página Endpoints](https://console.aws.amazon.com/vpc/home?#Endpoints) no console da Amazon VPC.
+
+1. Escolha **Criar endpoint**.
+
+1. Em **Categoria de serviço**, verifique se a opção **Serviços da AWS** está selecionada.
+
+1. Em **Service Name (Nome do serviço)**, selecione **com.amazonaws.{{região}}.lambda**. Verifique se o **Type (Tipo)** é **Interface**.
+
+1. Escolher uma VPC e sub-redes
+
+1. Para habilitar o DNS privado para o endpoint de interface, marque a caixa de seleção **Enable DNS Name** (Habilitar nome de DNS). Recomendamos que você habilite nomes DNS privados para seus endpoints da VPC para Serviços da AWS. Isso garante que as solicitações que usam os endpoints de serviço público, como solicitações feitas por meio de um AWS SDK, cheguem ao seu endpoint da VPC.
+
+1. Em **Security group (Grupo de segurança)**, selecione um ou mais grupos de segurança.
+
+1. Escolha **Criar endpoint**.
+
+Para usar a opção de DNS privado, defina `enableDnsHostnames` e `enableDnsSupportattributes` da VPC. Para obter mais informações, consulte [Viewing and updating DNS support for your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating) no _Manual do usuário da Amazon VPC_. Se você habilitar o DNS privado para o endpoint de interface, poderá fazer solicitações de API para o Lambda usando seu nome DNS padrão para a região, por exemplo, `lambda.us-east-1.amazonaws.com`. Para obter mais endpoints de serviço, consulte [Endpoints e cotas de serviço](https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html) no _Referência geral da AWS_.
+
+Para mais informações, consulte [Acessar um serviço por um endpoint de interface](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#access-service-though-endpoint) no _Guia do usuário da Amazon VPC_.
+
+Para obter informações sobre como criar e configurar um endpoint usando o CloudFormation, consulte o recurso [AWS::EC2::VPCEndpoint](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html) no _Manual do usuário do AWS CloudFormation_.
+
+**Para criar um endpoint de interface para o Lambda (AWS CLI)**  
+Use o comando [create-vpc-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-vpc-endpoint.html) e especifique o ID da VPC, o tipo de endpoint da VPC (interface), o nome do serviço, as sub-redes que usam o endpoint e os grupos de segurança associados às interfaces de rede do endpoint. Por exemplo:
+
+```
+aws ec2 create-vpc-endpoint
+  --vpc-id {{vpc-ec43eb89}}
+  --vpc-endpoint-type Interface
+  --service-name com.amazonaws.us-east-1.lambda
+  --subnet-id subnet-abababab
+  --security-group-id {{sg-1a2b3c4d}}
+```
+
+## Criar uma política de endpoint de interface para o Lambda
+
+<a name="vpc-endpoint-policy"></a>
+
+Para controlar quem pode usar o endpoint de interface e quais funções do Lambda o usuário pode acessar, é possível anexar uma política ao endpoint. Essa política especifica as seguintes informações:
+
+- A entidade principal que pode realizar ações.
+- As ações que o principal pode executar.
+- Os recursos nos quais o principal pode executar ações.
+
+Para mais informações, consulte [Controlar o acesso a serviços com VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-access.html) no _Guia do usuário da Amazon VPC_.
+
+**Exemplo: política de endpoint de interface para ações do Lambda**  
+Veja a seguir um exemplo de uma política de endpoint para o Lambda. Quando anexada a um endpoint, essa política permite que o usuário `MyUser` invoque a função `my-function`.
+
+**nota**  
+Você precisa incluir o ARN das funções qualificada e não qualificada no recurso.
+
+```
+{
+   "Statement":[
+      {
+         "Principal":
+         {
+             "AWS": "arn:aws:iam::111122223333:user/MyUser"
+         },
+         "Effect":"Allow",
+         "Action":[
+            "lambda:InvokeFunction"
+         ],
+         "Resource": [
+               "arn:aws:lambda:us-east-2:123456789012:function:my-function",
+               "arn:aws:lambda:us-east-2:123456789012:function:my-function:*"
+            ]
+      }
+   ]
+}
+```
+
+Para dar à sua função acesso aos recursos em uma VPC que pertence a outra Conta da AWS, consulte [Conceder acesso a funções do Lambda para um recurso em uma Amazon VPC em outra conta](configuration-vpc-cross-account.md).

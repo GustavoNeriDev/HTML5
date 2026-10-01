@@ -1,0 +1,24 @@
+# Gerenciando permissões no AWS Lambda
+
+<a name="lambda-permissions"></a>
+
+É possível usar o AWS Identity and Access Management (IAM) para gerenciar permissões no AWS Lambda. Há duas categorias principais de permissões que você precisa considerar ao trabalhar com funções do Lambda:
+
+- Permissões que suas funções do Lambda precisam para executar ações da API e acessar outros recursos da AWS.
+- Permissões que outros usuários e entidades da AWS precisam para acessar suas funções do Lambda. Para obter mais informações, consulte [Conceder a outras entidades da AWS acesso às suas funções do Lambda](permissions-granting-access.md).
+
+As funções Lambda do geralmente precisam acessar outros recursos da AWS e realizar várias operações de API nesses recursos. Por exemplo, você pode ter uma função do Lambda que responda a um evento ao atualizar as entradas do banco de dados do Amazon DynamoDB. Nesse caso, sua função precisa de permissões para acessar o banco de dados, bem como permissões para colocar ou atualizar itens nesse banco de dados.
+
+Você define as permissões que sua função do Lambda precisa em um perfil do IAM especial chamado [perfil de execução](lambda-intro-execution-role.md). Nesse perfil, é possível anexar uma política que define cada permissão que sua função precisa para acessar outros recursos da AWS e ler de origens de eventos. Cada função do Lambda deve ter um perfil de execução. No mínimo, sua função de execução deve ter acesso ao Amazon CloudWatch porque as funções do Lambda são registradas no CloudWatch Logs por padrão. É possível anexar a [política gerenciada pela `AWSLambdaBasicExecutionRole`](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSLambdaBasicExecutionRole.html) ao seu perfil de execução para satisfazer esse requisito.
+
+Para conceder a outras Contas da AWS, organizações e serviços permissões para acessar seus recursos do Lambda, você tem algumas opções:
+
+- É possível usar [políticas baseadas em identidade](access-control-identity-based.md) para conceder a outros usuários acesso aos seus recursos do Lambda. As políticas baseadas em identidade podem se aplicar diretamente aos usuários ou a funções e grupos associados a um usuário.
+- É possível usar [políticas baseadas em recursos](access-control-resource-based.md) para conceder a outras contas e a Serviços da AWS permissões para acessar seus recursos do Lambda. Quando um usuário tenta acessar um recurso do Lambda, o Lambda considera as políticas baseadas em identidade e a política baseada em recursos do usuário. Quando um serviço da AWS, como o Amazon Simple Storage Service (Amazon S3), chama sua função do Lambda, o Lambda considera apenas a política baseada em recursos.
+- É possível usar um modelo de [controle de acesso por atributo (ABAC)](attribute-based-access-control.md) para controlar o acesso às suas funções do Lambda. Com o ABAC, você pode anexar tags a uma função do Lambda, transmiti-las em determinadas solicitações de API ou anexá-las à entidade principal do IAM que está fazendo a solicitação. Especificar as mesmas tags no elemento de condição de uma política do IAM para controlar o acesso à função.
+
+Na AWS, é prática recomendada conceder apenas as permissões necessárias para executar uma tarefa ([permissões de privilégio mínimo](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)). Para implementar isso no Lambda, recomendamos começar com uma [política gerenciada pela AWS](permissions-managed-policies.md). Use essas políticas gerenciadas no estado em que se encontram ou como um ponto de partida para escrever suas próprias políticas mais restritivas.
+
+Para ajudar você a ajustar suas permissões para acesso com privilégios mínimos, o Lambda fornece algumas condições adicionais que você pode incluir em suas políticas. Para obter mais informações, consulte [Ajustar as seções de Recursos e Condições das políticas](lambda-api-permissions-ref.md).
+
+Para obter mais informações sobre o IAM, consulte o _[Guia do usuário do IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)_.

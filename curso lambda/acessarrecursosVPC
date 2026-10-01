@@ -1,0 +1,513 @@
+
+
+# Conceder acesso a funções do Lambda para recursos em uma Amazon VPC
+<a name="configuration-vpc"></a>
+
+Com a Amazon Virtual Private Cloud (Amazon VPC), você pode criar redes privadas em sua Conta da AWS para hospedar recursos como instâncias do Amazon Elastic Compute Cloud (Amazon EC2), do Amazon Relational Database Service (Amazon RDS) e do Amazon ElastiCache. É possível dar à sua função do Lambda acesso a recursos hospedados em uma Amazon VPC ao anexar sua função à VPC por meio das sub-redes privadas que contêm os recursos. Siga as instruções nas seções a seguir para anexar uma função do Lambda a uma Amazon VPC usando o console Lambda, a AWS Command Line Interface (AWS CLI) ou AWS SAM.
+
+**nota**  
+Cada função do Lambda é executada dentro de uma VPC de propriedade e gerenciada pelo serviço do Lambda. Essas VPCs recebem manutenção automática do Lambda e não são visíveis para os clientes. Configurar sua função para acessar outros recursos da AWS em uma Amazon VPC não tem efeito na VPC gerenciada pelo Lambda na qual sua função é executada.
+
+**Topics**
++ [Permissões obrigatórias do IAM](#configuration-vpc-permissions)
++ [Como anexar funções do Lambda a uma Amazon VPC em sua Conta da AWS](#configuration-vpc-attaching)
++ [Acesso à Internet quando anexado a uma VPC](#configuration-vpc-internet-access)
++ [Suporte a IPv6](#configuration-vpc-ipv6)
++ [Práticas recomendadas para usar o Lambda com Amazon VPCs](#configuration-vpc-best-practice)
++ [Noções básicas de interfaces de rede elástica (ENIs) de hiperplano](#configuration-vpc-enis)
++ [Usar chaves de condição do IAM para configurações de VPC](#vpc-conditions)
++ [Tutoriais de VPC](#vpc-tutorials)
+
+## Permissões obrigatórias do IAM
+<a name="configuration-vpc-permissions"></a>
+
+Para anexar uma função do Lambda a uma Amazon VPC em sua Conta da AWS, o Lambda precisa de permissões para criar e gerenciar as interfaces de rede que usa para dar à sua função acesso aos recursos na VPC.
+
+As interfaces de rede que o Lambda cria são conhecidas como Hyperplane Elastic Network Interfaces, ou Hyperplane ENIs. Para saber mais sobre essas interfaces de rede, consulte [Noções básicas de interfaces de rede elástica (ENIs) de hiperplano](#configuration-vpc-enis).
+
+É possível dar à sua função as permissões necessárias anexando a política gerenciada [AWSLambdaVPCAccessExecutionRole](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSLambdaVPCAccessExecutionRole.html) da AWS ao perfil de execução da função. Quando você cria uma nova função no console do Lambda e a anexa a uma VPC, o Lambda adiciona automaticamente essa política de permissões para você.
+
+Se você preferir criar sua própria política de permissões do IAM, adicione todas as permissões a seguir e permita que eles acessem todos os recursos (`"Resource": "*"`):
++ ec2:CreateNetworkInterface
++ ec2:DescribeNetworkInterfaces
++ ec2:DescribeSubnets
++ ec2:DeleteNetworkInterface
++ ec2:AssignPrivateIpAddresses
++ ec2:UnassignPrivateIpAddresses
+
+Observe que o perfil da sua função só precisa dessas permissões para criar as interfaces de rede, não para invocar sua função. Você ainda poderá invocar a função com êxito quando ela estiver anexada a uma Amazon VPC, mesmo que você remova essas permissões do perfil de execução da função. 
+
+Para anexar sua função a uma VPC, o Lambda também precisa verificar os recursos de rede usando seu perfil de usuário do IAM. Seu perfil de usuário deve ter as seguintes permissões do IAM:
++ **ec2:DescribeSecurityGroups**
++ **ec2:DescribeSubnets**
++ **ec2:DescribeVpcs**
++ **ec2:GetSecurityGroupsForVpc**
+
+**nota**  
+As permissões do Amazon EC2 que você concede ao perfil de execução da função são usadas pelo serviço Lambda para anexar sua função a uma VPC. No entanto, essas permissões também são concedidas implicitamente ao código da sua função. Isso significa que seu código de função pode fazer essas chamadas de API do Amazon EC2. Para obter conselhos sobre como seguir as práticas recomendadas de segurança, consulte [Práticas recomendadas de segurança](#configuration-vpc-best-practice-security).
+
+## Como anexar funções do Lambda a uma Amazon VPC em sua Conta da AWS
+<a name="configuration-vpc-attaching"></a>
+
+Anexe sua função a uma Amazon VPC em sua Conta da AWS usando o console do Lambda, a AWS CLI ou o AWS SAM. Se você estiver usando a AWS CLI ou o AWS SAM, ou anexando uma função existente a uma VPC usando o console do Lambda, o perfil de execução da função deve ter as permissões necessárias listadas na seção anterior.
+
+As funções do Lambda não podem se conectar diretamente a uma VPC com a [locação de instâncias dedicadas](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html). Para se conectar a recursos em uma VPC dedicada, [emparelhe-a com uma segunda VPC com locação padrão](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-dedicated-vpc/).
+
+------
+#### [ Lambda console ]
+
+**Para anexar uma função a uma Amazon VPC ao criá-la**
+
+1. Abra a página [Funções](https://console.aws.amazon.com/lambda/home#/functions) do console do Lambda e escolha **Criar função**.
+
+1. Em **Basic information (Informações básicas)**, para **Function name (Nome da função)**, insira um nome para a função.
+
+1. Defina as configurações da função desta forma:
+
+   1. Expanda **Advanced settings (Configurações avançadas)**.
+
+   1. Selecione **Habilitar VPC** e, em seguida, escolha a VPC à qual deseja anexar a função.
+
+   1. (Opcional) Para permitir [tráfego IPv6 de saída](#configuration-vpc-ipv6), selecione **Permitir tráfego IPv6 para sub-redes de pilha dupla**.
+
+   1. Escolha as sub-redes e os grupos de segurança para os quais criar a interface de rede. Se você selecionou **Permitir tráfego IPv6 para sub-redes de pilha dupla**, todas as sub-redes selecionadas deverão ter um bloco CIDR IPv4 e um bloco CIDR IPv6.
+**nota**  
+Para acessar recursos privados, conecte a função às sub-redes privadas. Se sua função precisar de acesso à Internet, consulte [Habilitar o acesso à Internet para funções do Lambda conectadas à VPC](configuration-vpc-internet.md). Conectar uma função a uma sub-rede pública não dá a ela acesso à Internet nem a um endereço IP público. 
+
+1. Escolha a opção **Criar função**.
+
+**Para anexar uma função existente a uma Amazon VPC**
+
+1. Abra a [página Funções](https://console.aws.amazon.com/lambda/home#/functions) do console do Lambda e selecione a função.
+
+1. Escolha a guia **Configuração** e depois **VPC**.
+
+1. Escolha **Editar**.
+
+1. Em **VPC**, selecione a Amazon VPC à qual deseja anexar sua função.
+
+1. (Opcional) Para permitir [tráfego IPv6 de saída](#configuration-vpc-ipv6), selecione **Permitir tráfego IPv6 para sub-redes de pilha dupla**. 
+
+1. Escolha as sub-redes e os grupos de segurança para os quais criar a interface de rede. Se você selecionou **Permitir tráfego IPv6 para sub-redes de pilha dupla**, todas as sub-redes selecionadas deverão ter um bloco CIDR IPv4 e um bloco CIDR IPv6.
+**nota**  
+Para acessar recursos privados, conecte a função às sub-redes privadas. Se sua função precisar de acesso à Internet, consulte [Habilitar o acesso à Internet para funções do Lambda conectadas à VPC](configuration-vpc-internet.md). Conectar uma função a uma sub-rede pública não dá a ela acesso à Internet nem a um endereço IP público. 
+
+1. Escolha **Salvar**.
+
+------
+#### [ AWS CLI ]
+
+**Para anexar uma função a uma Amazon VPC ao criá-la**
++ Para criar uma função do Lambda e anexá-la a uma VPC, execute este comando da CLI `create-function`.
+
+  ```
+  aws lambda create-function --function-name {{my-function}} \
+  --runtime {{nodejs24.x}} --handler {{index.js}} --zip-file {{fileb://function.zip}} \
+  --role {{arn:aws:iam::123456789012:role/lambda-role}} \
+  --vpc-config Ipv6AllowedForDualStack={{true}},SubnetIds={{subnet-071f712345678e7c8}},{{subnet-07fd123456788a036}},SecurityGroupIds={{sg-085912345678492fb}}
+  ```
+
+  Especifique suas próprias sub-redes e grupos de segurança e defina `Ipv6AllowedForDualStack` como `true` ou `false` de acordo com seu caso de uso.
+
+**Para anexar uma função existente a uma Amazon VPC**
++ Para anexar uma função existente a uma VPC, execute este comando da CLI `update-function-configuration`.
+
+  ```
+  aws lambda update-function-configuration --function-name {{my-function}} \
+  --vpc-config Ipv6AllowedForDualStack={{true}}, SubnetIds={{subnet-071f712345678e7c8}},{{subnet-07fd123456788a036}},SecurityGroupIds={{sg-085912345678492fb}}
+  ```
+
+**Para desanexar sua função de uma VPC**
++ Para desanexar a função de uma VPC, execute este comando da CLI `update-function-configuration` com uma lista vazia de sub-redes e grupos de segurança da VPC.
+
+  ```
+  aws lambda update-function-configuration --function-name {{my-function}} \
+  --vpc-config SubnetIds=[],SecurityGroupIds=[]
+  ```
+
+------
+#### [ AWS SAM ]
+
+**Para anexar sua função a uma VPC**
++ Para anexar uma função do Lambda a uma Amazon VPC, adicione a propriedade `VpcConfig` à sua definição de função, conforme mostrado no modelo de exemplo a seguir. Para obter mais informações sobre essa propriedade, consulte [AWS::Lambda::Function VpcConfig](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-function-vpcconfig.html) no *CloudFormation User Guide* (a propriedade AWS SAM `VpcConfig` é passada diretamente para a propriedade `VpcConfig` de um recurso CloudFormation `AWS::Lambda::Function`).
+
+  ```
+  AWSTemplateFormatVersion: '2010-09-09'
+  Transform: AWS::Serverless-2016-10-31
+  
+  Resources:
+    MyFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: ./lambda_function/
+        Handler: lambda_function.handler
+        Runtime: python3.12
+        VpcConfig:
+          SecurityGroupIds:
+            - !Ref MySecurityGroup
+          SubnetIds:
+            - !Ref MySubnet1
+            - !Ref MySubnet2
+        Policies:
+          - AWSLambdaVPCAccessExecutionRole
+  
+    MySecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Security group for Lambda function
+        VpcId: !Ref MyVPC
+  
+    MySubnet1:
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref MyVPC
+        CidrBlock: 10.0.1.0/24
+  
+    MySubnet2:
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref MyVPC
+        CidrBlock: 10.0.2.0/24
+  
+    MyVPC:
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: 10.0.0.0/16
+  ```
+
+  Para obter mais informações sobre como configurar sua VPC no AWS SAM, consulte [AWS::EC2::VPC](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html) no *Guia do usuário do CloudFormation*.
+
+------
+
+## Acesso à Internet quando anexado a uma VPC
+<a name="configuration-vpc-internet-access"></a>
+
+Por padrão, as funções do Lambda têm acesso à Internet pública. Quando você anexar sua função a uma VPC, ela só poderá acessar os recursos disponíveis nessa VPC. Para conceder acesso à Internet para a função, também é necessário configurar a VPC para ter acesso à Internet. Para saber mais, consulte [Habilitar o acesso à Internet para funções do Lambda conectadas à VPC](configuration-vpc-internet.md).
+
+## Suporte a IPv6
+<a name="configuration-vpc-ipv6"></a>
+
+Sua função pode se conectar a recursos em sub-redes de VPC de pilha dupla via IPv6. Esta opção é desativada por padrão. Para permitir o tráfego IPv6 de saída, use o console ou a opção `--vpc-config Ipv6AllowedForDualStack=true` com o comando [create-function](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/create-function.html) ou [update-function-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/update-function-configuration.html).
+
+**nota**  
+Para permitir o tráfego IPv6 de saída em uma VPC, todas as sub-redes conectadas à função devem ser sub-redes de pilha dupla. O Lambda não é compatível com conexões IPv6 de saída para sub-redes apenas IPv6 em uma VPC ou conexões IPv6 de saída para funções não conectadas a uma VPC.
+
+É possível atualizar seu código de função para se conectar explicitamente a recursos da sub-rede via IPv6. O exemplo em Python a seguir abre um soquete e se conecta a um servidor IPv6.
+
+**Example — Conectar ao servidor IPv6**  
+
+```
+def connect_to_server(event, context):
+    server_address = event['host']
+    server_port = event['port']
+    message = event['message']
+    run_connect_to_server(server_address, server_port, message)
+
+def run_connect_to_server(server_address, server_port, message):
+    sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM, 0)
+    try:
+        # Send data
+        sock.connect((server_address, int(server_port), 0, 0))
+        sock.sendall(message.encode())
+        BUFF_SIZE = 4096
+        data = b''
+        while True:
+            segment = sock.recv(BUFF_SIZE)
+            data += segment
+            # Either 0 or end of data
+            if len(segment) < BUFF_SIZE:
+                break
+        return data
+    finally:
+        sock.close()
+```
+
+## Práticas recomendadas para usar o Lambda com Amazon VPCs
+<a name="configuration-vpc-best-practice"></a>
+
+Para garantir que sua configuração de VPC da Lambda atenda às diretrizes de práticas recomendadas, siga os conselhos nas seções a seguir.
+
+### Práticas recomendadas de segurança
+<a name="configuration-vpc-best-practice-security"></a>
+
+Para anexar sua função do Lambda a uma VPC, você precisa conceder ao perfil de execução da função várias permissões do Amazon EC2. Essas permissões são necessárias para criar as interfaces de rede que sua função usa para acessar os recursos na VPC. No entanto, essas permissões também são concedidas implicitamente ao código da sua função. Isso significa que seu código de função tem permissão para fazer essas chamadas de API do Amazon EC2.
+
+Para seguir o princípio do acesso com privilégios mínimos, adicione uma política de negação, como o exemplo a seguir, ao perfil de execução da sua função. Essa política impede que seu código de função faça chamadas para APIs do Amazon EC2 e, ao mesmo tempo, permite que o serviço do Lambda gerencie recursos de VPC em seu nome. A política usa a chave de condição `lambda:SourceFunctionArn`, que apenas se aplica a chamadas de API feitas pelo código da função durante a execução. Para obter mais informações, consulte [Usar o ARN da função de origem para controlar o comportamento de acesso da função](permissions-source-function-arn.md).
+
+------
+#### [ JSON ]
+
+****  
+
+```
+{
+    "Version":"2012-10-17",		 	 	 
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Action": [ 
+                 "ec2:CreateNetworkInterface",
+                 "ec2:DeleteNetworkInterface",
+                 "ec2:DescribeNetworkInterfaces",
+                 "ec2:DescribeSubnets",
+                 "ec2:DetachNetworkInterface",
+                 "ec2:AssignPrivateIpAddresses",
+                 "ec2:UnassignPrivateIpAddresses"
+            ],
+            "Resource": [ "*" ],
+            "Condition": {
+                "ArnEquals": {
+                    "lambda:SourceFunctionArn": [
+                        "arn:aws:lambda:us-west-2:123456789012:function:my_function"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
+------
+
+A AWS fornece *[grupos de segurança](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)* e *[listas de controle de acesso (ACL) de rede](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html)* para aumentar a segurança em sua VPC. Os grupos de segurança controlam o tráfego de entrada e de saída para seus recursos e as Network ACLs controlam o tráfego de entrada e de saída de suas sub-redes. Os grupos de segurança fornecem controle de acesso suficiente para a maioria das sub-redes. É possível usar as ACLs de rede se desejar uma camada adicional de segurança para a VPC. Para obter diretrizes gerais sobre as práticas recomendadas de segurança ao usar Amazon VPCs, consulte [Melhores práticas de segurança para a sua VPC](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-best-practices.html) no *Guia do usuário do Amazon Virtual Private Cloud*.
+
+### Práticas recomendadas de performance
+<a name="configuration-vpc-best-practice-performance"></a>
+
+Quando você anexa sua função a uma VPC, o Lambda verifica se há um recurso de rede disponível (ENI de hiperplano) que ela possa usar para se conectar. Os ENIs de hiperplano estão associados a uma combinação específica de grupos de segurança e sub-redes da VPC. Se você já anexou uma função a uma VPC, especificar as mesmas sub-redes e grupos de segurança ao anexar outra função significa que o Lambda pode compartilhar os recursos de rede e evitar a necessidade de criar um novo ENI de hiperplano. Para obter mais informações sobre ENIs de hiperplano e seu ciclo de vida, consulte [Noções básicas de interfaces de rede elástica (ENIs) de hiperplano](#configuration-vpc-enis).
+
+## Noções básicas de interfaces de rede elástica (ENIs) de hiperplano
+<a name="configuration-vpc-enis"></a>
+
+Uma ENI de hiperplano é um recurso gerenciado que atua como uma interface de rede entre sua função do Lambda e os recursos aos quais você deseja que sua função se conecte. O serviço do Lambda cria e gerencia essas ENIs automaticamente quando você anexa sua função a uma VPC.
+
+As ENIs de hiperplano não são diretamente visíveis para você e você não precisa configurar ou gerenciá-las. No entanto, saber como elas funcionam pode ajudar você a entender o comportamento da sua função ao anexá-la a uma VPC.
+
+Na primeira vez que você associa uma função a uma VPC usando uma combinação específica de sub-rede e grupo de segurança, o Lambda cria uma ENI de hiperplano. Outras funções da sua conta que usam a mesma combinação de sub-rede e grupo de segurança também podem usar essa ENI. Sempre que possível, o Lambda reutiliza ENIs existentes para otimizar a utilização de recursos e minimizar a criação de novas ENIs. Porém, cada ENI de hiperplano comporta até 65.000 conexões/portas. Se o número de conexões exceder esse limite, o Lambda escalará o número de ENIs automaticamente com base no tráfego de rede e nos requisitos de simultaneidade.
+
+Para novas funções, enquanto o Lambda está criando uma ENI de hiperplano, sua função permanece no estado Pendente e você não pode invocá-la. Sua função fará a transição para o estado ativo somente quando a ENI de hiperplano estiver pronta, o que pode levar vários minutos. Para funções existentes, não é possível executar operações adicionais direcionadas à função, como criar versões ou atualizar o código da função, mas é possível continuar invocando versões anteriores da função.
+
+Como parte do gerenciamento do ciclo de vida da ENI, o Lambda pode excluir e recriar ENIs para fazer o balanceamento da carga do tráfego de rede entre ENIs ou resolver problemas detectados nas verificações de integridade da ENI. Além disso, se uma função do Lambda permanecer ociosa por 14 dias, o Lambda recuperará todas as ENIs de hiperplano não utilizadas e definirá o estado da função como `Inactive`. A próxima tentativa de invocação falha e a função entra novamente no estado pendente até que o Lambda conclua a criação ou alocação de uma ENI de hiperplano. Convém que o seu projeto não dependa da persistência de ENIs.
+
+Quando você atualiza uma função para remover sua configuração de VPC, o Lambda demora até 20 minutos para excluir a ENI de hiperplano anexada. O Lambda só exclui a ENI se nenhuma outra função (ou versão de função publicada) estiver usando essa ENI de hiperplano. 
+
+O Lambda depende de permissões na [função de execução](lambda-intro-execution-role.md) da função para excluir a ENI de hiperplano. Se você excluir a função de execução antes que o Lambda exclua a ENI de hiperplano, o Lambda não poderá excluir a ENI de hiperplano. É possível executar a exclusão manualmente.
+
+## Usar chaves de condição do IAM para configurações de VPC
+<a name="vpc-conditions"></a>
+
+É possível usar chaves de condição específicas do Lambda para configurações de VPC a fim de fornecer controles de permissão adicionais para as funções do Lambda. Por exemplo, você pode exigir que todas as funções em sua organização estejam conectadas a uma VPC. Também é possível especificar as sub-redes e os grupos de segurança que os usuários da função podem e não podem usar.
+
+O Lambda oferece suporte às seguintes chaves de condição em políticas do IAM:
++ **lambda:VpcIds**: permitir ou negar uma ou mais VPCs.
++ **lambda:SubnetIds**: permitir ou negar uma ou mais sub-redes.
++ **lambda:SecurityGroupIds**: permitir ou negar um ou mais grupos de segurança.
+
+As operações de API [CreateFunction](https://docs.aws.amazon.com/lambda/latest/api/API_CreateFunction.html) e [UpdateFunctionConfiguration](https://docs.aws.amazon.com/lambda/latest/api/API_UpdateFunctionConfiguration.html) do Lambda oferecem suporte a essas chaves de condição. Para obter mais informações sobre o uso de chaves de condição em políticas do IAM, consulte[Elementos de política JSON do: condição](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html)no*IAM User Guide*.
+
+**dica**  
+Se a função já incluir uma configuração de VPC de uma solicitação de API anterior, você poderá enviar uma solicitação `UpdateFunctionConfiguration` sem a configuração da VPC.
+
+### Políticas de exemplo com chaves de condição para configurações de VPC
+<a name="vpc-condition-examples"></a>
+
+Os exemplos a seguir demonstram como usar chaves de condição para configurações de VPC. Depois de criar uma instrução de política com as restrições desejadas, acrescente a instrução de política para o usuário ou a função de destino.
+
+#### Os usuários devem implantar somente funções conectadas à VPC
+<a name="vpc-condition-example-1"></a>
+
+Para garantir que todos os usuários implantem somente funções conectadas à VPC, você pode negar operações de criação e de atualização de funções que não incluam um ID de VPC válido. 
+
+Observe que o ID da VPC não é um parâmetro de entrada para a solicitação `CreateFunction` ou `UpdateFunctionConfiguration`. O Lambda recupera o valor do ID da VPC com base nos parâmetros da sub-rede e do grupo de segurança.
+
+------
+#### [ JSON ]
+
+****  
+
+```
+{
+  "Version":"2012-10-17",		 	 	 
+  "Statement": [
+    {
+      "Sid": "EnforceVPCFunction",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Deny",
+      "Resource": "*",
+      "Condition": {
+        "Null": {
+           "lambda:VpcIds": "true"
+        }
+      }
+    }
+  ]
+}
+```
+
+------
+
+#### Negar acesso de usuários a VPCs, sub-redes ou grupos de segurança específicos
+<a name="vpc-condition-example-2"></a>
+
+Para negar acesso de usuários a VPCs específicas, use `StringEquals` para verificar o valor da condição `lambda:VpcIds`. O exemplo a seguir nega aos usuários acesso à `vpc-1` e à `vpc-2`.
+
+------
+#### [ JSON ]
+
+****  
+
+```
+{
+    "Version":"2012-10-17",		 	 	 
+    "Statement": [
+        {
+            "Sid": "EnforceOutOfVPC",
+            "Action": [
+                "lambda:CreateFunction",
+                "lambda:UpdateFunctionConfiguration"
+            ],
+            "Effect": "Deny",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "lambda:VpcIds": [
+                        "vpc-1",
+                        "vpc-2"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
+------
+
+Para negar acesso de usuários a sub-redes específicas, use `StringEquals` para verificar o valor da condição `lambda:SubnetIds`. O exemplo a seguir nega aos usuários acesso à `subnet-1` e à `subnet-2`.
+
+```
+{
+      "Sid": "EnforceOutOfSubnet",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Deny",
+      "Resource": "*",
+      "Condition": {
+        "ForAnyValue:StringEquals": {
+            "lambda:SubnetIds": ["subnet-1", "subnet-2"]
+        }
+      }
+    }
+```
+
+Para negar acesso de usuários a grupos de segurança específicos, use `StringEquals` para verificar o valor da condição `lambda:SecurityGroupIds`. O exemplo a seguir nega aos usuários acesso à `sg-1` e à `sg-2`.
+
+```
+{
+      "Sid": "EnforceOutOfSecurityGroups",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Deny",
+      "Resource": "*",
+      "Condition": {
+        "ForAnyValue:StringEquals": {
+            "lambda:SecurityGroupIds": ["sg-1", "sg-2"]
+        }
+      }
+    }
+  ]
+}
+```
+
+#### Permitir que os usuários criem e atualizem funções com configurações de VPC específicas
+<a name="vpc-condition-example-3"></a>
+
+Para permitir que os usuários acessem VPCs específicas, use `StringEquals` para verificar o valor da condição `lambda:VpcIds`. O exemplo a seguir dá aos usuários permissão para acessar `vpc-1` e `vpc-2`.
+
+------
+#### [ JSON ]
+
+****  
+
+```
+{
+    "Version":"2012-10-17",		 	 	 
+    "Statement": [
+        {
+            "Sid": "EnforceStayInSpecificVpc",
+            "Action": [
+                "lambda:CreateFunction",
+                "lambda:UpdateFunctionConfiguration"
+            ],
+            "Effect": "Allow",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "lambda:VpcIds": [
+                        "vpc-1",
+                        "vpc-2"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
+------
+
+Para permitir que os usuários acessem sub-redes específicas, use `StringEquals` para verificar o valor da condição `lambda:SubnetIds`. O exemplo a seguir dá aos usuários permissão para acessar `subnet-1` e `subnet-2`.
+
+```
+{
+      "Sid": "EnforceStayInSpecificSubnets",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": {
+        "ForAllValues:StringEquals": {
+            "lambda:SubnetIds": ["subnet-1", "subnet-2"]
+        }
+      }
+    }
+```
+
+Para permitir que os usuários acessem grupos de segurança específicos, use `StringEquals` para verificar o valor da condição `lambda:SecurityGroupIds`. O exemplo a seguir dá aos usuários permissão para acessar `sg-1` e `sg-2`.
+
+```
+{
+      "Sid": "EnforceStayInSpecificSecurityGroup",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": {
+        "ForAllValues:StringEquals": {
+            "lambda:SecurityGroupIds": ["sg-1", "sg-2"]
+        }
+      }
+    }
+  ]
+}
+```
+
+## Tutoriais de VPC
+<a name="vpc-tutorials"></a>
+
+Nos tutoriais a seguir, você conecta uma função do Lambda a recursos na VPC.
++ [Tutorial: usar uma função do Lambda para acessar o Amazon RDS em uma Amazon VPC](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-lambda-tutorial.html)
++ [Tutorial: configurar uma função do Lambda para acessar o Amazon ElastiCache em uma Amazon VPC](https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/LambdaRedis.html)
+
+Para conectar sua função aos recursos em uma VPC que pertence a outra Conta da AWS, consulte [Conceder acesso a funções do Lambda para um recurso em uma Amazon VPC em outra conta](configuration-vpc-cross-account.md).
