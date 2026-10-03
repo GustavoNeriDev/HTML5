@@ -1,0 +1,77 @@
+/*
+permite registrar uma function para ser executaada quando o objeto for coletado pelo gargabe colletor
+
+ex:
+const registro = new FinalizationRegistry((nome) => {
+    console.log(`Objeto ${nome} foi coletado`);
+});
+//depois
+const usuario = {
+    nome: "Gustavo"
+};
+
+registro.register(usuario, "Gustavo");
+
+ideia:
+Objeto criado
+      ↓
+WeakRef aponta para ele
+      ↓
+Objeto deixa de ser alcançável
+      ↓
+Garbage Collector pode coletá-lo
+      ↓
+FinalizationRegistry pode ser notificado
+
+
+// função  callback
+(valor) => {
+    console.log(valor);
+}
+//é usada  pelo finalization quando o JS informar que um  objeto registrado foi finalizado
+
+//registrando um objeto 
+registro.register(objeto, valor);
+//segundo argumento é um valor que será recebido quando o objeto é finalizado
+//visualizando processo
+const usuario = {
+    nome: "Gustavo"
+};
+
+const registro = new FinalizationRegistry((nome) => {
+    console.log(`Objeto finalizado: ${nome}`);
+});
+
+registro.register(usuario, "Gustavo");
+
+//conceitualmente 
+usuario → null
+
+Weak/Registry
+     ↓
+   objeto
+
+   //se o garbage colletor coletar o objeto, o finalization pode executar o callback
+//não pode fazer isso, porque null não vai significar que o garbage executa naquele momento
+   usuario = null;
+
+// esperar imediatamente:
+console.log("objeto coletado");
+
+/////////////// Weakref X Finalization 
+//weakref
+const referencia = new WeakRef(usuario);
+
+const objeto = referencia.deref();
+//consegue tentar acessar o objeto
+
+finalization
+registro.register(usuario, "Gustavo");
+//registra uma ação que pode ser executada depois que o objeto for coletado
+
+FinalizationRegistry é um recurso avançado e específico, usado principalmente em cenários de gerenciamento de recursos, caches e bibliotecas que precisam observar a coleta de objetos. Em aplicações comuns, você normalmente não depende dele para controlar regras de negócio, justamente porque não há garantia de quando o Garbage Collector fará a coleta.
+
+💼 Uso profissional
+
+Esse conhecimento aparece principalmente em bibliotecas, caches e gerenciamento avançado de memória. Você provavelmente usará WeakMap/WeakSet com muito mais frequência que WeakRef e FinalizationRegistry. Esses últimos são recursos especializados.
+*/

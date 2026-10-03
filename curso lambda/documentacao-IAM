@@ -1,0 +1,126 @@
+# Usar o AWS Identity and Access Management Access Analyzer
+
+<a name="what-is-access-analyzer"></a>
+
+AWS Identity and Access Management Access Analyzer fornece as seguintes capacidades:
+
+- Os analisadores de acessos externos do IAM Access Analyzer ajudam a [identificar os recursos](#what-is-access-analyzer-resource-identification) da organização e as contas que são compartilhadas com uma entidade externa.
+- Os analisadores de acesso interno do IAM Access Analyzer ajudam a [identificar acesso interno a recursos selecionados](#what-is-access-analyzer-internal-access-analysis) da sua organização e das suas contas.
+- Os analisadores de acessos não utilizados do IAM Access Analyzer ajudam a [identificar os acessos não utilizados](#what-is-access-analyzer-unused-access-analysis) em sua organização e contas.
+- O IAM Access Analyzer [valida políticas do IAM](#what-is-access-analyzer-policy-validation) em relação à gramática e a práticas recomendadas da AWS.
+- As verificações de política personalizadas do IAM Access Analyzer ajudam a [validar as políticas do IAM em relação aos padrões de segurança especificados](#what-is-access-analyzer-policy-checks).
+- O IAM Access Analyzer [gera políticas do IAM](#what-is-access-analyzer-policy-generation) com base na atividade de acesso dos logs do AWS CloudTrail.
+
+## Identificar recursos compartilhados com uma entidade externa
+
+<a name="what-is-access-analyzer-resource-identification"></a>
+
+O IAM Access Analyzer ajuda você a identificar os recursos em sua organização e suas contas, como buckets do Amazon S3 ou funções do IAM, que são compartilhados com uma entidade externa. Isso permite identificar o acesso não intencional aos seus recursos e dados, o que é um risco de segurança. O IAM Access Analyzer identifica recursos compartilhados com entidades externas usando raciocínio baseado em lógica para analisar as políticas baseadas em recurso no ambiente da AWS. Para cada instância de um recurso compartilhado fora de sua conta, o IAM Access Analyzer gera uma descoberta. As descobertas incluem informações sobre o acesso e a entidade externa a que é concedido. Elas podem ser analisadas para determinar se o acesso é intencional e seguro ou se não é intencional e representa um risco à segurança. Além de ajudar você a identificar recursos compartilhados com uma entidade externa, você pode usar as descobertas do IAM Access Analyzer para pré-visualizar como sua política afeta o acesso público e entre contas ao seu recurso antes de implantar as permissões do recurso. As descobertas são organizadas em um painel de resumo visual. O painel destaca a divisão entre as descobertas de acesso público e entre contas e fornece um detalhamento das descobertas por tipo de recurso. Para saber mais sobre o painel, consulte [Visualizar o painel de descobertas do IAM Access Analyzer](access-analyzer-dashboard.md).
+
+**nota**  
+Uma entidade externa pode ser outra conta da AWS, um usuário-raiz, um usuário ou um perfil do IAM, um usuário federado, um usuário anônimo ou outra entidade que você possa usar para criar um filtro. Para obter mais informações, consulte [Elementos da política JSON da AWS: principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
+
+Para obter instruções sobre como começar, consulte [Criação de um analisador de acessos externos do IAM Access Analyzer](access-analyzer-create-external.md). Depois de criar um analisador, você pode [Gerenciamento de um analisador de acessos externos do IAM Access Analyzer](access-analyzer-manage-external.md).
+
+Ao habilitar o IAM Access Analyzer, você cria um analisador para toda a sua organização ou sua conta. A organização ou a conta escolhida é conhecida como a zona de confiança do analisador. O analisador monitora todos os [recursos compatíveis](access-analyzer-resources.md) dentro da sua zona de confiança. Qualquer acesso aos recursos feito por entidades que estão dentro da sua zona de confiança é considerado confiável. Depois de habilitado, o IAM Access Analyzer analisará as políticas aplicadas a todos os recursos compatíveis da zona de confiança. Depois da primeira análise, o IAM Access Analyzer analisará essas políticas periodicamente. Se você adicionar uma nova política ou alterar uma política existente, o IAM Access Analyzer analisará a política nova ou atualizada em cerca de 30 minutos.
+
+Ao analisar as políticas, se o IAM Access Analyzer identificar uma que conceda acesso a uma entidade principal externa que não esteja dentro da sua zona de confiança, ele gerará uma descoberta. Cada descoberta inclui detalhes sobre o recurso, sobre a entidade externa com acesso a ele e sobre as permissões concedidas para que você possa tomar as medidas apropriadas. É possível visualizar os detalhes incluídos na descoberta para determinar se o acesso ao recurso é intencional ou um risco potencial que deve ser resolvido. Quando você adiciona uma política a um recurso ou atualiza uma política existente, o IAM Access Analyzer analisa a política. O IAM Access Analyzer também analisa todas as políticas baseadas em recurso periodicamente.
+
+Em raras ocasiões sob determinadas condições, o IAM Access Analyzer não recebe notificação sobre uma política adicionada ou atualizada, o que pode causar atrasos nas descobertas geradas. O IAM Access Analyzer poderá levar até seis horas para gerar ou resolver descobertas se você criar ou excluir um ponto de acesso multirregional associado a um bucket do Amazon S3 ou atualizar a política para o ponto de acesso multirregiões. Além disso, se houver um problema de entrega com a entrega do log do AWS CloudTrail ou alterações de restrições da política de controle de recursos (RCP), a alteração da política não acionará uma nova verificação do recurso relatado na descoberta. Quando isso acontece, o IAM Access Analyzer analisa a política nova ou atualizada durante a próxima verificação periódica, que ocorre em até 24 horas. Se você desejar confirmar que uma alteração feita em uma política resolve um problema de acesso relatado em uma descoberta, verifique novamente o recurso relatado em uma descoberta usando o link **Verificar novamente** na página de detalhes **Descobertas** ou usando a operação [`StartResourceScan`](https://docs.aws.amazon.com/access-analyzer/latest/APIReference/API_StartResourceScan.html) da API do IAM Access Analyzer. Para saber mais, consulte [Resolver descobertas do IAM Access Analyzer](access-analyzer-findings-remediate.md).
+
+**Importante**  
+Para acesso externo, o IAM Access Analyzer analisa somente políticas aplicadas a recursos na mesma região da AWS em que está habilitado. Para monitorar todos os recursos do seu ambiente da AWS, é necessário criar um analisador de acesso externo para habilitar o IAM Access Analyzer em cada região em que você está usando recursos da AWS compatíveis.  
+Para acessos não utilizados, as descobertas do analisador não mudam com base na região. Não é necessário criar um analisador de acesso sem uso em cada região em que você tem recursos.
+
+O IAM Access Analyzer analisa acesso externo aos seguintes tipos de recursos:
+
+- [Buckets do Amazon Simple Storage Service](access-analyzer-resources.md#access-analyzer-s3)
+- [Buckets de diretório do Amazon Simple Storage Service](access-analyzer-resources.md#access-analyzer-s3-directory)
+- [AWS Identity and Access ManagementFunções do para o](access-analyzer-resources.md#access-analyzer-iam-role)
+- [AWS Key Management ServiceChaves do](access-analyzer-resources.md#access-analyzer-kms-key)
+- [AWS LambdaFunções e camadas do](access-analyzer-resources.md#access-analyzer-lambda)
+- [Filas do Amazon Simple Queue Service](access-analyzer-resources.md#access-analyzer-sqs)
+- [AWS Secrets Managersegredos do](access-analyzer-resources.md#access-analyzer-secrets-manager)
+- [Tópicos do Amazon Simple Notification Service](access-analyzer-resources.md#access-analyzer-sns)
+- [Snapshots de volume do Amazon Elastic Block Store](access-analyzer-resources.md#access-analyzer-ebs)
+- [Snapshots de banco de dados do Amazon Relational Database Service](access-analyzer-resources.md#access-analyzer-rds-db)
+- [Snapshots de cluster de banco de dados do Amazon Relational Database Service](access-analyzer-resources.md#access-analyzer-rds-db-cluster)
+- [Repositórios do Amazon Elastic Container Registry](access-analyzer-resources.md#access-analyzer-ecr)
+- [Sistemas de arquivos do Amazon Elastic File System](access-analyzer-resources.md#access-analyzer-efs)
+- [Amazon DynamoDB Streams](access-analyzer-resources.md#access-analyzer-ddb-stream)
+- [Tabelas do Amazon DynamoDB](access-analyzer-resources.md#access-analyzer-ddb-table)
+
+## Identificar acesso interno a recursos críticos para os negócios
+
+<a name="what-is-access-analyzer-internal-access-analysis"></a>
+
+Para os recursos críticos para os negócios selecionados, o IAM Access Analyzer ajuda você a identificar quais entidades principais da sua organização ou conta têm acesso a eles. Essa análise é compatível com a implementação do princípio de privilégio mínimo, garantindo que os recursos especificados somente possam ser acessados pelas entidades principais pretendidas da sua organização.
+
+Para obter instruções sobre como começar, consulte [Criar um analisador de acesso interno do IAM Access Analyzer](access-analyzer-create-internal.md). Depois de criar um analisador, você pode [Gerenciar um analisador de acesso interno do IAM Access Analyzer](access-analyzer-manage-internal.md).
+
+A análise de acesso interno ajuda você a:
+
+- Determinar quais usuários ou perfis do IAM da sua conta ou organização podem acessar os recursos especificados
+- Entender os caminhos de acesso entre entidades principais e recursos no ambiente da AWS
+- Verificar se os controles de acesso estão funcionando como pretendido
+- Revisar descobertas para determinar se o acesso é intencional e seguro ou se o acesso não é intencional e representa um risco à segurança
+- Identificar e corrigir acesso não intencional na organização
+
+O IAM Access Analyzer analisa acesso interno aos seguintes tipos de recursos:
+
+- [Buckets do Amazon Simple Storage Service](access-analyzer-resources.md#access-analyzer-s3)
+- [Buckets de diretório do Amazon Simple Storage Service](access-analyzer-resources.md#access-analyzer-s3-directory)
+- [Snapshots de banco de dados do Amazon Relational Database Service](access-analyzer-resources.md#access-analyzer-rds-db)
+- [Snapshots de cluster de banco de dados do Amazon Relational Database Service](access-analyzer-resources.md#access-analyzer-rds-db-cluster)
+- [Amazon DynamoDB Streams](access-analyzer-resources.md#access-analyzer-ddb-stream)
+- [Tabelas do Amazon DynamoDB](access-analyzer-resources.md#access-analyzer-ddb-table)
+
+## Identificação de acessos não utilizados concedidos a perfis e usuários do IAM
+
+<a name="what-is-access-analyzer-unused-access-analysis"></a>
+
+O IAM Access Analyzer ajuda você a identificar e analisar acessos não utilizados em sua organização e contas da AWS. O IAM Access Analyzer monitora continuamente todas os usuários e perfis do IAM em sua organização e contas AWS e gera descobertas para acessos não utilizados. As descobertas destacam perfis não utilizados, chaves de acesso não utilizadas para usuários do IAM e senhas não utilizadas para usuários do IAM. Para funções e usuários ativos do IAM, as descobertas fornecem visibilidade sobre serviços e ações não utilizados.
+
+Para obter instruções sobre como criar um analisador de acesso não usado e gerenciar suas descobertas, consulte [Gerenciamento de um analisador de acessos não utilizados do IAM Access Analyzer](access-analyzer-manage-unused.md).
+
+O IAM Access Analyzer analisa as informações do último acesso de todas as funções em sua organização e contas AWS para ajudar você a identificar acessos não utilizados. As informações do último acesso da ação do IAM ajudam a identificar ações não utilizadas para perfis em suas Contas da AWS. Para obter mais informações, consulte [Refinar permissões na AWS usando informações do último acesso](access_policies_last-accessed.md).
+
+As descobertas dos analisadores de acesso externo, interno e não utilizado são organizadas em um painel de resumo visual. O painel destaca os recursos da AWS e as Contas da AWS que têm mais descobertas, e fornece um detalhamento das descobertas por tipo. Para obter mais informações sobre o painel, consulte [Visualizar o painel de descobertas do IAM Access Analyzer](access-analyzer-dashboard.md).
+
+## Validação de políticas em relação às práticas recomendadas da AWS
+
+<a name="what-is-access-analyzer-policy-validation"></a>
+
+É possível validar suas políticas em relação à [gramática da política](reference_policies_grammar.md) do IAM e às [práticas recomendadas da AWS](best-practices.md) usando as verificações básicas de políticas fornecidas pela validação de políticas do IAM Access Analyzer. É possível criar ou editar uma política usando a AWS CLI, a API da AWS ou o editor de políticas de JSON no console do IAM. É possível visualizar as descobertas de verificação de validação de política que incluem avisos de segurança, erros, avisos gerais e sugestões para sua política. Essas descobertas fornecem recomendações práticas que ajudam a criar políticas que sejam funcionais e estejam em conformidade com as práticas recomendadas da AWS. Para obter mais informações sobre como validar políticas usando validação de política, consulte [Validar políticas com o IAM Access Analyzer](access-analyzer-policy-validation.md). Para obter uma lista das verificações de políticas que o IAM Access Analyzer executa, consulte [Verificações de validação de políticas](access-analyzer-checks-validating-policies.md).
+
+## Validar políticas de acordo com seus padrões especificados de segurança
+
+<a name="what-is-access-analyzer-policy-checks"></a>
+
+É possível validar suas políticas de acordo com seus padrões especificados de segurança usando verificações de política personalizadas do IAM Access Analyzer. É possível criar ou editar uma política usando a AWS CLI, a API da AWS ou o editor de políticas de JSON no console do IAM. Por meio do console, você pode verificar se sua política atualizada concede novo acesso em comparação com a versão existente. Por meio da AWS CLI e da API AWS, você também pode verificar se ações específicas do IAM que você considera críticas não são permitidas por uma política. Essas verificações destacam uma instrução de política que concede novo acesso. É possível atualizar a declaração de política e executar novamente as verificações até que a política esteja em conformidade com seu padrão de segurança. Para obter mais informações sobre como validar políticas usando verificações de política personalizadas, consulte [Validar políticas com verificações de políticas do IAM Access Analyzer](access-analyzer-custom-policy-checks.md).
+
+## Geração de políticas
+
+<a name="what-is-access-analyzer-policy-generation"></a>
+
+O IAM Access Analyzer analisa seus logs do AWS CloudTrail para identificar ações e serviços que foram usados por uma entidade do IAM (usuário ou função) dentro do intervalo de datas especificado. Em seguida, ele gera uma política do IAM com base nessa atividade de acesso. É possível usar a política gerada para refinar as permissões de uma entidade anexando-a a um usuário ou um perfil do IAM. Para saber mais sobre como gerar políticas usando o IAM Access Analyzer, consulte [Geração de política do IAM Access Analyzer](access-analyzer-policy-generation.md).
+
+## Preços do IAM Access Analyzer
+
+<a name="what-is-access-analyzer-pricing"></a>
+
+O IAM Access Analyzer cobra pela análise de acessos não utilizados com base no número de funções e usuários do IAM analisados por analisador por mês.
+
+- Você será cobrado por cada analisador de acessos não utilizados que criar.
+- A criação de analisadores de acessos não utilizados em várias regiões resultará na cobrança por cada analisador.
+- Os perfis vinculados ao serviço não são analisados quanto à atividade de acesso não utilizada e não são incluídos no número total de perfis do IAM analisados.
+
+O IAM Access Analyzer cobra a análise de acesso interno com base no número de recursos monitorados por analisador de acesso interno por mês.
+
+O IAM Access Analyzer cobra por verificações de política personalizadas com base no número de solicitações de API feitas ao IAM Access Analyzer para verificar novos acessos.
+
+Para obter uma lista completa de preços e cobranças do IAM Access Analyzer, consulte [Preços do IAM Access Analyzer](https://aws.amazon.com/iam/access-analyzer/pricing).
+
+Para ver sua fatura, acesse o **Painel de gerenciamento de custos e faturamento** no [console do Gerenciamento de Faturamento e Custos da AWS](https://console.aws.amazon.com/billing/). Sua fatura contém links para relatórios de uso que fornecem detalhes sobre sua conta. Para saber mais sobre o faturamento da Conta da AWS, consulte o [Guia do usuário do AWS Billing](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/).
+
+Se tiver dúvidas sobre faturamento, contas e eventos da AWS, [entre em contato com o Suporte](https://aws.amazon.com/contact-us/).

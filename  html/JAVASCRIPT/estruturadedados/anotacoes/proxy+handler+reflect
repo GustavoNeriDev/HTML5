@@ -1,0 +1,116 @@
+/*
+proxy funciona como uma camada  intermediaria entre o codigo e um objeto
+ex:
+
+const usuario = {
+    nome: "Gustavo",
+    idade: 20
+};
+usuario.nome = "Carlos";
+
+//alteração acontece diretamente
+
+//com proxy podemos fazer diferente como uma especie de fiscal
+Esse fiscal pode:
+
+permitir uma operação;
+impedir uma operação;
+validar dados;
+registrar alterações;
+transformar valores;
+controlar acesso a propriedades.
+
+
+//criando um proxy
+const usuario = {
+    nome: "Gustavo",
+    idade: 20
+};
+//camada  de  acesso ao objeto
+const usuarioProxy = new Proxy(usuario, {});
+//se fizermos 
+console.log(usuarioProxy.nome);
+//terremos o nome da propriedade  do objeto
+*/
+
+/*
+o segundo argumento do proxy e handler
+é nele que é definido como interceptar certas operations
+ex: interceptar quando alguem tenta alterar uma prop usando set
+
+const usuarioProxy = new Proxy(usuario, {
+    //temos o objeto principal, propriedade alterada e o novo valor
+    set(objeto, propriedade, valor) {
+
+        console.log(propriedade);
+        console.log(valor);
+
+        objeto[propriedade] = valor;
+        //operations realizada com sucesso
+        return true;
+    }
+
+});
+usuarioProxy.nome = "Carlos";
+//passa pelo set()
+
+
+ex administrativo: 
+
+//não permitir que ninguem altere diretamente o id de um usuario
+usuarioProxy.id = 999;
+
+//interceptando
+set(objeto, propriedade, valor) {
+
+    if (propriedade === "id") {
+        return false;
+    }
+
+    objeto[propriedade] = valor;
+
+    return true;
+}
+
+*/
+
+/*
+relect ele fornece os  métodos para realizar operações  sobre objeto de maneira padronizada
+ex:
+Reflect.set(objeto, propriedade, valor);
+//em vez de:
+objeto[propriedade] = valor;
+//dentro de um proxy é comum encontrarmos 
+set(objeto, propriedade, valor) {
+
+    return Reflect.set(objeto, propriedade, valor);
+}
+
+//acessar uma proprieddade de maneira padronizada 
+Reflect.get(objeto, propriedade);
+
+
+    //a ideia é separar
+Proxy
+↓
+intercepta a operação
+
+Reflect
+↓
+executa a operação padrão
+*/
+
+/*
+Proxy pode ser usado para coisas como:
+
+validação automática;
+controle de acesso;
+observação de alterações;
+sistemas reativos;
+criação de abstrações;
+bibliotecas e frameworks;
+controle de estado.
+
+Um exemplo conhecido é o sistema de reatividade do Vue, que utiliza mecanismos baseados em Proxy para observar alterações em objetos.
+
+*/

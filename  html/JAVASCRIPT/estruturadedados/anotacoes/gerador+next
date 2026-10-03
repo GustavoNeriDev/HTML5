@@ -1,0 +1,20 @@
+Onde isso é usado profissionalmente?
+
+Esse conceito de Generator + next(valor) é útil quando você precisa controlar um processo por etapas, pausando e retomando a execução.
+
+Por exemplo:
+
+processamento de tarefas em etapas;
+criação de fluxos de dados;
+iteradores personalizados;
+processamento de grandes conjuntos de dados;
+pipelines de processamento;
+sistemas que precisam consumir dados progressivamente
+
+
+
+
+yield pausa o Generator e next(valor) retoma a execução colocando valor no lugar daquele yield.
+
+
+Em aplicações reais, Generators podem aparecer em processamento de dados, iteradores personalizados, pipelines e controle de fluxos sequenciais

@@ -1,0 +1,47 @@
+/* gerador.return() --> encerra o Generator imediamente
+ex:
+function* processo() {
+    yield "Etapa 1";
+    yield "Etapa 2";
+    yield "Etapa 3";
+}
+
+const gerador = processo();
+
+console.log(gerador.next());
+console.log(gerador.return("Processo cancelado"));
+console.log(gerador.next());
+
+resultado:
+{
+    value: "Processo cancelado",
+    done: true
+}
+    //ja o generator.throw()
+    ex:
+    gerador.throw(new Error("Algo deu errado"));
+    //faz o generator receber um erro no ponto onde estava pausado
+    
+    //capturar o erro dentro do Generator
+    function* processo() {
+
+    try {
+
+        yield "Processando pedido";
+
+    } catch (erro) {
+
+        yield `Erro: ${erro.message}`;
+
+    }
+
+}
+    //agora o erro pode ser tratado dentro do Generator
+
+
+
+    return() pode ser útil em fluxos que precisam ser cancelados antecipadamente: processamento de pedidos, leitura de dados, tarefas em etapas, pipelines e operações que o usuário pode interromper
+
+
+    try catch e throw -- > Esse padrão é útil quando um fluxo pode falhar durante uma etapa e precisa tratar essa falha de forma controlada. Por exemplo, processamento de pagamento, leitura de dados, pipelines ou outras operações em etapas
+*/

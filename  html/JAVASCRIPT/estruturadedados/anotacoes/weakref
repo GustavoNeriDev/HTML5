@@ -1,0 +1,41 @@
+/* permite vc criar uma referência fraca para um objeto 
+const usuario = {
+    nome: "Gustavo"
+};
+
+const referencia = new WeakRef(usuario);
+// a referência  aponta para o objeto(usuario) mas não impede  o garbage de remover o objeto quando não tiver mais referência forte
+
+//para tentar recuperar o objeto usamos
+const objeto = referencia.deref();
+//se ainda existe 
+console.log(objeto);
+//se já tiver sido coletado
+console.log(objeto); // undefined
+
+deref() --> tentando acessar o objeto
+
+
+///////// referência forte X referência  fraca 
+// forte
+const usuario = {
+    nome: "Gustavo"
+};
+
+const referencia = usuario;
+
+//fraca
+const usuario = {
+    nome: "Gustavo"
+};
+
+const referencia = new WeakRef(usuario);
+
+//não deve escrever o codigo assim 
+if (referencia.deref()) {
+    // esperar que o objeto continue existindo
+}
+
+Por isso, WeakRef é uma ferramenta avançada, utilizada em situações específicas, como determinados tipos de cache, objetos temporários e otimizações de memória.
+WeakRef pode ser usado em mecanismos avançados de cache, quando queremos guardar uma referência temporária sem impedir que o JavaScript libere o objeto da memória. Não é algo que você usaria normalmente para cadastrar usuários ou controlar dados principais da aplicação.
+*/

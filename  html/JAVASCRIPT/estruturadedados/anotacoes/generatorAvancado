@@ -1,0 +1,12 @@
+/* yield* --> delegar um Generator para o outro
+ex: enquanto esse outro iterator tiver valores, entregue esses valores por mim
+
+diferente de yield primeiro(); --> porque nesse caso você estaria entregando o proprio Generator e não os valores
+
+return e throw() --> controlar/interromper um Generator externamente
+
+
+
+Esse padrão é útil quando você tem vários fluxos menores e quer unificá-los em um único fluxo. Por exemplo, diferentes categorias, fontes de dados ou etapas de processamento que precisam ser consumidas como uma sequência única
+
+*/
