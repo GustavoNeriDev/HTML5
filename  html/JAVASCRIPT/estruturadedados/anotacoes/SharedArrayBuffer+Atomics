@@ -1,0 +1,70 @@
+/*
+Esse é um conceito mais avançado e mais próximo de situações reais de processamento concorrente, como sistemas que precisam coordenar operações entre diferentes contextos de execução
+//problema:
+//imagine que temos um contador
+let contador = 0
+//duas operações querem aumentar esse contador ao mesmo tempo
+contador++
+contador++
+//mas não é simples assim, em ammbiente concorrentes, uma  operação podde ler o valor enquanto outra está trablhando nele
+//pode gerar problemas de condição de corrida(race condition)
+//acontece quando o resultado depende da ordem em que operações concorrentes acontecem
+
+ArrayBuffer --> representa uma região de memoria binaria
+//O SharedArrayBuffer possui uma ideia semelhante, mas permite que essa memória seja compartilhada entre contextos de execução que tenham acesso a ela.
+ex:
+const memoria = new SharedArrayBuffer(4);
+//criamos 4 bytes de memoria compartilhavel
+//depois podemos criar uma versão sobre  essa memoria
+const dados = new Int32Array(memoria);
+//agora 
+dados[0] = 10;
+*/
+/*
+Atomics é onde vai entrar agora poque o problema é que compartilhar memoria não resolve a concorrência
+//Atomics fornece operações que podem ser realizadas de maneira atômica.
+
+"Atômica" significa, simplificando:
+
+//A operação acontece como uma unidade, sem outro contexto conseguir interferir no meio daquela operação.
+ex:
+Atomics.add(dados, 0, 1);
+//adiciona 1 ao indice 0
+// se tivermos:
+dados[0] = 10;
+
+Atomics.add(dados, 0, 5);
+//resultado será 15
+
+Atomics.load() e Atomics.store()
+//o load vai ler 
+ex:
+const valor = Atomics.load(dados, 0);
+//store vai escrever
+ex:
+Atomics.store(dados, 0, 50);
+//então temos 
+Atomics.store(dados, 0, 50);
+
+const valor = Atomics.load(dados, 0);
+//resultado será 50
+
+Atomics.compareExchenge()
+//funciona  assim:
+//se o valor atual for X, troque por Y
+ex:
+Atomics.compareExchange(dados, 0, 10, 20);
+//signnifica:
+Se dados[0] === 10
+        ↓
+troque para 20
+//permite criar mecanismmos de sicronização 
+
+
+
+
+Onde isso é usado profissionalmente?
+
+SharedArrayBuffer e Atomics são conceitos de baixo nível usados quando aplicações JavaScript precisam trabalhar com memória compartilhada e concorrência, especialmente junto de mecanismos como Web Workers. Não é algo que você usará em toda landing page, mas entender isso amplia bastante sua compreensão de como JavaScript lida com processamento concorrente e memória
+
+*/

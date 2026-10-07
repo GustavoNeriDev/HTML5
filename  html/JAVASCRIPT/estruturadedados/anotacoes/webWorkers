@@ -1,0 +1,61 @@
+/*
+normalmente o JS do navegador executa seu codigo principal no thread princial(main thread)
+//imagine que voce tenha
+for (let i = 0; i < 1000000000; i++) {
+    // processamento pesado
+}
+    //o processando pode deixar a pagina  travada enquanto acontece
+    //o webWorkers permite o JS executar em outro contexto de execução
+
+Página
+  │
+  ├── Main Thread
+  │
+  └── Web Worker
+          ↓
+    processamento
+
+//como criar um worker 
+//no JS principal 
+const worker = new Worker("worker.js");
+//cria um worker no arquivo worker.js
+//ele possui seu proprio ambiente no JS
+
+///comunicação entre paginas e worker
+//para enviar algo 
+worker.postMessage("Olá Worker");
+//no worker
+self.onmessage = function(event) {
+
+    console.log(event.data);
+
+};
+event.data --> contem o valor enviado
+//worker pode responder
+
+self.postMessage("Processamento concluído");
+//na pagina 
+worker.onmessage = function(event) {
+
+    console.log(event.data);
+
+};
+
+
+Página
+   │
+   │ postMessage()
+   ↓
+Worker
+   │
+   │ postMessage()
+   ↓
+Página
+//esse é o mecanismo basico de comunicção
+
+
+
+Onde isso aparece profissionalmente?
+
+Imagine uma aplicação que precisa processar milhares de pedidos, arquivos grandes ou dados complexos. Em vez de fazer todo esse trabalho na thread principal e potencialmente prejudicar a responsividade da interface, determinadas tarefas podem ser transferidas para um Worker
+*/
