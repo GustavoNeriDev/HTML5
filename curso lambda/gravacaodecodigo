@@ -1,0 +1,47 @@
+//declarações em registro log em python
+
+/*
+import os  
+import logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+def lambda_handler(event, context)
+       logger.info('## ENVIRONMENT VARIABLES')
+       logger.info(os.environ)
+       logger.info('## EVENT')
+       logger.info(event)
+
+//codificação de retorno em nodejs
+
+exports.handler = async function (event, context) {
+    console.log("EVENT: \n" + JSON.stringify(event, null, 2))
+    return context.logStreamName
+}
+    
+//variavei de ambiente, acesse o arquivo para entender melhor
+
+//AWS secrets manager ajuda a organizar e gerenciar dados, como credenciais  e senhas e chaves de lecença
+
+//evitar codigo recursivo --> evitar situação a qual a função se chame
+
+//coletar metricas  com Amazon CloudWatch  para saber mais acesse o arquivo formato  de metricas
+
+//Reutilizar contexto de execução
+–
+Aproveite um contexto de execução existente ao fazer uma inicialização a quente fazendo o seguinte:
+
+
+
+1. Armazene localmente as dependências.
+
+2. Limite a reinicialização de variáveis.
+
+3. Reutilize as conexões existentes.
+
+4. Use tmp space como cache transitório.
+
+5. Verifique se os processos em segundo plano foram concluídos.
+
+
+*/

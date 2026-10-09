@@ -1,0 +1,349 @@
+# Trabalhar com variáveis de ambiente no Lambda
+
+<a name="configuration-envvars"></a>
+
+É possível usar variáveis de ambiente para ajustar o comportamento da função sem atualizar o código. Uma variável de ambiente é um par de strings armazenadas na configuração específica da versão de uma função. O runtime do Lambda disponibiliza variáveis de ambiente para o código e define variáveis de ambiente adicionais que contêm informações sobre a função e a solicitação de invocação.
+
+**nota**  
+Para aumentar a segurança, recomendamos que você use o AWS Secrets Manager em vez de variáveis de ambiente para armazenar as credenciais do banco de dados e outras informações confidenciais, como chaves de API ou tokens de autorização. Para obter mais informações, consulte [Usar segredos do Secrets Manager em funções do Lambda](with-secrets-manager.md).
+
+As variáveis ​​de ambiente não são avaliadas antes da invocação da função. Qualquer valor definido é considerado uma string literal e não expandido. Execute a avaliação da variável no seu código de função.
+
+## Criar variáveis ​​de ambiente no Lambda
+
+<a name="create-environment-variables"></a>
+
+É possível configurar variáveis de ambiente no Lambda usando o console do Lambda, a AWS Command Line Interface (AWS CLI), o AWS Serverless Application Model (AWS SAM) ou um AWS SDK.
+
+---
+
+#### [ Console ]
+
+Você define variáveis de ambiente na versão não publicada da sua função. Quando você publica uma versão, as variáveis de ambiente estão bloqueadas para essa versão junto com outras [configurações específicas da versão](configuration-versions.md).
+
+Para criar uma variável de ambiente na sua função, defina uma chave e um valor. A função usa o nome da chave para recuperar o valor da variável de ambiente.
+
+**Para definir variáveis de ambiente no console do Lambda**
+
+1. Abra a [página Funções](https://console.aws.amazon.com/lambda/home#/functions) do console do Lambda.
+
+1. Escolha uma função.
+
+1. Escolha a guia **Configuração** e, em seguida, selecione **Variáveis de ambiente**.
+
+1. Em **Environment variables (Variáveis de ambiente)**, selecione **Edit (Editar)**.
+
+1. Escolha **Add environment variable (Adicionar variável de ambiente)**.
+
+1. Insira um par de chave e valor.
+
+**Requisitos**
+
+- As chaves começam com uma letra e têm pelo menos dois caracteres.
+- As chaves e os valores contêm somente letras, números e o caractere de sublinhado (`_`).
+- As chaves não são [reservadas pelo Lambda](#configuration-envvars-runtime).
+- O tamanho total de todas as variáveis de ambiente não excede 4 KB.
+
+1. Escolha **Salvar**.
+
+**Gerar uma lista de variáveis ​​de ambiente no editor de código do console**
+
+É possível gerar uma lista de variáveis ​​de ambiente no editor de código do Lambda. Esta é uma maneira rápida de referenciar as variáveis ​​de ambiente enquanto você realiza a codificação.
+
+1. Escolha a guia **Código**.
+
+1. Role a tela para baixo até a seção **VARIÁVEIS DE AMBIENTE** do editor de código. As variáveis de ambiente existentes estão listadas aqui:  
+   ![Seção de variáveis de ambiente do editor de código do console do Lambda](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/env-var.png)
+
+1. Para criar novas variáveis de ambiente, escolha o sinal de adição (![Plus sign.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/add-plus.png)):  
+   ![Adicionar variáveis de ambiente no editor de código do console do Lambda](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/create-env-var.png)
+
+As variáveis ​​de ambiente permanecem criptografadas quando estão listadas no editor de código do console. Se você habilitou os auxiliares de criptografia para a criptografia em trânsito, essas configurações permanecerão inalteradas. Para obter mais informações, consulte [Proteger variáveis ​​de ambiente no Lambda](configuration-envvars-encryption.md).
+
+A lista de variáveis ​​de ambiente é somente leitura e está disponível somente no console do Lambda. Este arquivo não está incluso quando você realiza download do arquivo .zip da função e não é possível adicionar variáveis ​​de ambiente ao fazer upload deste arquivo.
+
+---
+
+#### [ AWS CLI ]
+
+O exemplo a seguir define duas variáveis de ambiente em uma função denominada `my-function`.
+
+```
+aws lambda update-function-configuration \
+  --function-name {{my-function}} \
+  --environment {{"Variables={BUCKET=amzn-s3-demo-bucket,KEY=file.txt}"}}
+```
+
+Quando você aplica variáveis de ambiente com o comando `update-function-configuration`, todo o conteúdo da estrutura `Variables` é substituído. Para manter variáveis de ambiente existentes ao adicionar uma nova, inclua todos os valores existentes em sua solicitação.
+
+Para obter a configuração atual, use o comando `get-function-configuration`.
+
+```
+aws lambda get-function-configuration \
+  --function-name {{my-function}}
+```
+
+A seguinte saída deverá ser mostrada:
+
+```
+{
+    "FunctionName": "my-function",
+    "FunctionArn": "arn:aws:lambda:us-east-2:111122223333:function:my-function",
+    "Runtime": "nodejs24.x",
+    "Role": "arn:aws:iam::111122223333:role/lambda-role",
+    "Environment": {
+        "Variables": {
+            "BUCKET": "amzn-s3-demo-bucket",
+            "KEY": "file.txt"
+        }
+    },
+    "RevisionId": "0894d3c1-2a3d-4d48-bf7f-abade99f3c15",
+    ...
+}
+```
+
+É possível transmitir o ID de revisão da saída de `get-function-configuration` como um parâmetro para `update-function-configuration`. Isso garante que os valores não sejam alterados entre quando você lê a configuração e quando a atualiza.
+
+Para configurar a chave de criptografia de uma função, defina a opção `KMSKeyARN`.
+
+```
+aws lambda update-function-configuration \
+  --function-name {{my-function}} \
+  --kms-key-arn {{arn:aws:kms:us-east-2:111122223333:key/055efbb4-xmpl-4336-ba9c-538c7d31f599}}
+```
+
+---
+
+#### [ AWS SAM ]
+
+É possível usar o [AWS Serverless Application Model](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started.html) para configurar as variáveis de ambiente da função. Atualize as propriedades [Ambiente](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-environment) e [Variáveis](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-function-environment.html#cfn-lambda-function-environment-variables) no arquivo `template.yaml` e execute o comando [sam deploy](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html).
+
+**Example template.yaml**
+
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Serverless Application Model template describing your function.
+Resources:
+  {{my-function}}:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 120
+      Handler: index.handler
+      Runtime: nodejs24.x
+      Architectures:
+        - x86_64
+      EphemeralStorage:
+        Size: 10240
+      Environment:
+        Variables:
+          {{BUCKET: amzn-s3-demo-bucket}}
+          {{KEY: file.txt}}
+      # Other function properties...
+```
+
+---
+
+#### [ AWS SDKs ]
+
+Para gerenciar variáveis de ambiente usando um AWS SDK, use as operações de API a seguir.
+
+- [UpdateFunctionConfiguration](https://docs.aws.amazon.com/lambda/latest/api/API_UpdateFunctionConfiguration.html)
+- [GetFunctionConfiguration](https://docs.aws.amazon.com/lambda/latest/api/API_GetFunctionConfiguration.html)
+- [CreateFunction](https://docs.aws.amazon.com/lambda/latest/api/API_CreateFunction.html)
+
+Para saber mais, consulte a [documentação do AWS SDK](https://aws.amazon.com/developer/tools/) para a linguagem de programação que você preferir.
+
+---
+
+## Exemplo de cenário para variáveis de ambiente
+
+<a name="configuration-envvars-example"></a>
+
+É possível usar variáveis de ambiente para personalizar o comportamento da função no ambiente de teste e no ambiente de produção. Por exemplo, você pode criar duas funções com o mesmo código, mas configurações diferentes. Uma função se conecta a um banco de dados de teste e a outra se conecta a um banco de dados de produção. Nessa situação, você usa variáveis ​​de ambiente para transmitir o nome do host e outros detalhes de conexão do banco de dados para a função.
+
+O exemplo a seguir mostra como definir o host do banco de dados e o nome do banco de dados como variáveis de ambiente.
+
+![Variáveis de ambiente no console do Lambda](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/images/console-env.png)
+
+Se quiser que o ambiente de teste gere mais informações de depuração do que o ambiente de produção, você poderá definir uma variável de ambiente para configurar o ambiente de teste para usar um registro em log mais detalhado ou um rastreamento mais detalhado.
+
+Por exemplo, em seu ambiente de teste, você pode definir uma variável de ambiente com a chave `LOG_LEVEL` e um valor indicando um nível de log de depuração ou rastreamento. No código da sua função do Lambda, você pode então usar essa variável de ambiente para definir o nível do log.
+
+Os exemplos de código a seguir em Python e Node.js ilustram como você pode fazer isso. Esses exemplos pressupõem que sua variável de ambiente tenha um valor de `DEBUG` em Python ou `debug` em Node.js.
+
+---
+
+#### [ Python ]
+
+**Example Código Python para definir o nível do log**
+
+```
+import os
+import logging
+
+# Initialize the logger
+logger = logging.getLogger()
+
+# Get the log level from the environment variable and default to INFO if not set
+log_level = os.environ.get('LOG_LEVEL', 'INFO')
+
+# Set the log level
+logger.setLevel(log_level)
+
+def lambda_handler(event, context):
+    # Produce some example log outputs
+    logger.debug('This is a log with detailed debug information - shown only in test environment')
+    logger.info('This is a log with standard information - shown in production and test environments')
+```
+
+---
+
+#### [ Node.js (ES module format) ]
+
+**Example Código Node.js para definir o nível do log**  
+Este exemplo usa a biblioteca de registro em log `winston`. Use o npm para adicionar essa biblioteca ao pacote de implantação da sua função. Para obter mais informações, consulte [Criar um pacote de implantação .zip com dependências](nodejs-package.md#nodejs-package-create-dependencies).
+
+```
+import winston from 'winston';
+
+// Initialize the logger using the log level from environment variables, defaulting to INFO if not set
+const logger = winston.createLogger({
+   level: process.env.LOG_LEVEL || 'info',
+   format: winston.format.json(),
+   transports: [new winston.transports.Console()]
+});
+
+export const handler = async (event) => {
+   // Produce some example log outputs
+   logger.debug('This is a log with detailed debug information - shown only in test environment');
+   logger.info('This is a log with standard information - shown in production and test environment');
+
+};
+```
+
+---
+
+## Recuperar variáveis ​​de ambiente do Lambda
+
+<a name="retrieve-environment-variables"></a>
+
+Para recuperar variáveis de ambiente em seu código de função, use o método padrão para a sua linguagem de programação.
+
+---
+
+#### [ Node.js ]
+
+```
+let region = process.env.AWS_REGION
+```
+
+---
+
+#### [ Python ]
+
+```
+import os
+  region = os.environ['AWS_REGION']
+```
+
+**nota**  
+Em alguns casos, talvez seja necessário usar o seguinte formato:
+
+```
+region = os.environ.get('AWS_REGION')
+```
+
+---
+
+#### [ Ruby ]
+
+```
+region = ENV["AWS_REGION"]
+```
+
+---
+
+#### [ Java ]
+
+```
+String region = System.getenv("AWS_REGION");
+```
+
+---
+
+#### [ Go ]
+
+```
+var region = os.Getenv("AWS_REGION")
+```
+
+---
+
+#### [ C\# ]
+
+```
+string region = Environment.GetEnvironmentVariable("AWS_REGION");
+```
+
+---
+
+#### [ PowerShell ]
+
+```
+$region = $env:AWS_REGION
+```
+
+---
+
+O Lambda armazena as variáveis de ambiente de forma segura, criptografando-as em repouso. É possível [configurar o Lambda para usar uma chave de criptografia diferente](configuration-envvars-encryption.md), criptografar valores de variáveis de ambiente no lado do cliente ou definir variáveis de ambiente em um modelo do CloudFormation com o AWS Secrets Manager.
+
+## Variáveis de ambiente com runtime definido
+
+<a name="configuration-envvars-runtime"></a>
+
+Os [runtimes](lambda-runtimes.md) do Lambda definem diversas variáveis de ambiente durante a inicialização. A maioria das variáveis de ambiente fornece informações sobre a função ou o runtime. As chaves para essas variáveis de ambiente são _reservadas_ e não podem ser definidas na configuração de sua função.
+
+**Variáveis de ambiente reservadas**
+
+- `_HANDLER`: o local do handler configurado na função.
+- `_X_AMZN_TRACE_ID`— O[Cabeçalho do X-Ray](services-xray.md). Essa variável de ambiente muda a cada invocação.
+  - Essa variável de ambiente não está definida para runtimes somente para sistema operacional (a família `provided` de runtime). É possível definir `_X_AMZN_TRACE_ID` para runtimes personalizados usando o cabeçalho da resposta `Lambda-Runtime-Trace-Id` do [Próxima invocação](runtimes-api.md#runtimes-api-next).
+  - Nas versões 17 e posteriores do runtime do Java, essa variável de ambiente não é usada. Em vez disso, o Lambda armazena informações de rastreamento na propriedade `com.amazonaws.xray.traceHeader` do sistema.
+- `AWS_DEFAULT_REGION`: a Região da AWS padrão onde a função do Lambda é executada.
+- `AWS_REGION`: a Região da AWS onde a função do Lambda é executada. Se estiver definido, esse valor substituirá `AWS_DEFAULT_REGION`.
+  - Para obter mais informações sobre como usar as variáveis de ambiente da Região da AWS com AWS SDKs, consulte [Região da AWS](https://docs.aws.amazon.com/sdkref/latest/guide/feature-region.html#feature-region-sdk-compat) no _Guia de referência de SDKs e ferramentas da AWS_.
+- `AWS_EXECUTION_ENV`: o [identificador de runtime](lambda-runtimes.md), prefixado por `AWS_Lambda_` (por exemplo, `AWS_Lambda_java8`). Essa variável de ambiente não está definida para runtimes somente para sistema operacional (a família `provided` de runtime).
+- `AWS_LAMBDA_FUNCTION_NAME`: o nome da função.
+- `AWS_LAMBDA_FUNCTION_MEMORY_SIZE`: a quantidade de memória disponível para a função em MB.
+- `AWS_LAMBDA_FUNCTION_VERSION`: a versão da função que está sendo executada.
+- `AWS_LAMBDA_INITIALIZATION_TYPE`: o tipo de inicialização da função, que é `on-demand`, `provisioned-concurrency`, `snap-start` ou `lambda-managed-instances`. Para obter informações, consulte [Configuração de simultaneidade provisionada](provisioned-concurrency.md), [Aprimoramento da performance de inicialização com o Lambda SnapStart](snapstart.md) ou [Instâncias gerenciadas pelo Lambda](lambda-managed-instances.md).
+- `AWS_LAMBDA_LOG_GROUP_NAME`,`AWS_LAMBDA_LOG_STREAM_NAME`: o nome do grupo Amazon CloudWatch Logs e do fluxo do para a função. As [variáveis de ambiente](#configuration-envvars-runtime) `AWS_LAMBDA_LOG_GROUP_NAME` e `AWS_LAMBDA_LOG_STREAM_NAME` não estão disponíveis nas funções do Lambda SnapStart.
+- `AWS_ACCESS_KEY`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`: as chaves de acesso obtidas da [função de execução](lambda-intro-execution-role.md) da função.
+- `AWS_LAMBDA_RUNTIME_API`: ([runtime personalizado](runtimes-custom.md)) o host e a porta da [API de runtime](runtimes-api.md).
+- `LAMBDA_TASK_ROOT`: o caminho para o código da função do Lambda.
+- `LAMBDA_RUNTIME_DIR`: o caminho para bibliotecas de runtime.
+- `AWS_LAMBDA_MAX_CONCURRENCY`: (somente instâncias gerenciadas do Lambda) o número máximo de invocações simultâneas que o Lambda enviará para um ambiente de execução.
+- `AWS_LAMBDA_METADATA_API`: o endereço do servidor do [endpoint de metadados](configuration-metadata-endpoint.md) no formato `{ipv4_address}:{port}` (por exemplo, `169.254.100.1:9001`).
+- `AWS_LAMBDA_METADATA_TOKEN`: um token de autenticação exclusivo para o ambiente de execução atual usado para autenticar solicitações no [endpoint de metadados](configuration-metadata-endpoint.md). O Lambda gera esse token automaticamente na inicialização.
+
+As variáveis de ambiente adicionais a seguir não são reservadas e podem ser estendidas na configuração de sua função.
+
+**Variáveis de ambiente não reservadas**
+
+- `LANG`: a localidade do runtime (`en_US.UTF-8`).
+- `PATH` – o caminho de execução (`/usr/local/bin:/usr/bin/:/bin:/opt/bin`).
+- `LD_LIBRARY_PATH` – o caminho da biblioteca do sistema (`/var/lang/lib:/lib64:/usr/lib64:$LAMBDA_RUNTIME_DIR:$LAMBDA_RUNTIME_DIR/lib:$LAMBDA_TASK_ROOT:$LAMBDA_TASK_ROOT/lib:/opt/lib`).
+- `NODE_PATH`: ([Node.js](lambda-nodejs.md)) o caminho da biblioteca Node.js (`/opt/nodejs/node12/node_modules/:/opt/nodejs/node_modules:$LAMBDA_RUNTIME_DIR/node_modules`).
+- `NODE_OPTIONS`: ([Node.js](lambda-nodejs.md)) Para tempos de execução do Node.js, você pode usar `NODE_OPTIONS` para reativar recursos experimentais que o Lambda desabilita por padrão.
+- `PYTHONPATH`: ([Python](lambda-python.md)) o caminho da biblioteca Python (`$LAMBDA_RUNTIME_DIR`).
+- `GEM_PATH`: ([Ruby](lambda-ruby.md)) o caminho da biblioteca Ruby (`$LAMBDA_TASK_ROOT/vendor/bundle/ruby/3.3.0:/opt/ruby/gems/3.3.0`).
+- `AWS_XRAY_CONTEXT_MISSING`: para o rastreamento do X-Ray, o Lambda define isso como `LOG_ERROR` para evitar a execução de erros de runtime no X-Ray SDK.
+- `AWS_XRAY_DAEMON_ADDRESS`: para o rastreamento do X-Ray, o endereço IP e a porta do daemon do X-Ray.
+- `AWS_LAMBDA_DOTNET_PREJIT` ([.NET](lambda-csharp.md)): defina esta variável para habilitar ou desabilitar otimizações específicas de runtime do .NET. Os valores incluem `always`, `never` e `provisioned-concurrency`. Para obter mais informações, consulte [Configurar a simultaneidade provisionada para uma função](provisioned-concurrency.md).
+- `TZ` – o fuso horário do ambiente (`:UTC`). O ambiente de execução usa o NTP para sincronizar o relógio do sistema.
+
+Os valores de exemplo mostrados refletem os runtimes mais recentes. A presença de variáveis específicas ou seus valores pode variar nos runtimes anteriores.

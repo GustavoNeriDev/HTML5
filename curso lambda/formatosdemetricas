@@ -1,0 +1,464 @@
+# Especificação: formato de métricas incorporadas
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification"></a>
+
+O formato de métrica incorporado do CloudWatch é uma especificação JSON usada para instruir o CloudWatch Logs a extrair automaticamente valores de métrica incorporados em eventos de log estruturados. É possível usar o CloudWatch para criar gráficos e alarmes com relação aos valores de métrica extraídos. Esta seção descreve as convenções de especificação do formato de métricas incorporadas e a estrutura do documento do formato de métricas incorporadas.
+
+**nota**  
+O formato de métrica incorporado garante a entrega de pelo menos uma vez das métricas extraídas de eventos de log, embora valores de métricas duplicados possam ocorrer ocasionalmente.
+
+## Convenções de especificação do formato de métricas incorporadas
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_Conventions"></a>
+
+As palavras-chave "DEVE", "NÃO DEVE", "OBRIGATÓRIO" "RECOMENDADO", "PODE" e "OPCIONAL" nessa especificação de formato devem ser interpretadas conforme descrito em [Key Words RFC2119](http://tools.ietf.org/html/rfc2119).
+
+Os termos "JSON", "texto JSON", "valor JSON", "membro", "elemento", "objeto", "matriz", "número", "string", "booliano", "verdadeiro", "falso" e "nulo" nessa especificação de formato devem ser interpretados conforme definido em [JavaScript Object Notation RFC8259](https://tools.ietf.org/html/rfc8259).
+
+**nota**  
+Se você planeja criar alarmes em métricas criadas usando o formato de métricas incorporadas, consulte [Configuração de alarmes em métricas criadas com o formato de métricas incorporadas](CloudWatch_Embedded_Metric_Format_Alarms.md) para obter as recomendações.
+
+## Estrutura de documento de formato de métrica incorporado
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure"></a>
+
+Esta seção descreve a estrutura de um documento de formato de métricas incorporadas. Os documentos de formato de métricas incorporadas estão definidos em [JavaScript Object Notation RFC8259](https://tools.ietf.org/html/rfc8259).
+
+Salvo indicação em contrário, os objetos definidos por essa especificação NÃO DEVEM conter nenhum membro adicional. Os membros não reconhecidos por essa especificação DEVEM ser ignorados. Os membros definidos nessa especificação diferenciam letras maiúsculas de minúsculas.
+
+O formato de métrica incorporado está sujeito aos mesmos limites que os eventos padrão do CloudWatch Logs e está limitado ao tamanho máximo de 1 MB.
+
+Com o formato de métrica incorporada, você pode acompanhar o processamento de seus logs de EMF por métricas publicadas no namespace `AWS/Logs` da conta. Podem ser usados para rastrear falhas na geração de métricas do EMF, bem como se as falhas ocorrem devido à análise ou validação. Para obter mais informações, consulte [Monitorar com métricas do CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Monitoring-CloudWatch-Metrics.html).
+
+### Nó raiz
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure_root"></a>
+
+A mensagem de LogEvent DEVE ser um objeto JSON válido sem dados adicionais no início ou no final da string da mensagem de LogEvent. Para obter mais informações sobre a estrutura de LogEvent, consulte [InputLogEvent](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_InputLogEvent.html).
+
+Os documentos de formato de métricas incorporadas DEVEM conter o membro de nível superior a seguir no nó raiz. Isso é um objeto [Objeto de metadados](#CloudWatch_Embedded_Metric_Format_Specification_structure_metadata).
+
+```
+{
+ "_aws": {
+    "CloudWatchMetrics": [ ... ]
+  }
+}
+```
+
+O nó raiz DEVE conter todos os membros [Membros de destino](#CloudWatch_Embedded_Metric_Format_Specification_structure_target) definidos pelas referências no [Objeto MetricDirective](#CloudWatch_Embedded_Metric_Format_Specification_structure_metricdirective).
+
+O nó raiz PODE conter qualquer outro membro que não esteja incluído nos requisitos acima. Os valores desses membros DEVEM ser tipos JSON válidos.
+
+### Objeto de metadados
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure_metadata"></a>
+
+O membro `_aws` pode ser usado para representar metadados sobre a carga útil que informa os serviços downstream como eles devem processar o LogEvent. O valor DEVE ser um objeto e DEVE conter os seguintes membros:
+
+- **CloudWatchMetrics**: uma matriz de [Objeto MetricDirective](#CloudWatch_Embedded_Metric_Format_Specification_structure_metricdirective) usada para instruir o CloudWatch a extrair métricas do nó raiz de LogEvent.
+
+  ```
+  {
+    "_aws": {
+      "CloudWatchMetrics": [ ... ]
+    }
+  }
+  ```
+
+- **Timestamp**: número que representa o carimbo de data/hora usado para métricas extraídas do evento. Os valores DEVEM ser expressos como o número de milissegundos após 1º de janeiro de 1970 00:00:00 UTC.
+
+  ```
+  {
+    "_aws": {
+      "Timestamp": 1559748430481
+    }
+  }
+  ```
+
+### Objeto MetricDirective
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure_metricdirective"></a>
+
+O objeto MetricDirective instrui serviços downstream que o LogEvent contém métricas que serão extraídas e publicadas no CloudWatch. MetricDirectives DEVE conter os seguintes membros:
+
+- **Namespace**: uma string que representa o namespace do CloudWatch da métrica.
+- **Dimensions**: um [Matriz DimensionSet](#CloudWatch_Embedded_Metric_Format_Specification_structure_dimensionset).
+- **Metrics**: uma matriz de objetos [Objeto MetricDefinition](#CloudWatch_Embedded_Metric_Format_Specification_structure_metricdefinition). Essa matriz NÃO DEVE conter mais de 100 objetos MetricDefinition.
+
+### Matriz DimensionSet
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure_dimensionset"></a>
+
+Um DimensionSet é uma matriz de strings que contém as chaves de dimensão que serão aplicadas a todas as métricas no documento. Os valores dentro dessa matriz também DEVEM ser membros no nó raiz – referido como o [Membros de destino](#CloudWatch_Embedded_Metric_Format_Specification_structure_target)
+
+Um DimensionSet NÃO DEVE conter mais de 30 chaves de dimensão. O DimensionSet PODE estar vazio.
+
+O membro de destino DEVE ter um valor de string. Este valor NÃO DEVE conter mais de 1.024 caracteres. O membro de destino define uma dimensão que será publicada como parte da identidade da métrica. Cada DimensionSet usado cria uma métrica no CloudWatch. Para obter mais informações sobre dimensões, consulte [Dimensão](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Dimension.html) e [Dimensões](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Dimension)
+
+```
+{
+ "_aws": {
+   "CloudWatchMetrics": [
+     {
+       "Dimensions": [ [ "functionVersion" ] ],
+       ...
+     }
+   ]
+ },
+ "functionVersion": "$LATEST"
+}
+```
+
+**nota**  
+Tenha cuidado ao configurar a extração de métricas, já que isso impacta o uso da métrica personalizada e o faturamento correspondente. Se você criar acidentalmente métricas baseadas em dimensões de alta cardinalidade (como `requestId`), o formato de métricas incorporadas criará por design uma métrica personalizada correspondente a cada combinação de dimensão exclusiva. Para obter mais informações, consulte [Dimensões](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Dimension).
+
+### Objeto MetricDefinition
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure_metricdefinition"></a>
+
+Um MetricDefinition é um objeto que DEVE conter o seguinte membro:
+
+- **Name** (Nome): uma string [Valores de referência](#CloudWatch_Embedded_Metric_Format_Specification_structure_referencevalues) para uma métrica [Membros de destino](#CloudWatch_Embedded_Metric_Format_Specification_structure_target). Os destinos métricos DEVEM ser um valor numérico ou uma matriz de valores numéricos.
+
+Um objeto MetricDefinition PODE conter os seguintes membros:
+
+- **Unit** (Unit): um valor de string OPCIONAL que representa a unidade de medida da métrica correspondente. Os valores DEVEM ser unidades métricas válidas do CloudWatch. Para obter informações sobre unidades válidas, consulte [MetricDatum](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html). Se um valor não for fornecido, então um valor padrão de NONE (NENHUM) será assumido.
+- **StorageResolution**: um valor inteiro OPCIONAL que representa a resolução de armazenamento da métrica correspondente. Definir isso como 1 especifica essa métrica como uma métrica de alta resolução, de forma que o CloudWatch armazene a métrica com resolução de menos de um minuto de até um segundo. Definir isso como 60 especifica essa métrica como resolução padrão, que o CloudWatch armazena com resolução de 1 minuto. Os valores DEVEM ser resoluções válidas do CloudWatch: 1 ou 60. Se um valor não for fornecido, então um valor padrão de 60 será assumido.
+
+  Para obter mais informações sobre as métricas de alta resolução, consulte [Métricas de alta resolução](publishingMetrics.md#high-resolution-metrics).
+
+**nota**  
+Se você planeja criar alarmes em métricas criadas usando o formato de métricas incorporadas, consulte [Configuração de alarmes em métricas criadas com o formato de métricas incorporadas](CloudWatch_Embedded_Metric_Format_Alarms.md) para obter as recomendações.
+
+```
+{
+  "_aws": {
+    "CloudWatchMetrics": [
+      {
+        "Metrics": [
+          {
+            "Name": "Time",
+            "Unit": "Milliseconds",
+            "StorageResolution": 60
+          }
+        ],
+        ...
+      }
+    ]
+  },
+  "Time": 1
+}
+```
+
+### Valores de referência
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure_referencevalues"></a>
+
+Os valores de referência são valores de string que fazem referência a membros [Membros de destino](#CloudWatch_Embedded_Metric_Format_Specification_structure_target) no nó raiz. Essas referências NÃO devem ser confundidas com os ponteiros JSON descritos em [RFC6901](https://tools.ietf.org/html/rfc6901). Os valores de destino não podem ser aninhados.
+
+### Membros de destino
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure_target"></a>
+
+Os destinos válidos DEVEM ser membros no nó raiz e não podem ser objetos aninhados. Por exemplo, um valor \_reference\_ de `"A.a"` DEVE corresponder ao seguinte membro:
+
+```
+{ "A.a" }
+```
+
+Ele NÃO DEVE corresponder ao membro aninhado:
+
+```
+{ "A": { "a" } }
+```
+
+Os valores válidos dos membros de destino dependem do que está fazendo referência a eles. Um destino métrico DEVE ser um valor numérico ou uma matriz de valores numéricos. Os destinos da métrica da matriz numérica NÃO PODEM ter mais de 100 membros. Um destino de dimensão DEVE ter um valor de string.
+
+### Exemplo de formato de métricas incorporadas e esquema JSON
+
+<a name="CloudWatch_Embedded_Metric_Format_Specification_structure_example"></a>
+
+Veja a seguir um exemplo válido de formato de métricas incorporadas.
+
+```
+{
+  "_aws": {
+    "Timestamp": 1574109732004,
+    "CloudWatchMetrics": [
+      {
+        "Namespace": "lambda-function-metrics",
+        "Dimensions": [["functionVersion"]],
+        "Metrics": [
+          {
+            "Name": "time",
+            "Unit": "Milliseconds",
+            "StorageResolution": 60
+          }
+        ]
+      }
+    ]
+  },
+  "functionVersion": "$LATEST",
+  "time": 100,
+  "requestId": "989ffbf8-9ace-4817-a57c-e4dd734019ee"
+}
+```
+
+É possível usar o esquema a seguir para validar documentos de formato de métricas incorporadas.
+
+```
+{
+    "type": "object",
+    "title": "Root Node",
+    "required": [
+        "_aws"
+    ],
+    "properties": {
+        "_aws": {
+            "$id": "#/properties/_aws",
+            "type": "object",
+            "title": "Metadata",
+            "required": [
+                "Timestamp",
+                "CloudWatchMetrics"
+            ],
+            "properties": {
+                "Timestamp": {
+                    "$id": "#/properties/_aws/properties/Timestamp",
+                    "type": "integer",
+                    "title": "The Timestamp Schema",
+                    "examples": [
+                        1565375354953
+                    ]
+                },
+                "CloudWatchMetrics": {
+                    "$id": "#/properties/_aws/properties/CloudWatchMetrics",
+                    "type": "array",
+                    "title": "MetricDirectives",
+                    "items": {
+                        "$id": "#/properties/_aws/properties/CloudWatchMetrics/items",
+                        "type": "object",
+                        "title": "MetricDirective",
+                        "required": [
+                            "Namespace",
+                            "Dimensions",
+                            "Metrics"
+                        ],
+                        "properties": {
+                            "Namespace": {
+                                "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Namespace",
+                                "type": "string",
+                                "title": "CloudWatch Metrics Namespace",
+                                "examples": [
+                                    "MyApp"
+                                ],
+                                "pattern": "^(.*)$",
+                                "minLength": 1,
+                                "maxLength": 1024
+                            },
+                            "Dimensions": {
+                                "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Dimensions",
+                                "type": "array",
+                                "title": "The Dimensions Schema",
+                                "minItems": 1,
+                                "items": {
+                                    "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Dimensions/items",
+                                    "type": "array",
+                                    "title": "DimensionSet",
+                                    "minItems": 0,
+                                    "maxItems": 30,
+                                    "items": {
+                                        "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Dimensions/items/items",
+                                        "type": "string",
+                                        "title": "DimensionReference",
+                                        "examples": [
+                                            "Operation"
+                                        ],
+                                        "pattern": "^(.*)$",
+                                        "minLength": 1,
+                                        "maxLength": 250
+}
+                                }
+                            },
+                            "Metrics": {
+                                "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Metrics",
+                                "type": "array",
+                                "title": "MetricDefinitions",
+                                "items": {
+                                    "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Metrics/items",
+                                    "type": "object",
+                                    "title": "MetricDefinition",
+                                    "required": [
+                                        "Name"
+                                    ],
+                                    "properties": {
+                                        "Name": {
+                                            "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Metrics/items/properties/Name",
+                                            "type": "string",
+                                            "title": "MetricName",
+                                            "examples": [
+                                                "ProcessingLatency"
+                                            ],
+                                            "pattern": "^(.*)$",
+                                            "minLength": 1,
+                                            "maxLength": 1024
+                                        },
+                                        "Unit": {
+                                            "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Metrics/items/properties/Unit",
+                                            "type": "string",
+                                            "title": "MetricUnit",
+                                            "examples": [
+                                                "Milliseconds"
+                                            ],
+                                            "pattern": "^(Seconds|Microseconds|Milliseconds|Bytes|Kilobytes|Megabytes|Gigabytes|Terabytes|Bits|Kilobits|Megabits|Gigabits|Terabits|Percent|Count|Bytes\\/Second|Kilobytes\\/Second|Megabytes\\/Second|Gigabytes\\/Second|Terabytes\\/Second|Bits\\/Second|Kilobits\\/Second|Megabits\\/Second|Gigabits\\/Second|Terabits\\/Second|Count\\/Second|None)$"
+                                         },
+                                         "StorageResolution": {
+                                            "$id": "#/properties/_aws/properties/CloudWatchMetrics/items/properties/Metrics/items/properties/StorageResolution",
+                                            "type": "integer",
+                                            "title": "StorageResolution",
+                                            "examples": [
+                                                60
+                                            ]
+                                         }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+## Informações da entidade no formato EMF
+
+<a name="entity-information-emf-format"></a>
+
+Ao publicar logs no Amazon CloudWatch usando o formato Embedded Metric Format (EMF), é possível incluir informações da entidade no evento de log. Esta seção descreve como especificar as informações da entidade e como o CloudWatch processa essas informações.
+
+### Tipos de entidade
+
+<a name="entity-types-emf"></a>
+
+Quando nenhuma entidade for especificada com a solicitação `PutLogEvents`, o CloudWatch procurará as informações da entidade no conteúdo do log EMF:
+
+- **Entidades do tipo serviço**
+
+  Campos obrigatórios: `Service` e `Environment`
+
+- **Entidades do tipo recurso**
+
+  Campos obrigatórios: `ResourceType` e `Identifier`
+
+### Atributos da plataforma
+
+<a name="platform-attributes-emf"></a>
+
+O CloudWatch determina automaticamente o tipo da plataforma com base nesses atributos:
+
+- **Kubernetes (K8s):**
+
+  Obrigatório: `K8s.Cluster`
+
+  Opcional: `K8s.Namespace`, `K8s.Workload`, `K8s.Node`, `K8s.Pod`, `EC2.InstanceId`, `EC2.AutoScalingGroup`
+
+- **Amazon EKS**
+
+  Obrigatório: `EKS.Cluster`
+
+  Opcional: `K8s.Namespace`, `K8s.Workload`, `K8s.Node`, `K8s.Pod`, `EC2.InstanceId`
+
+- **Amazon ECS:**
+
+  Obrigatório: `ECS.Cluster`
+
+  Opcional: `ECS.Service`, `ECS.Task`
+
+- **Amazon EC2**
+
+  Obrigatório: `EC2.InstanceId`
+
+  Opcional: `EC2.AutoScalingGroup`
+
+- **Lambda:**
+
+  Obrigatório: `Lambda.Function`
+
+- **Hosts genéricos:**
+
+  Obrigatório: `Host`
+
+### Exemplo de formato de log EMF
+
+<a name="example-emf-log-format"></a>
+
+```
+{
+    "_aws": {
+        "CloudWatchMetrics": [
+            {
+                "Metrics": [
+                    {"Name": "RequestLatency", "Unit": "Milliseconds"}
+                ],
+                "Namespace": "MyApplication"
+            }
+        ]
+    },
+    "Service": "PaymentService",
+    "Environment": "Production",
+    "K8s.Cluster": "main-cluster",
+    "K8s.Namespace": "payment-ns",
+    "K8s.Pod": "payment-pod-123",
+    "K8s.Node": "worker-node-1",
+    "K8s.Workload": "payment-deployment",
+    "RequestLatency": 135.5,
+    "timestamp": 1622163600000
+}
+```
+
+### Entidade gerada
+
+<a name="generated-entity-emf"></a>
+
+O log EMF acima gerará a seguinte entidade:
+
+```
+{
+    "KeyAttributes": {
+        "Type": "Service",
+        "Name": "PaymentService",
+        "Environment": "Production"
+    },
+    "Attributes": {
+        "PlatformType": "K8s",
+        "K8s.Cluster": "main-cluster",
+        "K8s.Namespace": "payment-ns",
+        "K8s.Pod": "payment-pod-123",
+        "K8s.Node": "worker-node-1",
+        "K8s.Workload": "payment-deployment"
+    }
+}
+```
+
+### Processamento de entidade
+
+<a name="entity-processing-emf"></a>
+
+O CloudWatch processa as informações da entidade da seguinte forma:
+
+- **KeyAttributes:**
+  - Determina o tipo da entidade com base nos campos obrigatórios
+  - Para o tipo serviço, extrai o nome e o ambiente do serviço
+  - Esses se tornam os identificadores primários da entidade
+- **Atributos:**
+  - Define PlatformType com base nos atributos de plataforma incluídos
+  - Inclui todas as informações relevantes específicas da plataforma
+  - Mantém o contexto de relacionamento para os dados de telemetria
+
+O CloudWatch usa essas informações da entidade para estabelecer relações entre diferentes partes dos dados de telemetria, permitindo a observabilidade aprimorada e a análise contextual de suas aplicações e infraestrutura. Para obter mais informações, consulte [Como adicionar informações relacionadas à telemetria personalizada enviada ao CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/adding-your-own-related-telemetry.html).
+
+**nota**  
+As informações da entidade ajudam o CloudWatch a criar uma imagem completa dos dados de telemetria da sua aplicação e seus relacionamentos dentro da sua infraestrutura.

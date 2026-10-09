@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+   <channel>
+      <title>Document History</title>
+      <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/</link>
+      <description>A RSS feed containing the latest updates on https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/.</description>
+      <language>pt-br</language>
+      <atom:link href="https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/serverless-application-model-updates.rss"
+                 rel="self"
+                 type="application/rss+xml"/>
+      <lastBuildDate>Wed, 30 Sep 2026 23:55:47 GMT</lastBuildDate>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI suporte para a AWS::LanguageExtensionstransformaÃ§Ã£o</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O AWS SAMCLI agora se expande &lt;code class="code"&gt;Fn::ForEach&lt;/code&gt;&lt;code class="code"&gt;Fn::Length&lt;/code&gt;,&lt;code class="code"&gt;Fn::ToJsonString&lt;/code&gt;,, e &lt;code class="code"&gt;Fn::FindInMap&lt;/code&gt; com &lt;code class="code"&gt;DefaultValue&lt;/code&gt; localmente&lt;code class="code"&gt;sam build&lt;/code&gt;, entÃ£o&lt;code class="code"&gt;sam package&lt;/code&gt;,&lt;code class="code"&gt;sam deploy&lt;/code&gt;,&lt;code class="code"&gt;sam sync&lt;/code&gt;,&lt;code class="code"&gt;sam validate&lt;/code&gt;, e os &lt;code class="code"&gt;sam local&lt;/code&gt; comandos funcionam com modelos que usam a &lt;code class="code"&gt;AWS::LanguageExtensions&lt;/code&gt; transformaÃ§Ã£o. Para saber mais, consulte o &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-language-extensions.html"&gt;suporte a extensÃµes de CloudFormation idioma&lt;/a&gt;.</description>
+         <pubDate>Wed, 13 May 2026 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_suporte_para_a_AWS::LanguageExtensionstransformaÃ§Ã£o_2026-05-13</guid>
+      </item>
+      <item>
+         <title>Reestruturado e atualizado o conteÃºdo em todo o guia do desenvolvedor</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Reorganizado e reestruturado o guia para melhorar a capacidade de descoberta e a usabilidade. TÃ­tulos atualizados e aprimorados. Fornecidos detalhes adicionais na apresentaÃ§Ã£o de tÃ³picos e conceitos.</description>
+         <pubDate>Thu, 20 Jun 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Reestruturado_e_atualizado_o_conteÃºdo_em_todo_o_guia_do_desenvolvedor_2024-06-20</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI suporte para Ruby 3.3</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O Ruby 3.3 agora estÃ¡ disponÃ­vel como repositÃ³rio de runtime e de imagens. Consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-image-repositories.html"&gt;RepositÃ³rios de imagem&lt;/a&gt; e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-init.html"&gt;sam init&lt;/a&gt; para obter detalhes.</description>
+         <pubDate>Thu, 4 Apr 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_suporte_para_Ruby_3.3_2024-04-04</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI opÃ§Ãµes de comando</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>EstÃ£o disponÃ­veis novas opÃ§Ãµes para o comando &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-api.html"&gt;sam local start-api&lt;/a&gt;: &lt;code class="code"&gt;--ssl-cert-file PATH&lt;/code&gt; e &lt;code class="code"&gt;--ssl-key-file PATH&lt;/code&gt;. AlÃ©m disso, a nova opÃ§Ã£o de linha de comando &lt;code class="code"&gt;--add-host LIST&lt;/code&gt; estÃ¡ disponÃ­vel para &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-invoke.html"&gt;sam local invoke&lt;/a&gt;, &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-api.html"&gt;sam local start-api&lt;/a&gt; e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-lambda.html"&gt;sam local start-lambda&lt;/a&gt;</description>
+         <pubDate>Wed, 20 Mar 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_opÃ§Ãµes_de_comando_2024-03-20</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI suporte para o.NET 8</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O .NET 8 agora estÃ¡ disponÃ­vel como repositÃ³rio de runtime e de imagens. Os tempos de execuÃ§Ã£o e os repositÃ³rios de imagens do.NET Core 3.1,  Node.js  14,  Node.js  12, Python 3.7 e Ruby 2.7 nÃ£o sÃ£o mais suportados. Consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-image-repositories.html"&gt;RepositÃ³rios de imagem&lt;/a&gt; e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-init.html"&gt;sam init&lt;/a&gt;.</description>
+         <pubDate>Thu, 22 Feb 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_suporte_para_o.NET_8_2024-02-22</guid>
+      </item>
+      <item>
+         <title>Foi adicionada a opÃ§Ã£o --watch-exclude para o AWS SAMÂ CLI comando sam sync</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Exclua arquivos e pastas do inÃ­cio de uma sincronizaÃ§Ã£o. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-sam-cli-sync.html#using-sam-cli-sync-options-exclude"&gt;Especificar arquivos e pastas que nÃ£o iniciarÃ£o uma sincronizaÃ§Ã£o&lt;/a&gt;.</description>
+         <pubDate>Wed, 6 Dec 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Foi_adicionada_a_opÃ§Ã£o_--watch-exclude_para_o_AWS_SAMÂ CLI_comando_sam_sync_2023-12-06</guid>
+      </item>
+      <item>
+         <title>Foi adicionada a opÃ§Ã£o --build-in-source para o AWS SAMÂ CLI comando sam sync</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Crie seu projeto na pasta de origem para acelerar o processo de compilaÃ§Ã£o. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-sam-cli-sync.html#using-sam-cli-sync-options-source"&gt;Acelerar os tempos de compilaÃ§Ã£o criando seu projeto na pasta de origem&lt;/a&gt;.</description>
+         <pubDate>Wed, 6 Dec 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Foi_adicionada_a_opÃ§Ã£o_--build-in-source_para_o_AWS_SAMÂ CLI_comando_sam_sync_2023-12-06</guid>
+      </item>
+      <item>
+         <title>Foi adicionada a opÃ§Ã£o --build-in-source para o AWS SAMÂ CLI comando sam build</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Crie seu projeto na pasta de origem para acelerar o processo de compilaÃ§Ã£o. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-sam-cli-build.html#using-sam-cli-build-options-source"&gt;Acelerar os tempos de compilaÃ§Ã£o criando seu projeto na pasta de origem&lt;/a&gt;.</description>
+         <pubDate>Wed, 6 Dec 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Foi_adicionada_a_opÃ§Ã£o_--build-in-source_para_o_AWS_SAMÂ CLI_comando_sam_build_2023-12-06</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI instalador de pacotes arm64 para Linux</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Para obter instruÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html#install-sam-cli-instructions"&gt;Instalando AWS SAMCLI&lt;/a&gt; o.</description>
+         <pubDate>Wed, 6 Dec 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_instalador_de_pacotes_arm64_para_Linux_2023-12-06</guid>
+      </item>
+      <item>
+         <title>Adicionado novo suporte de recursos para AWS SAMÂ CLI comando de invocaÃ§Ã£o remota</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use &lt;code class="code"&gt;sam remote invoke&lt;/code&gt; com aplicativos Kinesis Data Streams, filas do Amazon SQS e mÃ¡quinas de estado Step Functions. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-sam-cli-remote-invoke.html"&gt;Usar a invocaÃ§Ã£o remota do sam.&lt;/a&gt;</description>
+         <pubDate>Wed, 15 Nov 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionado_novo_suporte_de_recursos_para_AWS_SAMÂ CLI_comando_de_invocaÃ§Ã£o_remota_2023-11-15</guid>
+      </item>
+      <item>
+         <title>Novo adicionado AWS SAMÂ CLI comando remoto test-event para eventos de teste compartilhÃ¡veis</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use o AWS SAM CLI para acessar e gerenciar eventos de teste compartilhÃ¡veis do registro do  EventBridge  esquema para testar suas funÃ§Ãµes do Lambda no. Nuvem AWS Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-sam-cli-remote-test-event.html"&gt;Usando sam remote test-event&lt;/a&gt;. </description>
+         <pubDate>Tue, 3 Oct 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Novo_adicionado_AWS_SAMÂ CLI_comando_remoto_test-event_para_eventos_de_teste_compartilhÃ¡veis_2023-10-03</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI suporte para Terraform Cloud</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O AWS SAMÂ CLI agora oferece suporte a testes locais para Terraform Cloud. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/gs-terraform-support.html#gs-terraform-support-cloud"&gt;Configurar para Terraform Cloud&lt;/a&gt;.</description>
+         <pubDate>Tue, 5 Sep 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_suporte_para_Terraform_Cloud_2023-09-05</guid>
+      </item>
+      <item>
+         <title>AWS SAMÂ CLI suporte para Terraform agora estÃ¡ disponÃ­vel ao pÃºblico em geral</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Para saber mais sobre o suporte a AWS SAMCLI para Terraform, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/terraform-support.html"&gt;AWS SAMÂ CLITerraformsuporte&lt;/a&gt;.</description>
+         <pubDate>Tue, 5 Sep 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AWS_SAMÂ CLI_suporte_para_Terraform_agora_estÃ¡_disponÃ­vel_ao_pÃºblico_em_geral_2023-09-05</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o YAML suporte de formato de arquivo para o AWS SAMÂ CLI Arquivo de configuraÃ§Ã£o do Â </title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O AWS SAMCLI agora suporta o formato de arquivo [&lt;code&gt;.yaml&lt;/code&gt;|&lt;code&gt;.yml&lt;/code&gt;]. &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-sam-cli-configure.html"&gt; As pÃ¡ginas Configurar o AWS SAMÂ CLI&lt;/a&gt; e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html"&gt;Arquivo de configuraÃ§Ã£o do AWS SAMÂ CLI&lt;/a&gt; foram atualizadas.</description>
+         <pubDate>Tue, 18 Jul 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_YAML_suporte_de_formato_de_arquivo_para_o_AWS_SAMÂ CLI_Arquivo_de_configuraÃ§Ã£o_do_Â _2023-07-18</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI SAM API de inicializaÃ§Ã£o local suporte de comando para Terraform</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-terraform-support.html"&gt;Para que serve o AWS SAMCLI suporteTerraform?&lt;/a&gt; A seÃ§Ã£o foi atualizada para incluir suporte de AWS SAMCLI &lt;code class="code"&gt;sam local start-api&lt;/code&gt; comando paraTerraform. </description>
+         <pubDate>Thu, 6 Jul 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_SAM_API_de_inicializaÃ§Ã£o_local_suporte_de_comando_para_Terraform_2023-07-06</guid>
+      </item>
+      <item>
+         <title>Novo adicionado AWS SAMÂ CLI comando de invocaÃ§Ã£o remota</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Para comeÃ§ar a usar &lt;code class="code"&gt;sam remote invoke&lt;/code&gt;, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-sam-cli-remote-invoke.html"&gt;Usar a invocaÃ§Ã£o remota do sam.&lt;/a&gt;</description>
+         <pubDate>Thu, 22 Jun 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Novo_adicionado_AWS_SAMÂ CLI_comando_de_invocaÃ§Ã£o_remota_2023-06-22</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS AppSync API do GraphQL tipo de recurso sem servidor</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Crie uma nova &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-graphqlapi.html"&gt;&lt;code class="code"&gt;AWS::Serverless::GraphQLApi&lt;/code&gt;&lt;/a&gt;seÃ§Ã£o que descreva como definir um GraphQL API recurso com AWS SAM o.</description>
+         <pubDate>Thu, 22 Jun 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_AppSync_API_do_GraphQL_tipo_de_recurso_sem_servidor_2023-06-22</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI suporte para Ruby 3.2</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Atualize a pÃ¡gina do &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-init.html"&gt;sam init&lt;/a&gt; para incluir novos valores bÃ¡sicos de imagem e runtime. Atualize a pÃ¡gina &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-image-repositories.html"&gt;RepositÃ³rios de imagens&lt;/a&gt; com o Ruby 3.2 Amazon ECR URI.</description>
+         <pubDate>Tue, 6 Jun 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_suporte_para_Ruby_3.2_2023-06-06</guid>
+      </item>
+      <item>
+         <title>Foram adicionadas etapas opcionais para verificaÃ§Ã£o da integridade do AWS SAMÂ CLI instalador de pacotes</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Atualize a pÃ¡gina &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html"&gt;InstalaÃ§Ã£o do AWS SAMÂ CLI&lt;/a&gt; para refletir a etapa opcional. Crie a pÃ¡gina &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/reference-sam-cli-install-verify.html"&gt;Verificar a integridade do instalador do AWS SAMÂ CLI&lt;/a&gt; para documentar as etapas.</description>
+         <pubDate>Wed, 31 May 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Foram_adicionadas_etapas_opcionais_para_verificaÃ§Ã£o_da_integridade_do_AWS_SAMÂ CLI_instalador_de_pacotes_2023-05-31</guid>
+      </item>
+      <item>
+         <title>Adicionada a opÃ§Ã£o sam sync para ignorar a sincronizaÃ§Ã£o da infraestrutura</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Personalize se uma CloudFormation implantaÃ§Ã£o Ã© necessÃ¡ria sempre que &lt;code class="code"&gt;sam sync&lt;/code&gt; for executada. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-sam-cli-sync.html#using-sam-cli-sync-options-skip-deploy-sync"&gt;Ignorar a CloudFormation implantaÃ§Ã£o inicial&lt;/a&gt;.</description>
+         <pubDate>Thu, 23 Mar 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionada_a_opÃ§Ã£o_sam_sync_para_ignorar_a_sincronizaÃ§Ã£o_da_infraestrutura_2023-03-23</guid>
+      </item>
+      <item>
+         <title>Adicionado suporte para o tipo de origem de eventos DocumentDB</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>A especificaÃ§Ã£o do AWS SAM modelo agora oferece suporte ao tipo de fonte de &lt;code class="code"&gt;DocumentDB&lt;/code&gt; evento para o &lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt; recurso. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-documentdb.html"&gt;DocumentDB&lt;/a&gt;.</description>
+         <pubDate>Fri, 10 Mar 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionado_suporte_para_o_tipo_de_origem_de_eventos_DocumentDB_2023-03-10</guid>
+      </item>
+      <item>
+         <title>Crie funÃ§Ãµes do Rust Lambda com Lambda de carga</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use o AWS SAMÂ CLI para criar suas funÃ§Ãµes do Rust Lambda usando Cargo
+					Lambda. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/building-rust.html"&gt;Construindo as funÃ§Ãµes do Rust Lambda com Cargo Lambda. &lt;/a&gt; </description>
+         <pubDate>Thu, 23 Feb 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Crie_funÃ§Ãµes_do_Rust_Lambda_com_Lambda_de_carga_2023-02-23</guid>
+      </item>
+      <item>
+         <title>Crie recursos funcionais fora do AWS SAM</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionada orientaÃ§Ã£o sobre como ignorar funÃ§Ãµes ao usar o comando &lt;b&gt;sam build&lt;/b&gt;. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-build.html#building-applications-skip"&gt;CriaÃ§Ã£o de funÃ§Ãµes fora do AWS SAM&lt;/a&gt;.</description>
+         <pubDate>Tue, 14 Feb 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Crie_recursos_funcionais_fora_do_AWS_SAM_2023-02-14</guid>
+      </item>
+      <item>
+         <title>Nova sintaxe de conectores incorporados</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use a nova sintaxe de conectores incorporados para definir seus recursos &lt;code class="code"&gt;AWS::Serverless::Connector&lt;/code&gt;. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/managing-permissions-connectors.html"&gt;Gerenciamento de permissÃµes de recursos com AWS SAM conectores&lt;/a&gt;.</description>
+         <pubDate>Wed, 8 Feb 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Nova_sintaxe_de_conectores_incorporados_2023-02-08</guid>
+      </item>
+      <item>
+         <title>Propriedades de formato e OutExtension construÃ§Ã£o adicionadas para esbuild</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>A criaÃ§Ã£o de funÃ§Ãµes  Node.js  Lambda com o esbuild agora oferece suporte &lt;code class="code"&gt;Format&lt;/code&gt; e &lt;code class="code"&gt;OutExtension&lt;/code&gt; cria propriedades. Para saber mais, consulte Como &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-build-typescript.html"&gt;criar funÃ§Ãµes do  Node.js  Lambda com&lt;/a&gt; o esbuild.</description>
+         <pubDate>Thu, 2 Feb 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Propriedades_de_formato_e_OutExtension_construÃ§Ã£o_adicionadas_para_esbuild_2023-02-02</guid>
+      </item>
+      <item>
+         <title>Foi adicionado um novo comando sam list para AWS SAMÂ CLI</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use &lt;b&gt;sam list&lt;/b&gt; para visualizar informaÃ§Ãµes importantes sobre os recursos em seu aplicativo sem servidor. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-list.html"&gt;sam list&lt;/a&gt;.</description>
+         <pubDate>Thu, 2 Feb 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Foi_adicionado_um_novo_comando_sam_list_para_AWS_SAMÂ CLI_2023-02-02</guid>
+      </item>
+      <item>
+         <title>OpÃ§Ãµes de gerenciamento de tempo de execuÃ§Ã£o adicionadas ao AWS SAM especificaÃ§Ã£o do modelo</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Configure as opÃ§Ãµes de gerenciamento de runtime para suas funÃ§Ãµes do Lambda. Para saber mais, consulte &lt;code class="code"&gt;&lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-runtimemanagementconfig"&gt;RuntimeManagementConfig&lt;/a&gt;&lt;/code&gt;. </description>
+         <pubDate>Tue, 24 Jan 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#OpÃ§Ãµes_de_gerenciamento_de_tempo_de_execuÃ§Ã£o_adicionadas_ao_AWS_SAM_especificaÃ§Ã£o_do_modelo_2023-01-24</guid>
+      </item>
+      <item>
+         <title>Propriedade de destino adicionada ao StateMachine recurso EventSource for AWS::Serverless::.</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O tipo de recurso &lt;code class="code"&gt;AWS::Serverless::StateMachine&lt;/code&gt; suporta a propriedade &lt;code class="code"&gt;Target&lt;/code&gt; para &lt;code class="code"&gt;&lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-statemachine-statemachineeventbridgerule-target.html"&gt;EventBridgeRule&lt;/a&gt;&lt;/code&gt; e fontes de eventos &lt;code class="code"&gt;&lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-statemachine-statemachineschedule-target.html"&gt;Schedule&lt;/a&gt;&lt;/code&gt;.</description>
+         <pubDate>Fri, 13 Jan 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Propriedade_de_destino_adicionada_ao_StateMachine_recurso_EventSource_for_AWS::Serverless::._2023-01-13</guid>
+      </item>
+      <item>
+         <title>Configurar o escalonamento de pollers SQS para funÃ§Ãµes do Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Configure o escalonamento de pollers SQS com a propriedade &lt;code class="code"&gt;ScalingConfig&lt;/code&gt; para &lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;. Para saber mais, consulte &lt;code class="code"&gt;&lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-sqs.html#sam-function-sqs-scalingconfig"&gt; ScalingConfig&lt;/a&gt;&lt;/code&gt;.</description>
+         <pubDate>Thu, 12 Jan 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Configurar_o_escalonamento_de_pollers_SQS_para_funÃ§Ãµes_do_Lambda_2023-01-12</guid>
+      </item>
+      <item>
+         <title>Validar AWS SAM aplicaÃ§Ãµes com cfn-lint</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description> VocÃª pode usar o cfn-lint para validar seus AWS SAM modelos por meio do. AWS SAMCLI Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/validate-cfn-lint.html"&gt;Validar com cfn-lint&lt;/a&gt;. </description>
+         <pubDate>Wed, 11 Jan 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Validar_AWS_SAM_aplicaÃ§Ãµes_com_cfn-lint_2023-01-11</guid>
+      </item>
+      <item>
+         <title>Monitore seus aplicativos sem servidor com CloudWatch o Application Insights</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description> Configure o Amazon  CloudWatch  Application Insights para monitorar seus AWS SAM aplicativos. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/monitor-app-insights.html"&gt;Monitore seus aplicativos sem servidor com o  CloudWatch  Application&lt;/a&gt; Insights. </description>
+         <pubDate>Mon, 19 Dec 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Monitore_seus_aplicativos_sem_servidor_com_CloudWatch_o_Application_Insights_2022-12-19</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI instalador de pacotes para macOS</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description> Instale o AWS SAMÂ CLI usando o novo instalador de pacotes para macOS. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html"&gt;Instalando AWS SAMCLI&lt;/a&gt; o. </description>
+         <pubDate>Tue, 6 Dec 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_instalador_de_pacotes_para_macOS_2022-12-06</guid>
+      </item>
+      <item>
+         <title>Suporte adicional para Lambda SnapStart</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Configure  SnapStart  suas funÃ§Ãµes do Lambda para criar instantÃ¢neos, que sÃ£o estados em cache de suas funÃ§Ãµes inicializadas. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-snapstart"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Mon, 28 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_adicional_para_Lambda_SnapStart_2022-11-28</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI suporte para nodejs18.x</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O AWS SAMÂ CLI agora oferece suporte ao runtime do nodejs18.x. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-init.html"&gt;sam init.&lt;/a&gt;</description>
+         <pubDate>Thu, 17 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_suporte_para_nodejs18.x_2022-11-17</guid>
+      </item>
+      <item>
+         <title>Adicionadas orientaÃ§Ãµes sobre a configuraÃ§Ã£o de acesso e permissÃµes</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>AWS SAM fornece duas opÃ§Ãµes que simplificam o gerenciamento de acesso e permissÃµes para seus aplicativos sem servidor. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-permissions.html"&gt;Gerenciamento&lt;/a&gt; de permissÃµes e acessos a recursos.</description>
+         <pubDate>Thu, 17 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionadas_orientaÃ§Ãµes_sobre_a_configuraÃ§Ã£o_de_acesso_e_permissÃµes_2022-11-17</guid>
+      </item>
+      <item>
+         <title>Adicionado suporte para criar funÃ§Ãµes do Lambda .NET 7 com compilaÃ§Ã£o AOT nativa</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Crie e empacote suas funÃ§Ãµes do.NET 7 Lambda com AWS SAM, utilizando a compilaÃ§Ã£o nativa Ahead-of-Time  (AOT) para melhorar os tempos de inicializaÃ§Ã£o a frio do Lambda. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/build-dotnet7.html"&gt;CriaÃ§Ã£o de funÃ§Ãµes do Lambda .NET 7 com compilaÃ§Ã£o AOT nativa&lt;/a&gt;.</description>
+         <pubDate>Tue, 15 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionado_suporte_para_criar_funÃ§Ãµes_do_Lambda_.NET_7_com_compilaÃ§Ã£o_AOT_nativa_2022-11-15</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAMÂ CLI Terraform suporte para depuraÃ§Ã£o e teste locais</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use o AWS SAMCLI em seus projetos Terraform para realizar depuraÃ§Ã£o e testes locais de suas funÃ§Ãµes e camadas do Lambda. Para saber mais, consulte o suporte de &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/terraform-support.html"&gt;AWS SAM
+CLI Terraform&lt;/a&gt;.</description>
+         <pubDate>Mon, 14 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAMÂ CLI_Terraform_suporte_para_depuraÃ§Ã£o_e_teste_locais_2022-11-14</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o AWS SAM suporte para EventBridge Scheduler</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>A especificaÃ§Ã£o do modelo AWS Serverless Application Model (AWS SAM) fornece uma sintaxe simples e abreviada que vocÃª pode usar para agendar eventos com o  EventBridge  Scheduler for e. AWS Lambda  AWS Step Functions Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/using-eventbridge-scheduler.html"&gt;Agendamento de eventos com o  EventBridge  Scheduler&lt;/a&gt;.</description>
+         <pubDate>Thu, 10 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AdiÃ§Ã£o_AWS_SAM_suporte_para_EventBridge_Scheduler_2022-11-10</guid>
+      </item>
+      <item>
+         <title>Simplificou o AWS SAMÂ CLI instruÃ§Ãµes de instalaÃ§Ã£o</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Os prÃ©-requisitos AWS SAMÂ CLI e as etapas opcionais foram movidos para pÃ¡ginas separadas. As etapas de instalaÃ§Ã£o dos sistemas operacionais compatÃ­veis podem ser encontradas em &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html"&gt;Instalando AWS SAMCLI&lt;/a&gt; o.</description>
+         <pubDate>Fri, 4 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Simplificou_o_AWS_SAMÂ CLI_instruÃ§Ãµes_de_instalaÃ§Ã£o_2022-11-04</guid>
+      </item>
+      <item>
+         <title>CorreÃ§Ã£o adicionada para permitir caminhos longos para usuÃ¡rios do Windows 10</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O repositÃ³rio de modelos de aplicativos AWS SAMÂ CLI contÃ©m alguns caminhos de arquivo longos que podem causar erros durante a execuÃ§Ã£o &lt;code class="code"&gt;sam init&lt;/code&gt; devido Ã s &lt;b&gt;MAX_PATH&lt;/b&gt; limitaÃ§Ãµes do Windows 10. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html"&gt;Instalar AWS SAMÂ CLI&lt;/a&gt;</description>
+         <pubDate>Fri, 4 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#CorreÃ§Ã£o_adicionada_para_permitir_caminhos_longos_para_usuÃ¡rios_do_Windows_10_2022-11-04</guid>
+      </item>
+      <item>
+         <title>Suporte adicional Ã  filtragem de eventos do Lambda para mais tipos de eventos</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Propriedade &lt;code class="code"&gt;FilterCritera&lt;/code&gt; adicionada a &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-msk.html"&gt;&lt;code class="code"&gt;MSK&lt;/code&gt;&lt;/a&gt;, &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-mq.html"&gt;&lt;code class="code"&gt;MQ&lt;/code&gt;&lt;/a&gt;, e tipos de fonte de eventos &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-selfmanagedkafka.html"&gt;&lt;code class="code"&gt;SelfManagedKafka&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Thu, 13 Oct 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_adicional_Ã _filtragem_de_eventos_do_Lambda_para_mais_tipos_de_eventos_2022-10-13</guid>
+      </item>
+      <item>
+         <title>Processo de implantaÃ§Ã£o gradual atualizado para implantaÃ§Ãµes pela primeira vez</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>A implantaÃ§Ã£o gradual de uma funÃ§Ã£o Lambda requer duas AWS CodeDeploy etapas. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/automating-updates-to-serverless-apps.html#automating-updates-to-serverless-apps-first-time"&gt;Implantar gradualmente uma funÃ§Ã£o do Lambda pela primeira vez&lt;/a&gt;.</description>
+         <pubDate>Thu, 13 Oct 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Processo_de_implantaÃ§Ã£o_gradual_atualizado_para_implantaÃ§Ãµes_pela_primeira_vez_2022-10-13</guid>
+      </item>
+      <item>
+         <title>Foi adicionado suporte ao OpenID Connect (OIDC) para AWS SAM pipeline</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>AWS SAM oferece suporte Ã  autenticaÃ§Ã£o de usuÃ¡rio do OpenID Connect (OIDC) para Bitbucket,  GitHub Actions e plataformas de integraÃ§Ã£o  GitLab  contÃ­nua e entrega contÃ­nua (). CI/CD Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-with-oidc.html"&gt;Usando contas de usuÃ¡rio do OIDC com AWS SAM pipeline&lt;/a&gt;.</description>
+         <pubDate>Thu, 13 Oct 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Foi_adicionado_suporte_ao_OpenID_Connect_(OIDC)_para_AWS_SAM_pipeline_2022-10-13</guid>
+      </item>
+      <item>
+         <title>Nota sobre JwtConfiguration propriedades</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionada uma observaÃ§Ã£o sobre a definiÃ§Ã£o &lt;code class="code"&gt;issuer&lt;/code&gt; e as propriedades &lt;code class="code"&gt;audience&lt;/code&gt; em &lt;code class="code"&gt;JwtConfiguration&lt;/code&gt; para &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-oauth2authorizer.html"&gt;&lt;code class="code"&gt;OAuth2Authorizer&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Fri, 7 Oct 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Nota_sobre_JwtConfiguration_propriedades_2022-10-07</guid>
+      </item>
+      <item>
+         <title>Novas propriedades para Function e StateMachine EventSource</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>&lt;code class="code"&gt;Enabled&lt;/code&gt;e &lt;code class="code"&gt;State&lt;/code&gt; propriedades adicionadas Ã  fonte do evento &lt;code class="code"&gt;CloudWatchEvent&lt;/code&gt; para &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-cloudwatchevent.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt;. Propriedade &lt;code class="code"&gt;State&lt;/code&gt; adicionada Ã  fonte do evento &lt;code class="code"&gt;Schedule&lt;/code&gt; &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-schedule.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt; e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-statemachine-statemachineschedule.html"&gt;&lt;code class="code"&gt;AWS::Serverless::StateMachine&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Thu, 6 Oct 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Novas_propriedades_para_Function_e_StateMachine_EventSource_2022-10-06</guid>
+      </item>
+      <item>
+         <title>AWS SAM conectores agora geralmente disponÃ­veis</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Os conectores sÃ£o um tipo de recurso AWS SAM abstrato, identificado como&lt;code class="code"&gt;AWS::Serverless::Connector&lt;/code&gt;, que fornece um mÃ©todo simples e seguro de provisionamento de permissÃµes entre seus recursos de aplicativos sem servidor. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/managing-permissions-connectors.html"&gt;Gerenciamento de permissÃµes de recursos com AWS Serverless Application Model conectores&lt;/a&gt;.</description>
+         <pubDate>Thu, 6 Oct 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AWS_SAM_conectores_agora_geralmente_disponÃ­veis_2022-10-06</guid>
+      </item>
+      <item>
+         <title>Adicionadas novas opÃ§Ãµes de sincronizaÃ§Ã£o do sam ao Â  AWS SAMÂ CLI</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Adicionadas opÃ§Ãµes &lt;code class="code"&gt;--dependency-layer&lt;/code&gt; e &lt;code class="code"&gt;--use-container&lt;/code&gt; a &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-sync.html"&gt;&lt;b&gt;sam sync&lt;/b&gt;&lt;/a&gt;.</description>
+         <pubDate>Tue, 20 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionadas_novas_opÃ§Ãµes_de_sincronizaÃ§Ã£o_do_sam_ao_Â _AWS_SAMÂ CLI_2022-09-20</guid>
+      </item>
+      <item>
+         <title>Adicionadas novas opÃ§Ãµes de implantaÃ§Ã£o do sam ao Â  AWS SAMÂ CLI</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>OpÃ§Ã£o &lt;code class="code"&gt;--on-failure&lt;/code&gt; adicionada a &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html"&gt;&lt;b&gt;sam deploy&lt;/b&gt;&lt;/a&gt;.</description>
+         <pubDate>Fri, 9 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionadas_novas_opÃ§Ãµes_de_implantaÃ§Ã£o_do_sam_ao_Â _AWS_SAMÂ CLI_2022-09-09</guid>
+      </item>
+      <item>
+         <title>suporte esbuild agora disponÃ­vel ao pÃºblico em geral</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Para criar e empacotar funÃ§Ãµes  Node.js  Lambda, vocÃª pode usar o AWS SAMCLI com o bundler &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-build-typescript.html"&gt; JavaScript esbuild&lt;/a&gt;.</description>
+         <pubDate>Thu, 1 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#suporte_esbuild_agora_disponÃ­vel_ao_pÃºblico_em_geral_2022-09-01</guid>
+      </item>
+      <item>
+         <title>Foi adicionado suporte a variÃ¡veis de ambiente local ao AWS SAMÂ CLI</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use variÃ¡veis de ambiente com AWS SAMÂ CLI ao &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-invoke.html"&gt;invocar funÃ§Ãµes do Lambda&lt;/a&gt; localmente e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-start-api.html"&gt;ao executar o API Gateway localmente&lt;/a&gt;.</description>
+         <pubDate>Thu, 1 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Foi_adicionado_suporte_a_variÃ¡veis_de_ambiente_local_ao_AWS_SAMÂ CLI_2022-09-01</guid>
+      </item>
+      <item>
+         <title>AtualizaÃ§Ã£o AWS SAMÂ CLI telemetria</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>A descriÃ§Ã£o das &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-telemetry.html"&gt;&lt;b&gt;informaÃ§Ãµes do sistema e do ambiente&lt;/b&gt;&lt;/a&gt; coletadas foi atualizada para incluir valores de hash dos atributos de uso.</description>
+         <pubDate>Thu, 1 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AtualizaÃ§Ã£o_AWS_SAMÂ CLI_telemetria_2022-09-01</guid>
+      </item>
+      <item>
+         <title>Suporte a arquiteturas de conjuntos de instruÃ§Ãµes do Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use AWS SAMCLI para criar funÃ§Ãµes do Lambda e camadas Lambda para arquiteturas de conjunto de instruÃ§Ãµes &lt;code class="code"&gt;x86_64&lt;/code&gt; ou &lt;code class="code"&gt;arm64&lt;/code&gt;. Para obter mais informaÃ§Ãµes, consulte a propriedade &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-architectures"&gt;Arquiteturas&lt;/a&gt; do tipo de &lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt; recurso e a &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-layerversion.html#sam-layerversion-compatiblearchitectures"&gt;CompatibleArchitectures&lt;/a&gt;propriedade do tipo de &lt;code class="code"&gt;AWS::Serverless::LayerVersion&lt;/code&gt; recurso.</description>
+         <pubDate>Fri, 1 Oct 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_a_arquiteturas_de_conjuntos_de_instruÃ§Ãµes_do_Lambda_2021-10-01</guid>
+      </item>
+      <item>
+         <title>Gerando exemplos de configuraÃ§Ãµes de pipeline</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use o AWS SAMCLI para gerar exemplos de pipelines para vÃ¡rios  CI/CD  sistemas, usando os &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-pipeline-init.html"&gt;&lt;code class="code"&gt;sam pipeline init&lt;/code&gt;&lt;/a&gt;comandos new &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-pipeline-bootstrap.html"&gt;&lt;code class="code"&gt;sam pipeline bootstrap&lt;/code&gt;&lt;/a&gt;e. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-generating-example-ci-cd.html"&gt;GeraÃ§Ã£o de exemplos de  CI/CD  pipelines.&lt;/a&gt;</description>
+         <pubDate>Wed, 21 Jul 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Gerando_exemplos_de_configuraÃ§Ãµes_de_pipeline_2021-07-21</guid>
+      </item>
+      <item>
+         <title>AWS SAMÂ CLI AWS CDK IntegraÃ§Ã£o (prÃ©-visualizaÃ§Ã£o, fase 2)</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Com a fase 2 da versÃ£o prÃ©via pÃºblica, agora vocÃª pode usar o AWS SAMCLI para empacotar e implantar AWS CDK aplicativos. VocÃª tambÃ©m pode baixar um AWS CDK aplicativo de amostra diretamente usando AWS SAMCLI o. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html"&gt;AWS Cloud Development Kit (AWS CDK)
+(visualizaÃ§Ã£o)&lt;/a&gt;.</description>
+         <pubDate>Tue, 13 Jul 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AWS_SAMÂ CLI_AWS_CDK_IntegraÃ§Ã£o_(prÃ©-visualizaÃ§Ã£o,_fase_2)_2021-07-13</guid>
+      </item>
+      <item>
+         <title>Suporte a RabbitMQ como uma origem do evento para funÃ§Ãµes</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Adicionado o suporte para RabbitMQ como uma fonte de eventos para funÃ§Ãµes sem servidor. Para obter mais informaÃ§Ãµes, consulte a propriedade &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-mq.html#sam-function-mq-sourceaccessconfigurations"&gt;&lt;code class="code"&gt;SourceAccessConfigurations&lt;/code&gt;&lt;/a&gt; da origem do evento &lt;code class="code"&gt;MQ&lt;/code&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Wed, 7 Jul 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_a_RabbitMQ_como_uma_origem_do_evento_para_funÃ§Ãµes_2021-07-07</guid>
+      </item>
+      <item>
+         <title>ImplantaÃ§Ã£o de aplicativos sem servidor usando o Amazon ECR, crie imagens de contÃªiner</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Use o Amazon ECR para criar imagens de contÃªiner para implantar aplicativos sem servidor com  CI/CD sistemas comuns AWS CodePipeline, como Jenkins e Actions.  GitLab  CI/CD  GitHub  Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-deploying.html"&gt;ImplantaÃ§Ã£o de aplicativos sem servidor&lt;/a&gt;.</description>
+         <pubDate>Thu, 24 Jun 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#ImplantaÃ§Ã£o_de_aplicativos_sem_servidor_usando_o_Amazon_ECR,_crie_imagens_de_contÃªiner_2021-06-24</guid>
+      </item>
+      <item>
+         <title>DepuraÃ§Ã£o AWS SAM aplicativos com AWS Kits de ferramentas</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>AWS Os kits de ferramentas agora oferecem suporte Ã  depuraÃ§Ã£o passo a passo com mais combinaÃ§Ãµes de ambientes de desenvolvimento integrados (IDEs) e tempos de execuÃ§Ã£o. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-debugging.html#serverless-sam-cli-using-aws-toolkits"&gt;Usando AWS kits de ferramentas&lt;/a&gt;.</description>
+         <pubDate>Thu, 20 May 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#DepuraÃ§Ã£o_AWS_SAM_aplicativos_com_AWS_Kits_de_ferramentas_2021-05-20</guid>
+      </item>
+      <item>
+         <title>AWS SAMÂ CLI AWS CDK IntegraÃ§Ã£o do Â  (visualizaÃ§Ã£o)</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Agora vocÃª pode usar o AWS SAMCLI para testar e criar AWS CDK aplicativos localmente. Esta Ã© uma versÃ£o de prÃ©-visualizaÃ§Ã£o pÃºblica. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html"&gt;AWS Cloud Development Kit (AWS CDK)
+(visualizaÃ§Ã£o)&lt;/a&gt;.</description>
+         <pubDate>Thu, 29 Apr 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AWS_SAMÂ CLI_AWS_CDK_IntegraÃ§Ã£o_do_Â _(visualizaÃ§Ã£o)_2021-04-29</guid>
+      </item>
+      <item>
+         <title>O repositÃ³rio padrÃ£o de imagens de contÃªiner foi alterado para Amazon ECR Public</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O repositÃ³rio padrÃ£o de imagens de contÃªiner mudou de  DockerHub  para &lt;a href="https://docs.aws.amazon.com/AmazonECR/latest/public/what-is-ecr.html"&gt;Amazon ECR&lt;/a&gt; Public. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-image-repositories.html"&gt;RepositÃ³rios de imagens&lt;/a&gt;.</description>
+         <pubDate>Tue, 6 Apr 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#O_repositÃ³rio_padrÃ£o_de_imagens_de_contÃªiner_foi_alterado_para_Amazon_ECR_Public_2021-04-06</guid>
+      </item>
+      <item>
+         <title>Todas as noites AWS SAMÂ CLI compilaÃ§Ãµes</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Agora vocÃª pode instalar uma versÃ£o de prÃ©-lanÃ§amento do AWS SAMCLI, que Ã© criada todas as noites. &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html"&gt;Para obter mais informaÃ§Ãµes, consulte a seÃ§Ã£o &lt;b&gt;Nightly build&lt;/b&gt; do subtÃ³pico do sistema operacional de sua escolha em Instalando o. AWS SAMCLI&lt;/a&gt;</description>
+         <pubDate>Thu, 25 Mar 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Todas_as_noites_AWS_SAMÂ CLI_compilaÃ§Ãµes_2021-03-25</guid>
+      </item>
+      <item>
+         <title>Suporte a variÃ¡veis de ambiente de construÃ§Ã£o de contÃªineres</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Agora vocÃª pode passar variÃ¡veis de ambiente para criar contÃªineres. Para obter mais informaÃ§Ãµes, consulte as opÃ§Ãµes &lt;code class="code"&gt;--container-env-var&lt;/code&gt; e &lt;code class="code"&gt;--container-env-var-file&lt;/code&gt; em &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html"&gt;&lt;code class="code"&gt;sam build&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Thu, 4 Mar 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_a_variÃ¡veis_de_ambiente_de_construÃ§Ã£o_de_contÃªineres_2021-03-04</guid>
+      </item>
+      <item>
+         <title>Novo processo de instalaÃ§Ã£o do Linux</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Agora vocÃª pode instalar AWS SAMCLI usando um instalador Linux nativo. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli-instructions-linux.html"&gt; Instalar o AWS SAMÂ CLI no Linux&lt;/a&gt;.</description>
+         <pubDate>Wed, 10 Feb 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Novo_processo_de_instalaÃ§Ã£o_do_Linux_2021-02-10</guid>
+      </item>
+      <item>
+         <title>Support para filas de cartas mortas para EventBridge</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para filas de mensagens mortas  EventBridge  e fontes de &lt;code class="code"&gt;Schedule&lt;/code&gt; eventos para funÃ§Ãµes sem servidor e mÃ¡quinas de estado. Para obter mais informaÃ§Ãµes, consulte a propriedade &lt;code class="code"&gt;DeadLetterConfig&lt;/code&gt; das origens de eventos &lt;code class="code"&gt;EventBridgeRule&lt;/code&gt; e &lt;code class="code"&gt;Schedule&lt;/code&gt;, para os tipos de recursos &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt; e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html"&gt;&lt;code class="code"&gt;AWS::Serverless::StateMachine&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Fri, 29 Jan 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Support_para_filas_de_cartas_mortas_para_EventBridge_2021-01-29</guid>
+      </item>
+      <item>
+         <title>Suporte para pontos de verificaÃ§Ã£o personalizados</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para pontos de verificaÃ§Ã£o personalizados para fontes de eventos do DynamoDB e do Kinesis para funÃ§Ãµes sem servidor. Para obter mais informaÃ§Ãµes, consulte a propriedade &lt;code class="code"&gt;FunctionResponseTypes&lt;/code&gt; do &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-kinesis.html"&gt;&lt;code class="code"&gt;Kinesis&lt;/code&gt;&lt;/a&gt; e os tipos de dados do &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-dynamodb.html"&gt;&lt;code class="code"&gt;DynamoDB&lt;/code&gt;&lt;/a&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Fri, 29 Jan 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_pontos_de_verificaÃ§Ã£o_personalizados_2021-01-29</guid>
+      </item>
+      <item>
+         <title>Suporte para janelas em cascata</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para janelas em cascata para fontes de eventos do DynamoDB e do Kinesis para funÃ§Ãµes sem servidor. Para obter mais informaÃ§Ãµes, consulte a propriedade &lt;code class="code"&gt;TumblingWindowInSeconds&lt;/code&gt; do &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-kinesis.html"&gt;&lt;code class="code"&gt;Kinesis&lt;/code&gt;&lt;/a&gt; e os tipos de dados do &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-dynamodb.html"&gt;&lt;code class="code"&gt;DynamoDB&lt;/code&gt;&lt;/a&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Thu, 17 Dec 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_janelas_em_cascata_2020-12-17</guid>
+      </item>
+      <item>
+         <title>Suporte para recipientes de alta atividade</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para contÃªineres de alta atividade ao testar localmente usando os comandos &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-api.html"&gt;&lt;code class="code"&gt;sam local start-api&lt;/code&gt;&lt;/a&gt; e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-lambda.html"&gt;&lt;code class="code"&gt;sam local start-lambda&lt;/code&gt;&lt;/a&gt; do AWS SAMÂ CLI. Para obter mais informaÃ§Ãµes, consulte a opÃ§Ã£o &lt;code class="code"&gt;--warm-containers&lt;/code&gt; para esses comandos.</description>
+         <pubDate>Wed, 16 Dec 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_recipientes_de_alta_atividade_2020-12-16</guid>
+      </item>
+      <item>
+         <title>Suporte a imagens de contÃªiner do Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Adicionado suporte a imagens de contÃªiner do Lambda. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-build.html"&gt;Criar aplicativos&lt;/a&gt;.</description>
+         <pubDate>Tue, 1 Dec 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_a_imagens_de_contÃªiner_do_Lambda_2020-12-01</guid>
+      </item>
+      <item>
+         <title>Suporte para assinatura de cÃ³digo</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para assinatura de cÃ³digo e implantaÃ§Ãµes confiÃ¡veis de cÃ³digo de aplicativo sem servidor. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/authoring-codesigning.html"&gt;Configurando a assinatura de cÃ³digo para AWS SAM aplicativos&lt;/a&gt;.</description>
+         <pubDate>Mon, 23 Nov 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_assinatura_de_cÃ³digo_2020-11-23</guid>
+      </item>
+      <item>
+         <title>Suporte para compilaÃ§Ãµes paralelas e em cache</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Melhor desempenho de compilaÃ§Ãµes de aplicativos sem servidor adicionando duas opÃ§Ãµes ao comando &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html"&gt;&lt;code class="code"&gt;sam build&lt;/code&gt;&lt;/a&gt;:&lt;code class="code"&gt;--parallel&lt;/code&gt;, que cria funÃ§Ãµes e camadas em paralelo, em vez de sequencialmente, e &lt;code class="code"&gt;--cached&lt;/code&gt;, que usa artefatos de construÃ§Ã£o de compilaÃ§Ãµes anteriores quando nenhuma alteraÃ§Ã£o foi feita que exija uma reconstruÃ§Ã£o.</description>
+         <pubDate>Tue, 10 Nov 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_compilaÃ§Ãµes_paralelas_e_em_cache_2020-11-10</guid>
+      </item>
+      <item>
+         <title>Suporte para Amazon MQ e autenticaÃ§Ã£o TLS mÃºtua</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Adicionado o suporte para o Amazon MQ como uma fonte de eventos para funÃ§Ãµes sem servidor. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-eventsource.html"&gt;&lt;code class="code"&gt;EventSource&lt;/code&gt;&lt;/a&gt; e os tipos de dados &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-mq.html"&gt;&lt;code class="code"&gt;MQ&lt;/code&gt;&lt;/a&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt;. TambÃ©m foi adicionado suporte Ã  autenticaÃ§Ã£o mÃºtua de Transport Layer Security (TLS) para APIs do API Gateway e APIs HTTP. Para obter mais informaÃ§Ãµes, consulte o tipo de dados &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-api-domainconfiguration.html"&gt;&lt;code class="code"&gt;DomainConfiguration&lt;/code&gt;&lt;/a&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Api&lt;/code&gt;&lt;/a&gt;, ou o tipo de dados &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapidomainconfiguration.html"&gt;&lt;code class="code"&gt;HttpApiDomainConfiguration&lt;/code&gt;&lt;/a&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-httpapi.html"&gt;&lt;code class="code"&gt;AWS::Serverless::HttpApi&lt;/code&gt;&lt;/a&gt;. </description>
+         <pubDate>Thu, 5 Nov 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_Amazon_MQ_e_autenticaÃ§Ã£o_TLS_mÃºtua_2020-11-05</guid>
+      </item>
+      <item>
+         <title>Suporte a autorizadores do Lambda para APIs HTTP</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para autorizadores Lambda para o tipo de recurso &lt;code class="code"&gt;AWS::Serverless::HttpApi&lt;/code&gt;. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-controlling-access-to-apis-lambda-authorizer.html#serverless-controlling-access-to-apis-lambda-authorizer-httpapi"&gt;Exemplo de autorizador do Lambda (&lt;code class="code"&gt;AWS::Serverless::HttpApi&lt;/code&gt;)&lt;/a&gt;.</description>
+         <pubDate>Tue, 27 Oct 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_a_autorizadores_do_Lambda_para_APIs_HTTP_2020-10-27</guid>
+      </item>
+      <item>
+         <title>Suporte para vÃ¡rios arquivos e ambientes de configuraÃ§Ã£o</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para vÃ¡rios arquivos e ambientes de configuraÃ§Ã£o para armazenar valores de parÃ¢metros padrÃ£o para os comandos AWS SAMÂ CLI. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html"&gt;Arquivo de configuraÃ§Ã£o do AWS SAMÂ CLI&lt;/a&gt;.</description>
+         <pubDate>Thu, 24 Sep 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_vÃ¡rios_arquivos_e_ambientes_de_configuraÃ§Ã£o_2020-09-24</guid>
+      </item>
+      <item>
+         <title>Support for X-Ray Step Functions e referÃªncias ao controlar o acesso Ã s APIs</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte  X-Ray  como fonte de eventos para mÃ¡quinas de estado sem servidor. Para obter mais informaÃ§Ãµes, consulte a propriedade &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html#sam-statemachine-tracing"&gt;&lt;code class="code"&gt;Tracing&lt;/code&gt;&lt;/a&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html"&gt;&lt;code class="code"&gt;AWS::Serverless::StateMachine&lt;/code&gt;&lt;/a&gt;. TambÃ©m foi adicionado suporte para referÃªncias ao controlar o acesso Ã s APIs. Para obter mais informaÃ§Ãµes, consulte o tipo de dados &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-api-resourcepolicystatement.html"&gt;&lt;code class="code"&gt;ResourcePolicyStatement&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Thu, 17 Sep 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Support_for_X-Ray_Step_Functions_e_referÃªncias_ao_controlar_o_acesso_Ã s_APIs_2020-09-17</guid>
+      </item>
+      <item>
+         <title>Suporte para o Amazon MSK</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Adicionado o suporte para o Amazon MSK como uma fonte de eventos para funÃ§Ãµes sem servidor. Isso permite que registros em um tÃ³pico do Amazon MSK acionem sua funÃ§Ã£o do Lambda. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-eventsource.html"&gt;&lt;code class="code"&gt;EventSource&lt;/code&gt;&lt;/a&gt; e os tipos de dados &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-msk.html"&gt;&lt;code class="code"&gt;MSK&lt;/code&gt;&lt;/a&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Thu, 13 Aug 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_o_Amazon_MSK_2020-08-13</guid>
+      </item>
+      <item>
+         <title>Suporte para o Amazon EFS</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para montar sistemas de arquivos Amazon EFS em diretÃ³rios locais. Isso permite que o cÃ³digo da funÃ§Ã£o do Lambda acesse e modifique recursos compartilhados. Para obter mais informaÃ§Ãµes, consulte a propriedade &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-filesystemconfigs"&gt;&lt;code class="code"&gt;FileSystemConfigs&lt;/code&gt;&lt;/a&gt; do tipo de recurso &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html"&gt;&lt;code class="code"&gt;AWS::Serverless::Function&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Tue, 16 Jun 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_para_o_Amazon_EFS_2020-06-16</guid>
+      </item>
+      <item>
+         <title>Orquestrar aplicativos sem servidor</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Adicionado suporte para orquestrar aplicativos criando mÃ¡quinas de estado Step Functions usando o	AWS SAM. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-step-functions-in-sam.html"&gt;OrquestraÃ§Ã£o de AWS recursos com AWS Step Functions&lt;/a&gt; e o tipo de &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html"&gt;&lt;code class="code"&gt;AWS::Serverless::StateMachine&lt;/code&gt;&lt;/a&gt;recurso.</description>
+         <pubDate>Wed, 27 May 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Orquestrar_aplicativos_sem_servidor_2020-05-27</guid>
+      </item>
+      <item>
+         <title>Criar tempos de execuÃ§Ã£o personalizados</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionada a capacidade de criar tempos de execuÃ§Ã£o personalizados. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/building-custom-runtimes.html"&gt;Criar tempos de execuÃ§Ã£o personalizados&lt;/a&gt;.</description>
+         <pubDate>Thu, 21 May 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Criar_tempos_de_execuÃ§Ã£o_personalizados_2020-05-21</guid>
+      </item>
+      <item>
+         <title>Construir camadas</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionada a capacidade de criar recursos &lt;code class="code"&gt;LayerVersion&lt;/code&gt; individuais. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/building-layers.html"&gt;Construir camadas&lt;/a&gt;.</description>
+         <pubDate>Tue, 19 May 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Construir_camadas_2020-05-19</guid>
+      </item>
+      <item>
+         <title>Gerado CloudFormation recursos</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Forneceu detalhes sobre os CloudFormation recursos AWS SAM gerados e como referenciÃ¡-los. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-generated-resources.html"&gt;CloudFormation Recursos gerados&lt;/a&gt;.</description>
+         <pubDate>Wed, 8 Apr 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Gerado_CloudFormation_recursos_2020-04-08</guid>
+      </item>
+      <item>
+         <title>Configurar AWS credenciais</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>InstruÃ§Ãµes adicionadas para configurar AWS credenciais, caso vocÃª ainda nÃ£o as tenha configurado para uso com outras AWS ferramentas, como um dos AWS SDKs ou o. AWS CLI Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started-set-up-credentials.html"&gt;Configurando AWS credenciais.&lt;/a&gt;</description>
+         <pubDate>Fri, 17 Jan 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Configurar_AWS_credenciais_2020-01-17</guid>
+      </item>
+      <item>
+         <title>AWS SAM especificaÃ§Ã£o e AWS SAMÂ CLI atualizaÃ§Ãµes</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Migrou a AWS SAM especificaÃ§Ã£o de GitHub. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html"&gt;EspecificaÃ§Ã£o do AWS SAM&lt;/a&gt;. TambÃ©m atualizou o fluxo de trabalho de implantaÃ§Ã£o com alteraÃ§Ãµes no comando &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html"&gt;&lt;code class="code"&gt;sam deploy&lt;/code&gt;&lt;/a&gt;.</description>
+         <pubDate>Mon, 25 Nov 2019 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#AWS_SAM_especificaÃ§Ã£o_e_AWS_SAMÂ CLI_atualizaÃ§Ãµes_2019-11-25</guid>
+      </item>
+      <item>
+         <title>Novas opÃ§Ãµes para controlar o acesso Ã s APIs do API Gateway e Ã s atualizaÃ§Ãµes de modelos de polÃ­ticas</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foram adicionadas novas opÃ§Ãµes para controlar o acesso Ã s APIs do API Gateway: permissÃµes do IAM, chaves de API e polÃ­ticas de recursos. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-controlling-access-to-apis.html"&gt;Controlar o acesso Ã s APIs regionais personalizadas do API Gateway&lt;/a&gt;. TambÃ©m atualizou dois modelos de polÃ­tica: RekognitionFacesPolicy   ElasticsearchHttpPostPolicy e. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html"&gt;Modelos de polÃ­tica do AWS SAM&lt;/a&gt;.</description>
+         <pubDate>Thu, 29 Aug 2019 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Novas_opÃ§Ãµes_para_controlar_o_acesso_Ã s_APIs_do_API_Gateway_e_Ã s_atualizaÃ§Ãµes_de_modelos_de_polÃ­ticas_2019-08-29</guid>
+      </item>
+      <item>
+         <title>Conceitos bÃ¡sicos de atualizaÃ§Ãµes</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Atualizado capÃ­tulo de introduÃ§Ã£o com instruÃ§Ãµes de instalaÃ§Ã£o aprimoradas para o	AWS SAMÂ CLI e o tutorial Hello World. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started.html"&gt;IntroduÃ§Ã£o ao AWS SAM&lt;/a&gt;.</description>
+         <pubDate>Thu, 25 Jul 2019 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Conceitos_bÃ¡sicos_de_atualizaÃ§Ãµes_2019-07-25</guid>
+      </item>
+      <item>
+         <title>Controlar o acesso Ã s APIs do API Gateway</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foi adicionado suporte para controlar o acesso Ã s APIs do API Gateway. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-controlling-access-to-apis.html"&gt;Controlar o acesso Ã s APIs regionais personalizadas do API Gateway&lt;/a&gt;.</description>
+         <pubDate>Thu, 21 Mar 2019 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Controlar_o_acesso_Ã s_APIs_do_API_Gateway_2019-03-21</guid>
+      </item>
+      <item>
+         <title>Adicionou a publicaÃ§Ã£o sam ao AWS SAMÂ CLI</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O novo comando &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-publish.html"&gt;&lt;code class="code"&gt;sam publish&lt;/code&gt;&lt;/a&gt; na AWS SAMÂ CLI simplifica o processo para publicar aplicativos sem servidor no AWS Serverless Application Repository. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-publishing-applications.html"&gt;PublicaÃ§Ã£o de aplicativos sem servidor usando o. AWS SAMCLI&lt;/a&gt;</description>
+         <pubDate>Fri, 21 Dec 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionou_a_publicaÃ§Ã£o_sam_ao_AWS_SAMÂ CLI_2018-12-21</guid>
+      </item>
+      <item>
+         <title>Suporte a aplicativos aninhados e camadas</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Adicionado suporte a aplicativos aninhados e camadas. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-nested-applications.html"&gt;Usando aplicativos aninhados&lt;/a&gt; e &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-layers.html"&gt;Trabalhando com camadas&lt;/a&gt;.</description>
+         <pubDate>Thu, 29 Nov 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Suporte_a_aplicativos_aninhados_e_camadas_2018-11-29</guid>
+      </item>
+      <item>
+         <title>Foi adicionada a mesma compilaÃ§Ã£o ao AWS SAMÂ CLI</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>O novo comando &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html"&gt;&lt;code class="code"&gt;sam build&lt;/code&gt;&lt;/a&gt; no AWS SAMÂ CLI simplifica o processo de compilaÃ§Ã£o de aplicativos sem servidor com dependÃªncias para que vocÃª possa testar e implantar esses aplicativos localmente. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-build.html"&gt;Criar aplicativos&lt;/a&gt;.</description>
+         <pubDate>Mon, 19 Nov 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Foi_adicionada_a_mesma_compilaÃ§Ã£o_ao_AWS_SAMÂ CLI_2018-11-19</guid>
+      </item>
+      <item>
+         <title>Adicionadas novas opÃ§Ãµes de instalaÃ§Ã£o para o Â  AWS SAMÂ CLI</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Foram adicionadas as opÃ§Ãµes de instalaÃ§Ã£o do Linuxbrew (Linux), MSI (Windows) e Homebrew (macOS) para o. AWS SAMCLI Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html"&gt;Instalando AWS SAMCLI&lt;/a&gt; o.</description>
+         <pubDate>Wed, 7 Nov 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Adicionadas_novas_opÃ§Ãµes_de_instalaÃ§Ã£o_para_o_Â _AWS_SAMÂ CLI_2018-11-07</guid>
+      </item>
+      <item>
+         <title>Novo guia</title>
+         <link>https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/doc-history.html</link>
+         <description>Esta Ã© a primeira versÃ£o do &lt;em&gt;Guia do desenvolvedor do AWS Serverless Application Model &lt;/em&gt;.</description>
+         <pubDate>Wed, 17 Oct 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/#Novo_guia_2018-10-17</guid>
+      </item>
+   </channel>
+</rss>

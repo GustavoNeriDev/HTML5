@@ -1,0 +1,25 @@
+/*
+a função cria uma copia independente de um valor compativel com o algoritimo 
+de clonagem estruturada, incluindo o objeto e estruturas aninhadas
+ex:
+const pedido = {
+    produto: "Notebook",
+    cliente: {
+        nome: "Carlos"
+    }
+};
+
+const copia = structuredClone(pedido);
+
+copia.cliente.nome = "Mariana";
+
+console.log(pedido.cliente.nome); // Carlos
+console.log(copia.cliente.nome);  // Mariana
+
+//o objeto interno cliente foi copiado 
+
+Clonagem profunda  --> criar uma copia que também duplica as estruturas de dados aninhadas compativeis em vez de compartilhar as mesmas ref interna
+
+Uso profissional: essa técnica é útil em formulários de edição, sistemas de pedidos e aplicações que precisam preservar os dados originais enquanto o usuário prepara alterações.
+
+*/

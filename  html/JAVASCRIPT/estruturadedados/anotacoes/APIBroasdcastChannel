@@ -1,0 +1,18 @@
+/*
+essa  api permite uma comunicação entre duas abas diferentes 
+//para criar ou acessar um canal uso:
+const canal = new BroadcastChannel("pedidos");
+//para enviar uma mensagem
+canal.postMessage({
+    pedido: 102,
+    status: "Enviado"
+});
+//para receber:
+canal.onmessage = function(event) {
+    console.log(event.data)
+    }
+
+    Importante: para testar a comunicação entre abas, abra duas abas da mesma aplicação e execute o código em ambas. O canal não é uma variável compartilhada; as abas recebem cópias dos dados transmitidos por mensagens.
+
+    Uso profissional: essa API pode sincronizar avisos e atualizações entre abas de um painel administrativo, por exemplo quando um atendente altera o status de um pedido. Para sincronizar usuários em dispositivos diferentes, normalmente é necessário um servidor
+*/

@@ -1,0 +1,30 @@
+//ex:
+
+console.log("Loading function");
+const aws = require("aws-sdk");
+
+const s3 = new aws.S3({ apiVersion: "2006-03-01" });
+exports.handler = async (event, context) => {
+  //console.log('Received event:', JSON.strigify(event, null, 2))
+  //get the object from the event and show its content type
+  const bucket = event.Records[0].s3.bucket.name;
+  const key = decodeURIComponent(
+    event.Records[0].s3.object.key.replace(/\+/g, " "),
+  );
+  //function do Lambd recupera o nome do bucket do S3 da fonte e o nome da chave do  objeto de upload do parametro do evento recebido
+  const parametroBu = {
+    Bucket: bucket,
+    Key: key,
+  };
+  //function do API getObject do Amazon S3 para recuperar o tipo de conteudo do objeto
+  try {
+    const { ContentType } = await s3.getObjetct(parametroBu).promise();
+    console.log("CONTENT TYPE:", ContentType);
+    return ContentType;
+  } catch (error) {
+    //mensagem de erro se não recuperar as info do bucket
+    console.log(error);
+    const message = `Error getting object ${key} from bucket ${bucket} Make sure they exist and your bucket is in the same region this function.`;
+    throw new Error(message);
+  }
+};

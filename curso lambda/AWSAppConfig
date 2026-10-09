@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+   <channel>
+      <title>User Guide Updates</title>
+      <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/</link>
+      <description>A RSS feed containing the latest updates on https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/.</description>
+      <language>pt-br</language>
+      <atom:link href="https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/appconfig-ug.rss"
+                 rel="self"
+                 type="application/rss+xml"/>
+      <lastBuildDate>Wed, 30 Sep 2026 23:55:00 GMT</lastBuildDate>
+      <item>
+         <title>Nova versÃ£o do AWS AppConfig ExtensÃ£o Agent Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O agente foi atualizado com pequenas melhorias e correÃ§Ãµes de bugs. Para visualizar os novos nomes de recursos da Amazon (ARNs) para a extensÃ£o, consulte VersÃµes &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions-versions.html"&gt; disponÃ­veis da extensÃ£o AWS AppConfig Agent Lambda. &lt;/a&gt;</description>
+         <pubDate>Mon, 24 Aug 2026 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_versÃ£o_do_AWS_AppConfig_ExtensÃ£o_Agent_Lambda_2026-08-24</guid>
+      </item>
+      <item>
+         <title>AWS AppConfig registro de tarefas de experimentaÃ§Ã£o e recuperaÃ§Ã£o de tratamento</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig O agente agora pode registrar os registros de atribuiÃ§Ã£o de tratamento do experimento em stderr ou em disco e emite trÃ¡fego de tratamento agregado como mÃ©trica.  CloudWatch  A nova documentaÃ§Ã£o descreve a opÃ§Ã£o do &lt;code class="code"&gt;EXPERIMENT_ASSIGNMENT_LOG_DESTINATION&lt;/code&gt; agente, como recuperar um tratamento atribuÃ­do usando &lt;code class="code"&gt;Context&lt;/code&gt; os cabeÃ§alhos &lt;code class="code"&gt;Entity-Id&lt;/code&gt; e e as versÃµes mÃ­nimas do agente que suportam a experimentaÃ§Ã£o. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-experimentation-about-data-collection.html"&gt; Sobre a coleta de dados&lt;/a&gt;.</description>
+         <pubDate>Fri, 21 Aug 2026 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AWS_AppConfig_registro_de_tarefas_de_experimentaÃ§Ã£o_e_recuperaÃ§Ã£o_de_tratamento_2026-08-21</guid>
+      </item>
+      <item>
+         <title>Nova versÃ£o do AWS AppConfig ExtensÃ£o Agent Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O agente foi atualizado com pequenas melhorias e correÃ§Ãµes de bugs. Para visualizar os novos nomes de recursos da Amazon (ARNs) para a extensÃ£o, consulte VersÃµes &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions-versions.html"&gt; disponÃ­veis da extensÃ£o AWS AppConfig Agent Lambda. &lt;/a&gt;</description>
+         <pubDate>Mon, 22 Jun 2026 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_versÃ£o_do_AWS_AppConfig_ExtensÃ£o_Agent_Lambda_2026-06-22</guid>
+      </item>
+      <item>
+         <title>LanÃ§amento do AWS AppConfig teste</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>A experimentaÃ§Ã£o de aplicativos Ã© o processo sistemÃ¡tico de testar hipÃ³teses em aplicativos de software usando  A/B  testes, sinalizadores de recursos e anÃ¡lises para medir o comportamento do usuÃ¡rio, otimizar o desempenho e orientar decisÃµes de produtos orientadas por dados. A experimentaÃ§Ã£o permite que as equipes validem as mudanÃ§as, como novos recursos ou mudanÃ§as na interface do usuÃ¡rio, antes de uma implantaÃ§Ã£o completa, reduzindo assim os riscos e melhorando o engajamento.</description>
+         <pubDate>Fri, 12 Jun 2026 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#LanÃ§amento_do_AWS_AppConfig_teste_2026-06-12</guid>
+      </item>
+      <item>
+         <title>Entity-based segmentaÃ§Ã£o</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig O Agent (versÃ£o 2.0.136060 ou posterior) oferece suporte Ã  implantaÃ§Ã£o de sinalizadores de recursos ou dados de configuraÃ§Ã£o de formato livre em segmentos especÃ­ficos ou usuÃ¡rios individuais durante uma implantaÃ§Ã£o gradual.  Entity-based implantaÃ§Ãµes graduais garantem que, uma vez que um usuÃ¡rio ou segmento receba uma versÃ£o de configuraÃ§Ã£o, ele continue recebendo a mesma versÃ£o durante todo o perÃ­odo de implantaÃ§Ã£o, independentemente de qual recurso computacional atenda Ã s suas solicitaÃ§Ãµes. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-entity-based-gradual-deployments.html"&gt; Usando o AWS AppConfig Agente para implantaÃ§Ãµes graduais baseadas em usuÃ¡rios ou entidades. &lt;/a&gt;</description>
+         <pubDate>Thu, 26 Mar 2026 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Entity-based_segmentaÃ§Ã£o_2026-03-26</guid>
+      </item>
+      <item>
+         <title>Obsoleto: AWS AppConfig extensÃ£o para CloudWatch Evidently</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>A AWS AppConfig extensÃ£o do  CloudWatch  Evidently nÃ£o Ã© mais suportada.</description>
+         <pubDate>Fri, 20 Feb 2026 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Obsoleto:_AWS_AppConfig_extensÃ£o_para_CloudWatch_Evidently_2026-02-20</guid>
+      </item>
+      <item>
+         <title>Nova versÃ£o do AWS AppConfig ExtensÃ£o Agent Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O agente foi atualizado com pequenas melhorias e correÃ§Ãµes de bugs. Para visualizar os novos nomes de recursos da Amazon (ARNs) para a extensÃ£o, consulte VersÃµes &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions-versions.html"&gt; disponÃ­veis da extensÃ£o AWS AppConfig Agent Lambda. &lt;/a&gt;</description>
+         <pubDate>Fri, 20 Feb 2026 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_versÃ£o_do_AWS_AppConfig_ExtensÃ£o_Agent_Lambda_2026-02-20</guid>
+      </item>
+      <item>
+         <title>Suporte a IPv6</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Todas as AWS AppConfig APIs agora oferecem suporte total Ã s chamadas IPv4 e IPv6. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/setting-up-IPv6.html"&gt;NoÃ§Ãµes bÃ¡sicas sobre o suporte a IPv6&lt;/a&gt;.</description>
+         <pubDate>Wed, 23 Apr 2025 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Suporte_a_IPv6_2025-04-23</guid>
+      </item>
+      <item>
+         <title>Novo tÃ³pico: Salvar uma versÃ£o anterior do sinalizador de atributos em uma nova versÃ£o</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Quando vocÃª atualiza um sinalizador de recurso, salva AWS AppConfig automaticamente suas alteraÃ§Ãµes em uma nova versÃ£o. Se quiser usar uma versÃ£o anterior do sinalizador de atributos, copie-a para uma versÃ£o de rascunho e depois salve-a. NÃ£o Ã© possÃ­vel editar e salvar as alteraÃ§Ãµes em uma versÃ£o anterior do sinalizador sem salvÃ¡-las em uma nova versÃ£o. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-configuration-profile-feature-flags-editing-version.html"&gt;Salvar uma versÃ£o anterior do sinalizador de atributos em uma nova versÃ£o&lt;/a&gt;.</description>
+         <pubDate>Tue, 15 Apr 2025 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_tÃ³pico:_Salvar_uma_versÃ£o_anterior_do_sinalizador_de_atributos_em_uma_nova_versÃ£o_2025-04-15</guid>
+      </item>
+      <item>
+         <title>Novo tÃ³pico: Amostras de sinalizadores de recursos para AWS AppConfig Modo de desenvolvimento local do agente</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig O agente suporta um modo de desenvolvimento &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-agent-how-to-use-local-development.html"&gt; local&lt;/a&gt;. Se vocÃª habilitar o modo de desenvolvimento local, o agente lerÃ¡ os dados de configuraÃ§Ã£o de um diretÃ³rio especificado no disco. Ele nÃ£o recupera dados de configuraÃ§Ã£o do AWS AppConfig. Para ajudar vocÃª a entender melhor como usar o modo de desenvolvimento local, este guia agora contÃ©m um tÃ³pico com exemplos de sinalizadores de atributos. Para obter mais informaÃ§Ãµes, consulte Exemplos de sinalizadores de &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-agent-how-to-use-local-development-samples.html"&gt; recursos para o modo de desenvolvimento local do AWS AppConfig agente&lt;/a&gt;.</description>
+         <pubDate>Tue, 18 Feb 2025 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_tÃ³pico:_Amostras_de_sinalizadores_de_recursos_para_AWS_AppConfig_Modo_de_desenvolvimento_local_do_agente_2025-02-18</guid>
+      </item>
+      <item>
+         <title>Novo tÃ³pico: criar um perfil de configuraÃ§Ã£o para fontes de dados nÃ£o nativas</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O tÃ³pico descreve o processo de alto nÃ­vel de uso de uma AWS AppConfig
+extensÃ£o para recuperar dados de configuraÃ§Ã£o de fontes que nÃ£o sÃ£o suportadas nativamente, incluindo outros AWS serviÃ§os como Amazon RDS e Amazon DynamoDB, bem como fontes de terceiros, como, ou um repositÃ³rio local.  GitHub  GitLab Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-configuration-profile-other-data-sources.html"&gt;Criar um perfil de configuraÃ§Ã£o para fontes de dados que nÃ£o sÃ£o nativas&lt;/a&gt;</description>
+         <pubDate>Thu, 19 Dec 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_tÃ³pico:_criar_um_perfil_de_configuraÃ§Ã£o_para_fontes_de_dados_nÃ£o_nativas_2024-12-19</guid>
+      </item>
+      <item>
+         <title>TÃ³pico atualizado: correÃ§Ã£o do regex na referÃªncia de tipo de sinalizadores de atributos</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O esquema json na referÃªncia do tipo de sinalizador de atributos mostrava anteriormente o seguinte padrÃ£o de regex em vÃ¡rios lugares: &lt;code class="code"&gt;"^[a-z][a-zA-Z\\d-_]&lt;span&gt;{&lt;/span&gt;0,63}$"&lt;/code&gt;. O padrÃ£o correto de regex Ã© &lt;code class="code"&gt;"^[a-z][a-zA-Z\\d_-]&lt;span&gt;{&lt;/span&gt;0,63}$"&lt;/code&gt;. O hÃ­fen Ã© listado apÃ³s o sublinhado. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-type-reference-feature-flags.html"&gt; Compreendendo a referÃªncia de tipo para  AWS.AppConfig.FeatureFlags &lt;/a&gt;</description>
+         <pubDate>Wed, 18 Dec 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#TÃ³pico_atualizado:_correÃ§Ã£o_do_regex_na_referÃªncia_de_tipo_de_sinalizadores_de_atributos_2024-12-18</guid>
+      </item>
+      <item>
+         <title>TÃ³picos atualizados: inclusÃ£o de exemplos de variÃ¡veis de ambiente</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>As tabelas que descrevem as variÃ¡veis de ambiente nos tÃ³picos a seguir foram atualizadas para incluir exemplos:</description>
+         <pubDate>Thu, 12 Dec 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#TÃ³picos_atualizados:_inclusÃ£o_de_exemplos_de_variÃ¡veis_de_ambiente_2024-12-12</guid>
+      </item>
+      <item>
+         <title>Novo ponto de aÃ§Ã£o da extensÃ£o: AT_DEPLOYMENT_TICK</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig lanÃ§ou um novo ponto de aÃ§Ã£o para usuÃ¡rios que criam extensÃµes personalizadas. O ponto de aÃ§Ã£o &lt;code class="code"&gt;AT_DEPLOYMENT_TICK&lt;/code&gt; oferece suporte Ã  integraÃ§Ã£o de monitoramento de terceiros. &lt;code class="code"&gt;AT_DEPLOYMENT_TICK&lt;/code&gt; Ã© invocado durante a orquestraÃ§Ã£o do processamento da implantaÃ§Ã£o da configuraÃ§Ã£o. Se vocÃª usa uma soluÃ§Ã£o de monitoramento de terceiros (por exemplo, Datadog), pode criar uma AWS AppConfig extensÃ£o que verifica se hÃ¡ alarmes no ponto de &lt;code class="code"&gt;AT_DEPLOYMENT_TICK&lt;/code&gt; aÃ§Ã£o e, como proteÃ§Ã£o, reverte a implantaÃ§Ã£o caso ela tenha acionado um alarme. Para obter mais informaÃ§Ãµes sobre AWS AppConfig
+extensÃµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/working-with-appconfig-extensions.html"&gt; Estendendo AWS AppConfig fluxos de trabalho usando extensÃµes. &lt;/a&gt; Para saber mais sobre as extensÃµes personalizadas, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/working-with-appconfig-extensions-creating-custom.html"&gt;Passo a passo: criaÃ§Ã£o de extensÃµes personalizadas do AWS AppConfig&lt;/a&gt;. Para ver uma amostra de cÃ³digo de uma AWS AppConfig extensÃ£o que usa o ponto de &lt;code class="code"&gt;AT_DEPLOYMENT_TICK&lt;/code&gt; aÃ§Ã£o para se integrar ao Datadog, consulte &lt;a href="https://github.com/aws-samples/aws-appconfig-tick-extn-for-datadog" rel="noopener noreferrer" target="_blank"&gt; aws-samples/aws-appconfig-tick-extn-for-datadog on. &lt;/a&gt;  GitHub</description>
+         <pubDate>Fri, 22 Nov 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_ponto_de_aÃ§Ã£o_da_extensÃ£o:_AT_DEPLOYMENT_TICK_2024-11-22</guid>
+      </item>
+      <item>
+         <title>Nova seÃ§Ã£o: NoÃ§Ãµes bÃ¡sicas sobre o operador split</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Uma nova seÃ§Ã£o usa exemplos para explicar como o operador &lt;code class="code"&gt;split&lt;/code&gt; funciona para uma regra de sinalizador de atributos multivariante. Para saber mais, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-multi-variant-feature-flags-rules.html"&gt;NoÃ§Ãµes bÃ¡sicas sobre as regras de sinalizadores de atributos multivariante&lt;/a&gt;.</description>
+         <pubDate>Fri, 22 Nov 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_seÃ§Ã£o:_NoÃ§Ãµes_bÃ¡sicas_sobre_o_operador_split_2024-11-22</guid>
+      </item>
+      <item>
+         <title>Novo tÃ³pico: AWS AppConfig consideraÃ§Ãµes sobre o uso de dispositivos mÃ³veis</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Um novo tÃ³pico neste guia descreve consideraÃ§Ãµes importantes sobre o uso de sinalizadores de AWS AppConfig recursos com dispositivos mÃ³veis. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-retrieving-mobile.html"&gt;ConsideraÃ§Ãµes sobre o uso de dispositivos mÃ³veis no AWS AppConfig&lt;/a&gt;.</description>
+         <pubDate>Thu, 21 Nov 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_tÃ³pico:_AWS_AppConfig_consideraÃ§Ãµes_sobre_o_uso_de_dispositivos_mÃ³veis_2024-11-21</guid>
+      </item>
+      <item>
+         <title>Novo recurso AWS AppConfig ProteÃ§Ã£o contra exclusÃ£o</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig agora fornece uma configuraÃ§Ã£o de conta para ajudar a impedir que os usuÃ¡rios excluam acidentalmente ambientes e perfis de configuraÃ§Ã£o usados ativamente. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/deletion-protection.html"&gt; Configurando a AWS AppConfig proteÃ§Ã£o contra exclusÃ£o. &lt;/a&gt;</description>
+         <pubDate>Wed, 28 Aug 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_recurso_AWS_AppConfig_ProteÃ§Ã£o_contra_exclusÃ£o_2024-08-28</guid>
+      </item>
+      <item>
+         <title>Novos exemplos de cÃ³digo para recuperar variantes de sinalizador</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-code-samples-agent-read-feature-flag-with-variants.html"&gt; Usando o AWS AppConfig agente para recuperar um sinalizador de recurso com variantes&lt;/a&gt;.</description>
+         <pubDate>Fri, 9 Aug 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novos_exemplos_de_cÃ³digo_para_recuperar_variantes_de_sinalizador_2024-08-09</guid>
+      </item>
+      <item>
+         <title>Nova versÃ£o do AWS AppConfig ExtensÃ£o Agent Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O agente foi atualizado com pequenas melhorias e correÃ§Ãµes de bugs. Para visualizar os novos nomes de recursos da Amazon (ARNs) para a extensÃ£o, consulte VersÃµes &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions-versions.html"&gt; disponÃ­veis da extensÃ£o AWS AppConfig Agent Lambda. &lt;/a&gt;</description>
+         <pubDate>Fri, 9 Aug 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_versÃ£o_do_AWS_AppConfig_ExtensÃ£o_Agent_Lambda_2024-08-09</guid>
+      </item>
+      <item>
+         <title>Novo recurso: Multi-variant sinalizadores de recursos</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Multi-variant os sinalizadores de recursos permitem que vocÃª defina um conjunto de valores de sinalizadores possÃ­veis para retornar para uma solicitaÃ§Ã£o. TambÃ©m Ã© possÃ­vel configurar diferentes status (habilitado ou desabilitado) para sinalizadores multivariante. Ao solicitar um sinalizador configurado com variantes, sua aplicaÃ§Ã£o fornece um contexto que o AWS AppConfig
+avalia em relaÃ§Ã£o a um conjunto de regras definidas pelo usuÃ¡rio. Dependendo do contexto especificado na solicitaÃ§Ã£o e das regras definidas para a variante, AWS AppConfig retorna valores de sinalizadores diferentes para o aplicativo. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-multi-variant-feature-flags.html"&gt;Criar sinalizadores de atributos multivariante&lt;/a&gt;.</description>
+         <pubDate>Tue, 23 Jul 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_recurso:_Multi-variant_sinalizadores_de_recursos_2024-07-23</guid>
+      </item>
+      <item>
+         <title>Nova versÃ£o do AWS AppConfig ExtensÃ£o Agent Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O agente foi atualizado para comportar destinos, variantes e divisÃµes de sinalizadores de atributos. Para visualizar os novos nomes de recursos da Amazon (ARNs) para a extensÃ£o, consulte VersÃµes &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions-versions.html"&gt; disponÃ­veis da extensÃ£o AWS AppConfig Agent Lambda. &lt;/a&gt;</description>
+         <pubDate>Tue, 23 Jul 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_versÃ£o_do_AWS_AppConfig_ExtensÃ£o_Agent_Lambda_2024-07-23</guid>
+      </item>
+      <item>
+         <title>Nova versÃ£o do AWS AppConfig ExtensÃ£o Agent Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O agente foi atualizado com pequenas melhorias e correÃ§Ãµes de bugs. Para visualizar os novos nomes de recursos da Amazon (ARNs) para a extensÃ£o, consulte VersÃµes &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions-versions.html"&gt; disponÃ­veis da extensÃ£o AWS AppConfig Agent Lambda. &lt;/a&gt;</description>
+         <pubDate>Wed, 28 Feb 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_versÃ£o_do_AWS_AppConfig_ExtensÃ£o_Agent_Lambda_2024-02-28</guid>
+      </item>
+      <item>
+         <title>AWS AppConfig amostras de extensÃµes personalizadas</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/working-with-appconfig-extensions-creating-custom.html"&gt; tÃ³pico &lt;/a&gt; Passo a passo: CriaÃ§Ã£o de AWS AppConfig
+extensÃµes personalizadas agora inclui links para os seguintes exemplos de extensÃµes em:  GitHub</description>
+         <pubDate>Wed, 28 Feb 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AWS_AppConfig_amostras_de_extensÃµes_personalizadas_2024-02-28</guid>
+      </item>
+      <item>
+         <title>Novo tÃ³pico: Registro AWS AppConfig Chamadas de API usando AWS CloudTrail</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig Ã© integrado com AWS CloudTrail, um serviÃ§o que fornece um registro das aÃ§Ãµes realizadas por um usuÃ¡rio, funÃ§Ã£o ou AWS serviÃ§o em AWS AppConfig.  CloudTrail captura todas as chamadas de API AWS AppConfig como eventos. Esse novo tÃ³pico fornece conteÃºdo AWS AppConfig especÃ­fico em vez de um link para o conteÃºdo correspondente no Guia do &lt;em&gt;AWS Systems Manager usuÃ¡rio. &lt;/em&gt; Para obter mais informaÃ§Ãµes, consulte Como &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/logging-using-cloudtrail.html"&gt; registrar chamadas AWS AppConfig da API usando AWS CloudTrail&lt;/a&gt;.</description>
+         <pubDate>Thu, 18 Jan 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_tÃ³pico:_Registro_AWS_AppConfig_Chamadas_de_API_usando_AWS_CloudTrail_2024-01-18</guid>
+      </item>
+      <item>
+         <title>AWS AppConfig agora suporta AWS PrivateLink</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>VocÃª pode usar AWS PrivateLink para criar uma conexÃ£o privada entre sua VPC e. AWS AppConfig VocÃª pode acessar AWS AppConfig
+como se estivesse em sua VPC, sem o uso de um gateway de internet, dispositivo NAT, conexÃ£o VPN ou Direct Connect conexÃ£o. As instÃ¢ncias na sua VPC nÃ£o precisam de endereÃ§os IP pÃºblicos para acessar o AWS AppConfig. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-security.html#vpc-interface-endpoints"&gt; Acesso AWS AppConfig usando um endpoint de interface (AWS PrivateLink)&lt;/a&gt;.</description>
+         <pubDate>Wed, 6 Dec 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AWS_AppConfig_agora_suporta_AWS_PrivateLink_2023-12-06</guid>
+      </item>
+      <item>
+         <title>Adicional AWS AppConfig Recursos de recuperaÃ§Ã£o de agentes e um novo modo de desenvolvimento local</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig O Agent oferece os seguintes recursos adicionais para ajudÃ¡-lo a recuperar as configuraÃ§Ãµes de seus aplicativos. </description>
+         <pubDate>Fri, 1 Dec 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Adicional_AWS_AppConfig_Recursos_de_recuperaÃ§Ã£o_de_agentes_e_um_novo_modo_de_desenvolvimento_local_2023-12-01</guid>
+      </item>
+      <item>
+         <title>Novo tÃ³pico de exemplos de cÃ³digo</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Foi adicionado um novo tÃ³pico de &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-code-samples.html"&gt;exemplos de cÃ³digo&lt;/a&gt; a este guia. O tÃ³pico inclui exemplos em Java, Python e  JavaScript  para executar programaticamente seis aÃ§Ãµes comuns. AWS AppConfig
+</description>
+         <pubDate>Fri, 17 Nov 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_tÃ³pico_de_exemplos_de_cÃ³digo_2023-11-17</guid>
+      </item>
+      <item>
+         <title>Ãndice revisado para melhor refletir AWS AppConfig fluxo de trabalho</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O conteÃºdo deste guia do usuÃ¡rio estÃ¡ agora agrupado sob os tÃ­tulos CriaÃ§Ã£o, ImplantaÃ§Ã£o, RecuperaÃ§Ã£o e ExtensÃ£o de fluxos de trabalho. Essa organizaÃ§Ã£o reflete melhor o fluxo de trabalho de uso do AWS AppConfig e tem como objetivo ajudar a tornar o conteÃºdo mais fÃ¡cil de ser descoberto.</description>
+         <pubDate>Tue, 7 Nov 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Ãndice_revisado_para_melhor_refletir_AWS_AppConfig_fluxo_de_trabalho_2023-11-07</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o da referÃªncia de carga Ãºtil</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>O tÃ³pico &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/working-with-appconfig-extensions-creating-custom-lambda"&gt;CriaÃ§Ã£o de uma funÃ§Ã£o do Lambda para uma extensÃ£o personalizada do AWS AppConfig&lt;/a&gt; agora inclui uma referÃªncia de carga Ãºtil de solicitaÃ§Ã£o e resposta.</description>
+         <pubDate>Tue, 7 Nov 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AdiÃ§Ã£o_da_referÃªncia_de_carga_Ãºtil_2023-11-07</guid>
+      </item>
+      <item>
+         <title>Novo AWS estratÃ©gia de implantaÃ§Ã£o predefinida</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig agora oferece e recomenda a estratÃ©gia de implantaÃ§Ã£o &lt;code class="code"&gt;AppConfig.Linear20PercentEvery6Minutes&lt;/code&gt; predefinida. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-deployment-strategy.html#appconfig-creating-deployment-strategy-predefined"&gt;estratÃ©gias de implantaÃ§Ã£o predefinidas&lt;/a&gt;.</description>
+         <pubDate>Fri, 11 Aug 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_AWS_estratÃ©gia_de_implantaÃ§Ã£o_predefinida_2023-08-11</guid>
+      </item>
+      <item>
+         <title>AWS AppConfig integraÃ§Ã£o com o Amazon EC2</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>VocÃª pode se integrar AWS AppConfig com aplicativos executados em suas instÃ¢ncias Linux do Amazon Elastic Compute Cloud (Amazon EC2) usando o AWS AppConfig Agent. O agente oferece suporte Ã s arquiteturas x86_64 e ARM64 para o Amazon EC2. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-ec2.html"&gt;IntegraÃ§Ã£o do AWS AppConfig com o Amazon EC2&lt;/a&gt;.</description>
+         <pubDate>Thu, 20 Jul 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AWS_AppConfig_integraÃ§Ã£o_com_o_Amazon_EC2_2023-07-20</guid>
+      </item>
+      <item>
+         <title>CloudFormation suporte para novos AWS AppConfig recursos e um exemplo de sinalizador de recurso</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS CloudFormation agora oferece suporte aos ExtensionAssociation &lt;a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appconfig-extensionassociation.html"&gt; recursos &lt;a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appconfig-extension.html"&gt;AWS::AppConfig: :Extension &lt;/a&gt; e &lt;/a&gt;AWS::AppConfig:: para ajudar vocÃª a comeÃ§ar a usar AWS AppConfig
+extensÃµes.</description>
+         <pubDate>Wed, 12 Apr 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#CloudFormation_suporte_para_novos_AWS_AppConfig_recursos_e_um_exemplo_de_sinalizador_de_recurso_2023-04-12</guid>
+      </item>
+      <item>
+         <title>AWS AppConfig integraÃ§Ã£o com AWS Secrets Manager</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig integra-se com AWS Secrets Manager. O Secrets Manager ajuda vocÃª a criptografar, armazenar e recuperar credenciais com seguranÃ§a para bancos de dados e outros serviÃ§os. Em vez de codificar credenciais em seus aplicativos, vocÃª pode fazer chamadas ao Secrets Manager para recuperar suas credenciais sempre que necessÃ¡rio. O Secrets Manager ajuda vocÃª a proteger o acesso aos seus recursos e dados de TI, permitindo que vocÃª alterne e gerencie o acesso aos seus segredos.</description>
+         <pubDate>Thu, 2 Feb 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AWS_AppConfig_integraÃ§Ã£o_com_AWS_Secrets_Manager_2023-02-02</guid>
+      </item>
+      <item>
+         <title>AWS AppConfig integraÃ§Ã£o com o Amazon ECS e o Amazon EKS</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>VocÃª pode se integrar AWS AppConfig ao Amazon Elastic Container Service (Amazon ECS) e ao Amazon Elastic Kubernetes Service (Amazon EKS) usando o agente. AWS AppConfig O agente funciona como um contÃªiner auxiliar executado junto com seus aplicativos de contÃªiner Amazon ECS e Amazon EKS. O agente aprimora o processamento e o gerenciamento de aplicativos em contÃªineres das seguintes maneiras:</description>
+         <pubDate>Fri, 2 Dec 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AWS_AppConfig_integraÃ§Ã£o_com_o_Amazon_ECS_e_o_Amazon_EKS_2022-12-02</guid>
+      </item>
+      <item>
+         <title>Nova extensÃ£o: AWS AppConfig extensÃ£o para CloudWatch Evidently</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>VocÃª pode usar o Amazon  CloudWatch  Evidently para validar novos recursos com seguranÃ§a, fornecendo-os a uma porcentagem especÃ­fica de seus usuÃ¡rios enquanto lanÃ§a o recurso. VocÃª pode monitorar a performance do novo atributo para auxiliar na decisÃ£o de quando aumentar o trÃ¡fego para seus usuÃ¡rios. Isso ajuda vocÃª a reduzir riscos e identificar consequÃªncias nÃ£o intencionais antes de iniciar totalmente o recurso. VocÃª tambÃ©m pode realizar  A/B  experimentos para tomar decisÃµes de design de recursos com base em evidÃªncias e dados.</description>
+         <pubDate>Tue, 13 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_extensÃ£o:_AWS_AppConfig_extensÃ£o_para_CloudWatch_Evidently_2022-09-13</guid>
+      </item>
+      <item>
+         <title>DesaprovaÃ§Ã£o da aÃ§Ã£o GetConfiguration da API</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Em 18 de novembro de 2021, AWS AppConfig lanÃ§ou um novo serviÃ§o de plano de dados. Esse serviÃ§o substitui o processo anterior de recuperaÃ§Ã£o de dados de configuraÃ§Ã£o usando a aÃ§Ã£o &lt;code class="code"&gt;GetConfiguration&lt;/code&gt; da API. O serviÃ§o de plano de dados usa duas novas aÃ§Ãµes de API, &lt;a href="https://docs.aws.amazon.com/appconfig/2019-10-09/APIReference/API_appconfigdata_StartConfigurationSession.html"&gt; StartConfigurationSession &lt;/a&gt; &lt;a href="https://docs.aws.amazon.com/appconfig/2019-10-09/APIReference/API_appconfigdata_GetLatestConfiguration.html"&gt; GetLatestConfiguration &lt;/a&gt; e. O serviÃ§o de plano de dados tambÃ©m usa &lt;a href="https://docs.aws.amazon.com/general/latest/gr/appconfig.html#appconfigdata_data_plane"&gt;novos endpoints&lt;/a&gt;.</description>
+         <pubDate>Tue, 13 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#DesaprovaÃ§Ã£o_da_aÃ§Ã£o_GetConfiguration_da_API_2022-09-13</guid>
+      </item>
+      <item>
+         <title>Nova versÃ£o do AWS AppConfig ExtensÃ£o Agent Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>A versÃ£o 2.0.122 da extensÃ£o AWS AppConfig Agent Lambda jÃ¡ estÃ¡ disponÃ­vel. A nova extensÃ£o usa diferentes nomes de recursos da Amazon (ARNs). Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions-versions.html#appconfig-integration-lambda-extensions-versions-release-notes"&gt;Notas de versÃ£o da extensÃ£o do Lambda do AWS AppConfig Agent&lt;/a&gt;.</description>
+         <pubDate>Tue, 23 Aug 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_versÃ£o_do_AWS_AppConfig_ExtensÃ£o_Agent_Lambda_2022-08-23</guid>
+      </item>
+      <item>
+         <title>LanÃ§amento do AWS AppConfig extensÃµes</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Uma extensÃ£o aumenta sua capacidade de injetar lÃ³gica ou comportamento em diferentes pontos durante o AWS AppConfig fluxo de trabalho de criaÃ§Ã£o ou implantaÃ§Ã£o de uma configuraÃ§Ã£o. VocÃª pode usar extensÃµes AWS de autoria ou criar suas prÃ³prias. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/working-with-appconfig-extensions.html"&gt; Trabalhando com AWS AppConfig extensÃµes&lt;/a&gt;.</description>
+         <pubDate>Tue, 12 Jul 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#LanÃ§amento_do_AWS_AppConfig_extensÃµes_2022-07-12</guid>
+      </item>
+      <item>
+         <title>Nova versÃ£o do AWS AppConfig ExtensÃ£o Agent Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>A versÃ£o 2.0.58 da extensÃ£o AWS AppConfig Agent Lambda jÃ¡ estÃ¡ disponÃ­vel. A nova extensÃ£o usa diferentes nomes de recursos da Amazon (ARNs). Para obter mais informaÃ§Ãµes, consulte VersÃµes &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions-versions.html"&gt; disponÃ­veis da extensÃ£o AWS AppConfig&lt;/a&gt; Lambda.</description>
+         <pubDate>Tue, 3 May 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_versÃ£o_do_AWS_AppConfig_ExtensÃ£o_Agent_Lambda_2022-05-03</guid>
+      </item>
+      <item>
+         <title>AWS AppConfig integraÃ§Ã£o com o Atlassian Jira</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>A integraÃ§Ã£o com o Atlassian Jira permite AWS AppConfig criar e atualizar problemas no console Atlassian sempre que vocÃª fizer alteraÃ§Ãµes em um sinalizador &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-configuration-and-profile.html#appconfig-creating-configuration-and-profile-feature-flags"&gt; de &lt;/a&gt; recurso no formulÃ¡rio especificado. Conta da AWS  RegiÃ£o da AWS Cada problema do Jira inclui o nome do sinalizador, o ID do aplicativo, o ID do perfil de configuraÃ§Ã£o e os valores do sinalizador. Depois de atualizar, salvar e implantar as alteraÃ§Ãµes do seu sinalizador, o Jira atualiza os problemas existentes com os detalhes da alteraÃ§Ã£o. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-jira.html"&gt;IntegraÃ§Ã£o do AWS AppConfig com o Atlassian Jira&lt;/a&gt;.</description>
+         <pubDate>Thu, 7 Apr 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AWS_AppConfig_integraÃ§Ã£o_com_o_Atlassian_Jira_2022-04-07</guid>
+      </item>
+      <item>
+         <title>Disponibilidade geral de sinalizadores de atributos e suporte Ã  extensÃ£o do Lambda para processadores ARM64 (Graviton2)</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Com sinalizadores de AWS AppConfig recursos, vocÃª pode desenvolver um novo recurso e implantÃ¡-lo na produÃ§Ã£o, ocultando o recurso dos usuÃ¡rios. VocÃª comeÃ§a adicionando o sinalizador AWS AppConfig como dados de configuraÃ§Ã£o. Quando o atributo estiver pronto para ser lanÃ§ado, vocÃª poderÃ¡ atualizar os dados de configuraÃ§Ã£o do sinalizador sem implantar nenhum cÃ³digo. Esse atributo melhora a seguranÃ§a do seu ambiente de desenvolvimento e operaÃ§Ãµes porque vocÃª nÃ£o precisa implantar nenhum novo cÃ³digo para liberar o atributo. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-configuration-and-profile.html#appconfig-creating-configuration-and-profile-feature-flags"&gt;Criar um perfil de configuraÃ§Ã£o de sinalizadores de atributos&lt;/a&gt;.</description>
+         <pubDate>Tue, 15 Mar 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Disponibilidade_geral_de_sinalizadores_de_atributos_e_suporte_Ã _extensÃ£o_do_Lambda_para_processadores_ARM64_(Graviton2)_2022-03-15</guid>
+      </item>
+      <item>
+         <title>A aÃ§Ã£o GetConfiguration da API estÃ¡ obsoleta</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>A aÃ§Ã£o &lt;code class="code"&gt;GetConfiguration&lt;/code&gt; da API estÃ¡ obsoleta. Em vez disso, as chamadas para receber dados de configuraÃ§Ã£o devem usar as APIs &lt;code class="code"&gt;StartConfigurationSession&lt;/code&gt; e &lt;code class="code"&gt;GetLatestConfiguration&lt;/code&gt;. Para obter mais informaÃ§Ãµes sobre essas APIs e como usÃ¡-las, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-retrieving-the-configuration.html"&gt;RecuperaÃ§Ã£o da configuraÃ§Ã£o&lt;/a&gt;.</description>
+         <pubDate>Fri, 28 Jan 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#A_aÃ§Ã£o_GetConfiguration_da_API_estÃ¡_obsoleta_2022-01-28</guid>
+      </item>
+      <item>
+         <title>Novo ARN regional para AWS AppConfig ExtensÃ£o Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>AWS AppConfig A extensÃ£o Lambda estÃ¡ disponÃ­vel na nova regiÃ£o Ãsia-PacÃ­fico (Osaka). O nome do recurso da Amazon (ARN) Ã© necessÃ¡rio para criar um Lambda na regiÃ£o. Para obter mais informaÃ§Ãµes sobre o ARN da regiÃ£o Ãsia-PacÃ­fico (Osaka), consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions.html#appconfig-integration-lambda-extensions-enabling"&gt; Adicionar a extensÃ£o AWS AppConfig Lambda. &lt;/a&gt;</description>
+         <pubDate>Thu, 4 Mar 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Novo_ARN_regional_para_AWS_AppConfig_ExtensÃ£o_Lambda_2021-03-04</guid>
+      </item>
+      <item>
+         <title>AWS AppConfig ExtensÃ£o Lambda</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Se vocÃª usa AWS AppConfig para gerenciar as configuraÃ§Ãµes de uma funÃ§Ã£o do Lambda, recomendamos que vocÃª adicione a extensÃ£o do AWS AppConfig Lambda. Essa extensÃ£o inclui as melhores prÃ¡ticas que AWS AppConfig simplificam o uso e reduzem os custos. Os custos reduzidos resultam de menos chamadas de API para o AWS AppConfig serviÃ§o e, separadamente, da reduÃ§Ã£o dos custos decorrentes da reduÃ§Ã£o dos tempos de processamento da funÃ§Ã£o Lambda. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions.html"&gt;IntegraÃ§Ã£o do AWS AppConfig com extensÃµes do Lambda&lt;/a&gt;.</description>
+         <pubDate>Thu, 8 Oct 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AWS_AppConfig_ExtensÃ£o_Lambda_2020-10-08</guid>
+      </item>
+      <item>
+         <title>Nova seÃ§Ã£o</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Foi adicionada uma nova seÃ§Ã£o que fornece instruÃ§Ãµes para configuraÃ§Ã£o do AWS AppConfig. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/setting-up-appconfig.html"&gt;Configurar AWS AppConfig&lt;/a&gt;.</description>
+         <pubDate>Wed, 30 Sep 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#Nova_seÃ§Ã£o_2020-09-30</guid>
+      </item>
+      <item>
+         <title>AdiÃ§Ã£o de procedimentos de linha de comando</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Os procedimentos neste guia do usuÃ¡rio agora incluem etapas de linha de comando para AWS Command Line Interface (AWS CLI) e Ferramentas para Windows PowerShell. Para obter mais informaÃ§Ãµes, consulte &lt;a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-application.html"&gt; Trabalhando com AWS AppConfig&lt;/a&gt;.</description>
+         <pubDate>Wed, 30 Sep 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#AdiÃ§Ã£o_de_procedimentos_de_linha_de_comando_2020-09-30</guid>
+      </item>
+      <item>
+         <title>LanÃ§amento do AWS AppConfig guia do usuÃ¡rio</title>
+         <link>https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/doc-history.html</link>
+         <description>Use AWS AppConfig, uma ferramenta em AWS Systems Manager, para criar, gerenciar e implantar rapidamente configuraÃ§Ãµes de aplicativos. AWS AppConfig
+oferece suporte a implantaÃ§Ãµes controladas em aplicativos de qualquer tamanho e inclui verificaÃ§Ãµes e monitoramento de validaÃ§Ã£o integrados. VocÃª pode usar AWS AppConfig com aplicativos hospedados em instÃ¢ncias do EC2 AWS Lambda, contÃªineres, aplicativos mÃ³veis ou dispositivos de IoT.</description>
+         <pubDate>Fri, 31 Jul 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/pt_br/appconfig/latest/userguide/#LanÃ§amento_do_AWS_AppConfig_guia_do_usuÃ¡rio_2020-07-31</guid>
+      </item>
+   </channel>
+</rss>

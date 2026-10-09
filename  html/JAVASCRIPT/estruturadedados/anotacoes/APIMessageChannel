@@ -1,0 +1,23 @@
+/*
+Você vai aprender a criar um canal dedicado de comunicação entre duas portas JavaScript, um recurso que pode ser usado junto a Web Workers e outros contextos de execução.
+
+1. Conceitos novos
+
+MessageChannel: cria um canal que possui duas portas conectadas: port1 e port2.
+
+MessagePort: uma das extremidades do canal, usada para enviar e receber mensagens.
+
+postMessage(): envia dados para a outra porta.
+
+onmessage: recebe e trata a mensagem que chegou
+
+ex:
+const canal = new MessageChannel();
+
+canal.port2.onmessage = (event) => {
+    console.log(event.data);
+};
+
+canal.port1.postMessage("Pedido recebido");
+//porta 1 envia a mensagem e a porta 2 recebe a mensagem, o recebimento acontece de forma assincrona
+*/

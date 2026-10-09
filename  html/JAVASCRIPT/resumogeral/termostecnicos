@@ -73,3 +73,5 @@ Blob --> significa Binary Large Object
 computed property --> [Symbol.iterator]()
 
 race condition --> problemas de corrida, depende da ordem que operações concorrente acontecem 
+
+Clonagem profunda  --> criar uma copia que também duplica as estruturas de dados aninhadas compativeis em vez de compartilhar as mesmas ref interna

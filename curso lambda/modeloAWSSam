@@ -1,0 +1,24 @@
+//informa ao AWS CloudFormation que é um modelo SAM
+/*
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2021-07-11
+Resources:
+   GetHtmlFunciton:
+   //cria a function do Lambda
+      Type: AWS::Serverless::function
+      Properties:
+      //codigo do local zip refenciado usando o tempo de execução especificado e o manipulador definido
+          CodeUri: ./src.todo_list
+          Handler: index.getHtml
+          Runtime: nodejs14.x
+          //politica do IAM refenciada
+          Polices: AmazonDynamoDBReadOnlyAccess
+          //cria um endpoint do API Gateway e cuida de todas as permissões e mapeamento
+             Events:
+               GetHtml:
+                 Type: Api
+                 Properties:
+                    Path: /{proxy+}
+                      Method: ANY
+
+                      */

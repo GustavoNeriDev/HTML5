@@ -1,0 +1,142 @@
+# Práticas recomendadas para trabalhar com funções do AWS Lambda
+
+<a name="best-practices"></a>
+
+As práticas a seguir são recomendadas para usar o AWS Lambda:
+
+**Topics**
+
+- [Código da função](#function-code)
+- [Configuração da função](#function-configuration)
+- [Escalabilidade de função](#function-scalability)
+- [Métricas e alarmes](#alarming-metrics)
+- [Trabalhar com fluxos](#stream-events)
+- [Práticas recomendadas de segurança](#security-best-practices)
+
+## Código da função
+
+<a name="function-code"></a>
+
+**Aproveite a reutilização do ambiente de execução para melhorar a performance da função.** Inicialize clientes SDK e conexões de banco de dados fora do manipulador de funções e armazene em cache os ativos estáticos localmente no diretório `/tmp`. As invocações subsequentes processadas pela mesma instância da função podem reutilizar esses recursos. Isso economiza custos reduzindo o runtime da função.
+
+Para evitar possíveis vazamentos de dados entre invocações, não use o ambiente de execução para armazenar dados do usuário, eventos ou outras informações com implicações de segurança. Se sua função depende de um estado mutável que não pode ser armazenado na memória dentro do manipulador, considere criar uma função separada ou versões separadas de uma função para cada usuário.
+
+**Use uma diretiva de keep-alive para manter conexões persistentes.** O Lambda limpa conexões ociosas ao longo do tempo. A tentativa de reutilizar uma conexão ociosa ao invocar uma função resultará em um erro de conexão. Para manter sua conexão persistente, use a diretiva keep-alive associada ao runtime. Para obter um exemplo, consulte [Reutilizar conexões com keep-alive em Node.js](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/node-reusing-connections.html).
+
+**Use [variáveis de ambiente](configuration-envvars.md) para passar parâmetros operacionais para sua função.** Por exemplo, se estiver gravando em um bucket do Amazon S3, em vez fixar no código o nome do bucket em que você está gravando, configure o nome do bucket como uma variável de ambiente.
+
+**Evite usar invocações recursivas** em sua função do Lambda, em que a função invoca a si mesma ou inicia um processo que pode invocar a função novamente. Isso pode levar a um volume não intencional de invocações da função e a custos elevados. Se você observar um volume não intencional de invocações, defina a simultaneidade reservada da função como `0` imediatamente para limitar todas as invocações da função enquanto atualiza o código.
+
+**Não use APIs não documentadas e não públicas** no código da função do Lambda. Para os tempos de execução gerenciados pelo AWS Lambda, o Lambda aplica periodicamente atualizações funcionais e de segurança às APIs internas do Lambda. Essas atualizações internas da API podem ser incompatíveis com versões anteriores, gerando consequências não intencionais, como falhas de invocação, caso sua função tenha dependência nessas APIs não públicas. Consulte [a referência da API](https://docs.aws.amazon.com/lambda/latest/api/welcome.html) para obter uma lista de APIs disponíveis publicamente.
+
+**Escreva um código idempotente.** Escrever um código idempotente para suas funções garante que eventos duplicados sejam tratados da mesma maneira. Seu código deve validar eventos adequadamente e lidar corretamente com eventos duplicados. Para obter mais informações, consulte [Como torno minha função do Lambda idempotente?](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-idempotent/).
+
+**nota**  
+É possível usar o Powertools do AWS Lambda para tornar as funções idempotentes. Para obter mais informações, consulte:  
+[Python: utilitário de idempotência](https://docs.aws.amazon.com/powertools/python/latest/utilities/idempotency/)
+[TypeScript: utilitário de idempotência](https://docs.aws.amazon.com/powertools/typescript/latest/features/idempotency/)
+[Java: utilitário de idempotência](https://docs.aws.amazon.com/powertools/java/latest/utilities/idempotency/)
+[.NET: utilitário de idempotência](https://docs.aws.amazon.com/powertools/dotnet/utilities/idempotency/)
+
+Para obter as práticas recomendadas de código específicas de cada linguagem, consulte as seguintes seções:
+
+- [Práticas recomendadas de código para as funções do Lambda em Node.js](nodejs-handler.md#nodejs-best-practices)
+- [Práticas recomendadas de codificação para funções do Lambda em TypeScript](typescript-handler.md#typescript-best-practices)
+- [Práticas recomendadas de código para as funções do Lambda em Python](python-handler.md#python-handler-best-practices)
+- [Práticas recomendadas de código para as funções do Lambda em Ruby](ruby-handler.md#ruby-best-practices)
+- [Práticas recomendadas de código para as funções do Lambda em Java](java-handler.md#java-best-practices)
+- [Práticas recomendadas de código para as funções do Lambda em GO](golang-handler.md#go-best-practices)
+- [Práticas recomendadas de código para as funções do Lambda em C\#](csharp-handler.md#csharp-best-practices)
+- [Práticas recomendadas de código para as funções do Lambda em Rust](rust-handler.md#rust-best-practices)
+
+## Configuração da função
+
+<a name="function-configuration"></a>
+
+**Os testes de performance de sua função do Lambda** são uma parte essencial para garantir que você escolha a configuração do tamanho da memória ideal. Qualquer aumento no tamanho da memória dispara um aumento equivalente na CPU disponível para sua função. O uso de memória para sua função é determinado por invocação e pode ser visualizado no [Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatchLogs.html). Em cada invocação, será feita uma entrada de `REPORT:`, conforme mostrado a seguir:
+
+```
+REPORT RequestId: 3604209a-e9a3-11e6-939a-754dd98c7be3	Duration: 12.34 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 18 MB
+```
+
+Ao analisar o campo `Max Memory Used:`, você poderá determinar se a função precisa de mais memória ou se você provisionou excessivamente o tamanho da memória de sua função.
+
+**Para encontrar a configuração de memória correta** para suas funções, recomendamos usar o projeto de código aberto AWS Lambda Power Tuning. Para obter mais informações, consulte [AWS Lambda Power Tuning](https://github.com/alexcasalboni/aws-lambda-power-tuning) no GitHub.
+
+Para otimizar a performance da função, também recomendamos a implantação de bibliotecas que possam usar as Advanced Vector Extensions 2 (AVX2). Isso permite processar workloads exigentes, incluindo inferência de machine learning, processamento de mídia, computação de alta performance (HPC), simulações científicas e modelagem financeira. Para obter mais informações, consulte [Creating faster AWS Lambda functions with AVX2](https://aws.amazon.com/blogs/compute/creating-faster-aws-lambda-functions-with-avx2/).
+
+**Teste a carga de sua função do Lambda** para determinar um valor de tempo limite ideal. É importante analisar por quanto tempo sua função é executada para que você possa determinar melhor qualquer problema com um serviço de dependência que possa aumentar a simultaneidade da função além do que você espera. Isso é importante, principalmente quando sua função do Lambda faz chamadas de rede para recursos que não podem lidar com a escalabilidade do Lambda. Para obter mais informações sobre como realizar testes de carga em sua aplicação, consulte [Teste de carga distribuída na AWS](https://aws.amazon.com/solutions/implementations/distributed-load-testing-on-aws/).
+
+**Use permissões mais restritivas ao definir políticas do IAM.** Compreenda os recursos e operações necessários para sua função do Lambda e limite a função de execução a essas permissões. Para obter mais informações, consulte [Gerenciando permissões no AWS Lambda](lambda-permissions.md).
+
+**Familiarize-se com o [Cotas Lambda](gettingstarted-limits.md).** O tamanho da carga, os descritores de arquivos e o espaço /tmp geralmente são ignorados ao determinar os limites de recursos de runtime.
+
+**Exclua as funções do Lambda que você não está mais usando.** Fazendo isso, as funções não utilizadas não serão contadas desnecessariamente em relação ao limite do tamanho do pacote de implantação.
+
+**Se você estiver usando o Amazon Simple Queue Service** como uma fonte de eventos, certifique-se de que o valor do tempo de invocação esperado da função não exceda o valor do [Tempo limite de visibilidade](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html) na fila. Isso se aplica a[CreateFunction](https://docs.aws.amazon.com/lambda/latest/api/API_CreateFunction.html)e[UpdateFunctionConfiguration](https://docs.aws.amazon.com/lambda/latest/api/API_UpdateFunctionConfiguration.html).
+
+- No caso de **CreateFunction**, o AWS Lambda causa uma falha no processo de criação da função.
+- No caso de **UpdateFunctionConfiguration**, isso pode resultar em invocações duplicadas da função.
+
+## Escalabilidade de função
+
+<a name="function-scalability"></a>
+
+**Conheça suas restrições de throughput de upstream e downstream.** Embora as funções do Lambda sejam dimensionadas perfeitamente com a carga, as dependências de upstream e downstream talvez não tenham os mesmos recursos de throughput. Se você precisar definir um limite para a escalabilidade da sua função, é possível [configurar a simultaneidade reservada](configuration-concurrency.md) em sua função.
+
+**Integre a tolerância do controle de utilização.** Se sua função síncrona sofrer controle de utilização devido a níveis de tráfego que excedam a taxa de escalabilidade do Lambda, você poderá aplicar as seguintes estratégias para melhorar a tolerância ao controle de utilização:
+
+- **Use [tempos-limite, novas tentativas e recuo com jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/)**. A implementação dessas estratégias desobstrui a repetição de invocações e ajuda a garantir que o Lambda possa aumentar a escala verticalmente em poucos segundos a fim de minimizar o controle de utilização do usuário final.
+- **Use [simultaneidade provisionada](provisioned-concurrency.md)**. A simultaneidade provisionada é o número de ambientes de execução previamente inicializados que você deseja que o Lambda aloque à sua função. O Lambda processa as solicitações recebidas usando simultaneidade provisionada, quando disponível. Se for o caso, o Lambda também pode escalar sua função acima e além da configuração de simultaneidade provisionada. A configuração da simultaneidade provisionada gera cobranças adicionais na sua conta da AWS.
+
+## Métricas e alarmes
+
+<a name="alarming-metrics"></a>
+
+**Use[Uso de métricas do CloudWatch com o Lambda](monitoring-metrics.md) e [Alarmes do CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html)**, em vez de criar ou atualizar uma métrica no código da função do Lambda. É uma forma muito mais eficiente de monitorar a integridade de suas funções do Lambda permitindo detectar problemas no início do processo de desenvolvimento. Por exemplo, é possível configurar um alarme com base na duração esperada da invocação da função do Lambda para lidar com gargalos ou latências atribuíveis ao código da função.
+
+**Emita métricas personalizadas de forma assíncrona usando o Formato de métricas incorporadas (EMF).** Em vez de fazer chamadas de API síncronas para o CloudWatch, use o EMF para emitir métricas por meio de logs da sua função. Essa abordagem reduz a latência e melhora a performance.
+
+O utilitário Metrics no Powertools para AWS Lambda manipula a formatação do EMF automaticamente. Para obter mais informações, consulte os utilitários Metrics [Python](https://docs.aws.amazon.com/powertools/python/latest/core/metrics/), [TypeScript](https://docs.aws.amazon.com/powertools/typescript/latest/features/metrics/), [Java](https://docs.aws.amazon.com/powertools/java/latest/core/metrics/) ou [.NET](https://docs.aws.amazon.com/powertools/dotnet/core/metrics/) no Powertools para obter a documentação do AWS Lambda. Para obter mais informações sobre o uso do EMF para gerar logs do formato de métricas incorporadas, consulte a [Publicação de logs com o formato de métricas incorporadas](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Embedded_Metric_Format_Generation.html) no Guia do usuário do Amazon CloudWatch.
+
+**Use registros em log JSON estruturados para melhor observabilidade.** O registro em log estruturado facilita a pesquisa, a filtragem e a análise dos registros da sua função. Considere usar o utilitário Logger do Powertools do AWS Lambda para formatar automaticamente os logs em JSON. Para obter mais informações, consulte os utilitários Logger [Python](https://docs.aws.amazon.com/powertools/python/latest/core/logger/), [TypeScript](https://docs.aws.amazon.com/powertools/typescript/latest/features/logger/), [Java](https://docs.aws.amazon.com/powertools/java/latest/core/logging/) ou [.NET](https://docs.aws.amazon.com/powertools/dotnet/core/logging/) no Powertools para obter a documentação do AWS Lambda.
+
+**Utilize sua biblioteca de registros em log e as [Métricas e dimensões do AWS Lambda](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/lam-metricscollected.html)** para detectar erros de aplicação (por exemplo, ERR, ERROR e WARNING).
+
+**Use o [AWS Cost Anomaly Detection](https://docs.aws.amazon.com/cost-management/latest/userguide/manage-ad.html)** para detectar atividades incomuns em sua conta. O Cost Anomaly Detection usa machine learning para monitorar continuamente seu custo e uso, minimizando alertas de falsos positivos. O Cost Anomaly Detection usa dados do AWS Cost Explorer, que tem um atraso de até 24 horas.
+
+Como resultado, ele pode levar até 24 horas para detectar uma anomalia após a ocorrência do uso. Para começar a usar o Cost Anomaly Detection, primeiro [cadastre-se no Explorador de Custos](https://docs.aws.amazon.com/cost-management/latest/userguide/ce-enable.html). Em seguida, [acesse o Cost Anomaly Detection](https://docs.aws.amazon.com/cost-management/latest/userguide/settingup-ad.html#access-ad).
+
+## Trabalhar com fluxos
+
+<a name="stream-events"></a>
+
+**Teste com diferentes tamanhos de lotes e de registros **para que a frequência de sondagem de cada origem de evento seja ajustada para a rapidez com que a função pode concluir sua tarefa. O parâmetro BatchSize [CreateEventSourceMapping](https://docs.aws.amazon.com/lambda/latest/api/API_CreateEventSourceMapping.html) controla o número máximo de registros que podem ser enviados para sua função a cada invocação. Um tamanho de lote maior geralmente absorve de maneira mais eficiente a sobrecarga da invocação em um conjunto maior de registros aumentando o throughput.
+
+Por padrão, o Lambda invoca a função assim que os registros estão disponíveis. Se o lote que o Lambda lê da fonte de eventos tiver apenas um registro, o Lambda enviará apenas um registro à função. Para evitar a invocação da função com poucos registros, instrua a fonte de eventos para armazenar os registros em buffer por até cinco minutos, configurando uma _janela de lotes_. Antes de invocar a função, o Lambda continua a ler registros da fonte de eventos até coletar um lote inteiro, até que a janela de lote expire ou até que o lote atinja o limite de carga útil de 6 MB. Para obter mais informações, consulte [Comportamento de lotes](invocation-eventsourcemapping.md#invocation-eventsourcemapping-batching).
+
+**Atenção**  
+Os mapeamentos da origem do evento do Lambda processam cada evento ao menos uma vez, podendo haver o processamento duplicado de registros. Para evitar possíveis problemas relacionados a eventos duplicados, é altamente recomendável tornar o código da função idempotente. Para saber mais, consulte [Como tornar minha função do Lambda idempotente](https://repost.aws/knowledge-center/lambda-function-idempotent) no Centro de Conhecimentos da AWS.
+
+**Habilite a resposta parcial em lote para processamento de fluxo.** Ao processar lotes de registros de fluxos como Kinesis ou DynamoDB Streams, habilite a resposta parcial em lote para permitir que o Lambda tente novamente somente os registros com falha, em vez do lote inteiro. Isso melhora a eficiência do processamento e reduz o reprocessamento desnecessário. Opcionalmente, você pode usar o utilitário Batch do Powertools do AWS Lambda para simplificar os padrões de processamento em lote.
+
+**nota**  
+É possível usar o Powertools do AWS Lambda para processamento em lote. Para obter mais informações, consulte:  
+[Python: processamento em lote](https://docs.aws.amazon.com/powertools/python/latest/utilities/batch/)
+[TypeScript: processamento em lote](https://docs.aws.amazon.com/powertools/typescript/latest/features/batch/)
+[Java: processamento em lote](https://docs.aws.amazon.com/powertools/java/latest/utilities/batch/)
+[.NET: processamento em lote](https://docs.aws.amazon.com/powertools/dotnet/utilities/batch-processing/)
+
+**Aumente o throughput de processamento de transmissão do Kinesis adicionando fragmentos.** Uma transmissão do Kinesis é composto de um ou mais fragmentos. A taxa na qual o Lambda consegue ler dados do Kinesis é escalada linearmente com o número de fragmentos.
+
+O aumento do número de fragmentos aumenta diretamente o número máximo de invocações simultâneas de função do Lambda e pode aumentar o throughput para processamento de transmissões do Kinesis. Para obter mais informações sobre a relação entre fragmentos e invocações da função, consulte [Fluxos de sondagem e agrupamento em lotes](with-kinesis.md#kinesis-polling-and-batching). Se você estiver aumentando o número de fragmentos em uma transmissão do Kinesis, certifique-se de ter escolhido uma boa chave de partição (consulte [Chaves de partição](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key)) para seus dados, para que os registros relacionados terminem nos mesmos fragmentos e seus dados sejam bem distribuídos.
+
+**Use o [Amazon CloudWatch](https://docs.aws.amazon.com/streams/latest/dev/monitoring-with-cloudwatch.html)** no IteratorAge para determinar se a transmissão do Kinesis está sendo processada. Por exemplo, configure um alarme do CloudWatch com uma configuração máxima de 30000 (30 segundos).
+
+## Práticas recomendadas de segurança
+
+<a name="security-best-practices"></a>
+
+**Monitore seu uso do AWS Lambda em relação às práticas recomendadas de segurança com o AWS Security Hub CSPM.** O CSPM do Security Hub usa controles de segurança para avaliar configurações de recursos e padrões de segurança que ajudam você a atender a vários frameworks de conformidade. Para obter mais informações sobre como usar o CSPM do Security Hub para avaliar os recursos do Lambda, consulte [Controles do AWS Lambda](https://docs.aws.amazon.com/securityhub/latest/userguide/lambda-controls.html) no Guia do usuário do AWS Security Hub CSPM.
+
+**Monitore os logs de atividade de rede do Lambda usando a proteção do Lambda do Amazon GuardDuty.** A proteção do Lambda ajuda você a identificar possíveis ameaças à segurança nas invocações de funções do Lambda em sua Conta da AWS. Por exemplo, se uma de suas funções consultar um endereço IP associado a atividades relacionadas a criptomoeda. O GuardDuty monitora os logs de atividade de rede gerados mediante a invocação de uma função do Lambda. Para saber mais, consulte [Proteção do Lambda](https://docs.aws.amazon.com/guardduty/latest/ug/lambda-protection.html) no _Guia do usuário do Amazon GuardDuty_.

@@ -1,0 +1,31 @@
+/*
+um stream siginica  um fluxo de dados. permite processar informações em partes, chamadas chunks, em vez de precisar receber todo o conteúdo de uma só vez
+
+ex:
+um sistema comercial que recebe milhares de registros de vendas.
+em vez de esperar que todos os dados estejam disponiveis, ele pode processar cada parte conforme ela chega
+
+
+o JS tem diferentes tipos de streams
+
+** ReadableStream: permite ler dados em partes
+** WritableStream: permite escrever dados em fluxo
+** TranformStream: permite tranformar os dados enquanto ele passa por um fluxo
+
+ex:
+const fluxo = new ReadableStream({
+    start(controller) {
+        controller.enqueue("Venda 1");
+        controller.enqueue("Venda 2");
+        controller.close();
+    }
+});
+
+//start(): inicializa um fluxo
+//controller.enqueue(): coloca uma parte de dados no fluxo
+//controller.close(); indica que não há mais dados para 
+//Para ler os dados, podemos usar getReader() e chamar read() até o fluxo terminar.
+
+
+Uso profissional: a API de Streams é útil para ler respostas HTTP grandes, processar arquivos e tratar dados progressivamente, reduzindo a necessidade de carregar todo o conteúdo antes de começar a trabalhar com ele.
+*/
