@@ -1,0 +1,12 @@
+/*
+ essa API permite tranformar dados enquanto passam por um fluxo, converter formatos de dados ou modificar texto
+ conceitos do  Transform(chunk, controller): função executada  para tranformar  cada parte de dado recebida. chunk é dado atual
+ controller.enqueue() --> envia o resultado tranformado para a saida
+
+ writer  e reader: o writer envia dados  para o fluxo de  tranformação: reader lê os dados  já tranformados
+
+ 
+
+
+
+*/
