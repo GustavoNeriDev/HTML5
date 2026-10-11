@@ -6,6 +6,7 @@ async function padronizarProdutos() {
 
   const fluxo = new TransformStream({
     transform(chunk, controller) {
+      //tranforma as letras em maiusculo
       controller.enqueue(chunk.toUpperCase());
       // Envie o resultado usando controller.enqueue()
     },

@@ -75,3 +75,14 @@ computed property --> [Symbol.iterator]()
 race condition --> problemas de corrida, depende da ordem que operações concorrente acontecem 
 
 Clonagem profunda  --> criar uma copia que também duplica as estruturas de dados aninhadas compativeis em vez de compartilhar as mesmas ref interna
+
+sink --> é o destino que recebe os dados enviados pelo fluxo
+
+controle de fluxo --> evita que os dados sejam enviados mais rapido que o processamento do sistema
+
+
+backpressure(contrapressão) --> mecanismo que faz quem produz dados desacelerar, quando o destino não consegue processar rapidamente
+
+Fila interna(internal queue) --> local onde os dados aguardam processamento
+
+pipeline --> sequencia de etapas de processamento

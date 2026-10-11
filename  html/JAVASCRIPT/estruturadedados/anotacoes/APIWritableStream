@@ -1,0 +1,18 @@
+/*
+WritableStream --> essa API recebe dados e define como cada parte será processada
+
+WritableStreamDefautWriter(writer): objeto responsavel por enviar dados ao fluxo, voce obtem usando getWriter()
+
+write() --> metodo que envia dado ao fluxo
+
+close() --> metodo que encerra a escrita, encerra os dados
+
+write() e close() --> retornam promisses, que representa  uma operação que pode terminar posteriomente, Usamos await para esperar a conclusão
+
+
+Uso profissional: esse padrão ajuda a compreender como dados são encaminhados a um destino para processamento. Em uma aplicação real, o destino poderia ser um sistema de registro, um processo de conversão ou outro componente — embora este exercício apenas exiba informações no navegador
+
+
+Uso profissional: fluxos de escrita são úteis em processamento de arquivos, envio de dados e pipelines de processamento. No seu exercício, o destino é a própria página; em outros sistemas, ele pode ser um componente que grava ou processa dados
+
+*/

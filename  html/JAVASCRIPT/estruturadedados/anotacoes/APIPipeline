@@ -1,0 +1,8 @@
+/*
+Pipeline(canal de processamento) --> sequencia  de dados de etpas que passam dados sobre eles
+pipeTo(destino) --> conecta um ReadableStream a um WritableStream. O fluxo de leitura envia os dados diretamente ao  destino
+pipeThrough(transformador) --> conecta um ReadtableStream a um TranformStream e devolve o fluxo de saida
+Encadeamento: ligar etapas para que a saida de  uma seja a entrada da proxima
+
+
+*/

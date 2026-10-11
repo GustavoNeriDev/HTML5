@@ -1,0 +1,9 @@
+/*
+Esse termo técnico significa controle de fluxo: o mecanismo que ajuda a evitar que os dados sejam enviados mais rapidamente do que o destino consegue processá-los. Você também vai conhecer writer.ready e desiredSize, propriedades relacionadas ao controle da fila de dados.
+
+backpressure(contrapressão) -->  mecanismo que faz quem produz dados desacelerar, quando o destino não consegue processar rapidamente
+Fila interna(internal queue) --> local onde os dados aguardam processamento
+highWaterMark --> limite desejado para a fila, usado para determinar quando apicar o contrapessão
+writer.desiredSize --> indica quando o espaço desejado ainda existe na fila, chega  a zero ou fica negativo
+writer.ready --> uma promise que permite esperar até o fluxo esteja pronto para aceitar mais dados sem aplicar contrapressão
+*/
