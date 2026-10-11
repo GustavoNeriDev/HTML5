@@ -1,3 +1,5 @@
+
+
 const API_URL = "https://fakestoreapi.com/products";
 
 export async function buscarProduto(id) {
@@ -51,7 +53,7 @@ async function buscarProdutoId(event) {
 buscar.addEventListener("click", buscarProdutoId);
 
 ///////////////////////////////////////// ATIVIDADE //////////////////////
-
+/*
 const API_URL = "https://fakestoreapi.com/products";
 
 export async function buscarProduto(id) {
@@ -68,7 +70,7 @@ export async function buscarProduto(id) {
 }
 
 ////////////////////////////////////// outro arquivo ////////////////////
-
+/*
 import { buscarProduto } from "./api.js";
 
 const id = document.getElementById("id");
@@ -105,3 +107,4 @@ async function buscarProdutoId(event) {
 }
 
 buscar.addEventListener("click", buscarProdutoId);
+*/
