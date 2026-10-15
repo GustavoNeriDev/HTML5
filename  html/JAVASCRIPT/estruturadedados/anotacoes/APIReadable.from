@@ -1,0 +1,31 @@
+permite criar um fluxo legivel a partir de  uma sequencia do iterador, como um array ou generator
+termos tecnicos:
+
+ReadableStream.from --> metodo estatico que converte um iteravel ou iterator assincrono em um fluxo legivel
+Metodo estatico --> chamada pela propria classe ou construtor, sem precisar criar uma instancia para chamar
+iteravel  --> estrutura que permite percorrer como um array
+generator --> função especial que pode produzir valores usando o yield
+
+ex:
+const importar = document.getElementById("importar");
+const resultado = document.getElementById("resultado");
+
+async function importarProdutos() {
+    resultado.textContent = "";
+
+    const produtos = [
+        "Notebook",
+        "Mouse",
+        "Teclado"
+    ];
+//metodo estatico que vai converter um iterador em um fluxo legivel
+    const fluxo = ReadableStream.from(produtos);
+
+    for await (const produto of fluxo) {
+        resultado.textContent += `${produto}\n`;
+    }
+
+    resultado.textContent += "\nImportação concluída!";
+}
+
+importar.addEventListener("click", importarProdutos);

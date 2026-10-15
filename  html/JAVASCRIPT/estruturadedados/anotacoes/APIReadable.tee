@@ -1,0 +1,50 @@
+tee() retorna um array com dois novos  ReadaleStream que podem ser lidos independetemente, exemplo encaminhar o conteúdo para a interface e tambem o cache
+
+tee() --> metodo que divide um fluxo em duas ramificações
+ramificações(Branch) --> cada um dos fluxo dos dois fluxos
+Consumidor --> parte do programa que lê ou processa dados
+
+ex: tee(), dois fluxos. fluxos[0] e fluxos[1]
+
+const distribuir = document.getElementById("distribuir");
+const relatorio = document.getElementById("relatorio");
+const auditoria = document.getElementById("auditoria");
+
+async function lerFluxo(fluxo, destino) {
+    //controla a leitura do fluxo
+    const leitor = fluxo.getReader();
+
+    while (true) {
+        //percorre o fluxo
+        const { value, done } = await leitor.read();
+
+        if (done) break;
+
+        destino.textContent += `${value}\n`;
+    }
+}
+
+async function distribuirProdutos() {
+    relatorio.textContent = "";
+    auditoria.textContent = "";
+
+    const origem = new ReadableStream({
+        start(controller) {
+            controller.enqueue("Notebook");
+            controller.enqueue("Mouse");
+            controller.enqueue("Teclado");
+            controller.close();
+        }
+    });
+//primeira prop é para mostrar os produtos, segunda prop é lido separadamente com os mesmo produto
+    const [fluxoRelatorio, fluxoAuditoria] = origem.tee(); //origem tee cria duas Branch
+//aguarda as duas terminarem
+    await Promise.all([
+        lerFluxo(fluxoRelatorio, relatorio),
+        lerFluxo(fluxoAuditoria, auditoria)
+    ]);
+}
+
+distribuir.addEventListener("click", distribuirProdutos);
+
+

@@ -1,0 +1,106 @@
+/*text decoder permiter converter os textos em bytes e o contrario tambem
+termos tecnicos:
+
+codificação --> converte os  textos em byte 
+decodificação --> converte os  bytes em textos
+UTF-8 --> formato em que é representado os caracteres 
+Uint8Array --> estrutura que limita quantos bytes tem, e armazena até 255 numeros inteiros
+TextencoderStream --> converte os fluxos de string em bytes UTF-8
+TextDecoderStream --> converte um fluxo de bytes em strings
+
+ex:
+*/
+const converter = document.getElementById("converter");
+const resultado = document.getElementById("resultado");
+
+async function converterTexto() {
+    resultado.textContent = "";
+
+    const origem = new ReadableStream({
+        start(controller) {
+            controller.enqueue("Olá, mundo!");
+            controller.close();
+        }
+    });
+//convertendo o texto(string) em bytes, pipe leva os dados e retorna um fluxo
+    const codificado = origem.pipeThrough(new TextEncoderStream());
+//converte o byte em textos(strings)
+    const decodificado = codificado.pipeThrough(
+        new TextDecoderStream()
+    );
+
+    for await (const texto of decodificado) {
+        resultado.textContent += texto;
+    }
+}
+
+converter.addEventListener("click", converterTexto);
+
+//aplicando em HTTP em fluxo
+const buscar = document.getElementById("buscar");
+const resultados = document.getElementById("resultado");
+
+async function buscarTexto() {
+    resultados.textContent = "Carregando...";
+
+    try {
+        const resposta = await fetch(
+            "https://jsonplaceholder.typicode.com/posts/1"
+        );
+
+        if (!resposta.ok) {
+            throw new Error(`HTTP ${resposta.status}`);
+        }
+
+        const fluxo = resposta.body.pipeThrough(
+            new TextDecoderStream()
+        );
+
+        resultados.textContent = "";
+
+        for await (const trecho of fluxo) {
+            resultado.textContent += trecho;
+        }
+
+    } catch (erro) {
+        resultados.textContent = `Erro: ${erro.message}`;
+    }
+}
+
+buscar.addEventListener("click", buscarTexto);
+
+//verifica um fluxo de texto linha por linha
+const ler = document.getElementById("ler");
+const result = document.getElementById("resultado");
+
+async function lerLinhas() {
+    result.textContent = "";
+
+    const chunks = [
+        "Notebook\nMou",
+        "se\nTeclado"
+    ];
+
+    let buffer = "";
+
+    for (const chunk of chunks) {
+        buffer += chunk;
+
+        let posicao;
+       //indexOf vai procurar a quebra de linha \n
+        while ((posicao = buffer.indexOf("\n")) !== -1) {
+            //slice 0, posicao. extrai a linha completa
+            const linha = buffer.slice(0, posicao);
+
+            result.textContent += `${linha}\n`;
+          // remove do buffer a linha que ja foi proccessada
+            buffer = buffer.slice(posicao + 1);
+        }
+    }
+
+    if (buffer.length > 0) {
+        result.textContent += buffer;
+    }
+}
+
+ler.addEventListener("click", lerLinhas);

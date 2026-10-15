@@ -1,0 +1,41 @@
+/* 
+usado para cancelar um processamento antes que  ele termine
+
+AbortSignal pode ser passado as opções  de pipeTo() para interromper o fluxo
+
+AbortController --> objeto que permite solicitar o cancelamento de uma operations
+AbortSignal --> sinal usado para comunicar a operação de que ela  deve ser cancelado
+Abort() --> metodo que dispara o sinal de cancelamento
+signal --> propriedade do controlador que fornece o sinal
+AbortError --> erro que indica ao fato da operação cancelada
+signal aborted --> prop  boolean que informa se o sinal foi acionado
+signal.addEventListener("abort",....) --> permite que a função seja executada quando o cancelamento acontece
+clearTimeout() --> cancela um temporizador que ainda não foi executado
+reject() --> rejeita uma promise, indicando que a operação não terminou
+Limpeza de evento --> remover o listener quando a operação termina para não deixar reference desnecessario
+
+ex:
+//Imagine que uma função simula o processamento de um pedido durante três segundos. Se o usuário cancelar, queremos interromper a espera e rejeitar a Promise.
+
+}
+*/
+function processarComCancelamento({ signal }) {
+    return new Promise((resolve, reject) => {
+        if (signal.aborted) {
+            reject(signal.reason);
+            return;
+        }
+
+        const temporizador = setTimeout(() => {
+            signal.removeEventListener("abort", cancelar);
+            resolve("Pedido processado");
+        }, 3000);
+
+        function cancelar() {
+            clearTimeout(temporizador);
+            reject(signal.reason);
+        }
+
+        signal.addEventListener("abort", cancelar, { once: true });
+    });
+}

@@ -1,0 +1,18 @@
+/*
+AbortSignal.timeout() --> cria um sinal que é acionado automaticamente após o tempo defindo
+AbortSignal.any() --> permite combinar sinais, exemplo um cancelamento manuel e um limite de tempo
+timeout --> tempo maximo permitido para uma  operação
+AbortSignal.timeout(ms) --> cria um sinal que dispara apos o numero de milissegundos informado
+AbortSignal.any([...]) --> cria um sinal que é cancelado quando um dos sinais fornecidos é cancelado
+TimeoutError --> nome usado para idetificar cancelamento causados pelo limite de tempo
+AbortError --> nome normalmente associado a cancelamento manual
+
+ex:
+*/
+const sinalTempo = AbortSignal.timeout(5000);
+const resposta = await fetch(url, {
+    signal: sinalTempo
+});
+/*
+a requisição tem um limite de 5 segundos se o timeout() for acionado
+o fetch() vai rejeitar com um erro chamado timeoutError

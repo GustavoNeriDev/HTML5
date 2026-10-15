@@ -1,0 +1,35 @@
+/*
+termos tecnicos :
+iteração --> percorrer uma sequencia de valores
+Iteravel assincrono --> objeto que fornece valores ao longo do tempo
+for await of --> estrutura de repetição que aguarda cada valor assincrono antes de executar o corpo  do loop
+getReader e read --> manual de leitura
+done --> prop que indica se a leitura terminou
+
+o for await simplifica a leitura não precisando preescrever um loop manualmente
+ex:
+const ler = document.getElementById("ler");
+const resultado = document.getElementById("resultado");
+
+async function lerPedidos() {
+    resultado.textContent = "";
+
+    const fluxo = new ReadableStream({
+        start(controller) {
+            controller.enqueue("Pedido 301");
+            controller.enqueue("Pedido 302");
+            controller.enqueue("Pedido 303");
+            controller.close();
+        }
+    });
+//vai percorrer o fluxo de forma assincrona e automatica
+    for await (const pedido of fluxo) {
+        resultado.textContent += `${pedido}\n`;
+    }
+
+    resultado.textContent += "\nLeitura concluída!";
+}
+
+ler.addEventListener("click", lerPedidos);
+
+*/
