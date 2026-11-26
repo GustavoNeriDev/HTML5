@@ -1,57 +1,56 @@
 //Esses métodos são úteis para encadear etapas de processamento de arquivos, transformar dados recebidos pela rede e encaminhar resultados a outro componente. Em vez de controlar manualmente cada leitura e escrita, você conecta as etapas do pipeline
-//Uso profissional: pipelines são úteis para processar arquivos, transformar dados de respostas HTTP e encaminhar informações entre componentes. Eles também ajudam a propagar erros e controlar o fluxo de dados automaticamente. 
-
+//Uso profissional: pipelines são úteis para processar arquivos, transformar dados de respostas HTTP e encaminhar informações entre componentes. Eles também ajudam a propagar erros e controlar o fluxo de dados automaticamente.
 
 const processar = document.getElementById("processar");
 const resultado = document.getElementById("resultado");
 
 async function processarPedidos() {
-    resultado.textContent = "";
+  resultado.textContent = "";
 
-    const origem = new ReadableStream({
-        start(controller) {
-            //fluxo de origem que tem as propriedade por meio do controller(controladores de fluxo)
-            controller.enqueue("notebook");
-            controller.enqueue("mouse");
-            controller.enqueue("teclado");
-            controller.close();
-        }
-    });
-    const limpar = new TransformStream({
-        transform(texto, controller) {
-            controller.enqueue(texto.trim())
-        }
-    })
+  const origem = new ReadableStream({
+    start(controller) {
+      //fluxo de origem que tem as propriedade por meio do controller(controladores de fluxo)
+      controller.enqueue("notebook");
+      controller.enqueue("mouse");
+      controller.enqueue("teclado");
+      controller.close();
+    },
+  });
+  const limpar = new TransformStream({
+    transform(texto, controller) {
+      controller.enqueue(texto.trim());
+    },
+  });
 
-    const transformador = new TransformStream({
-        transform(chunk, controller) {
-            //convertendo para letras maiusculas
-            controller.enqueue(chunk.toUpperCase())
-        }
-    });
+  const transformador = new TransformStream({
+    transform(chunk, controller) {
+      //convertendo para letras maiusculas
+      controller.enqueue(chunk.toUpperCase());
+    },
+  });
 
-    const destino = new WritableStream({
-        write(chunk) {
-            //metodo que envia ao fluxo
-            resultado.textContent += `${chunk}\n`
-        },
+  const destino = new WritableStream({
+    write(chunk) {
+      //metodo que envia ao fluxo
+      resultado.textContent += `${chunk}\n`;
+    },
 
-        close() {
-            resultado.textContent += "\nProcessamento concluído!";
-        }
-    });
+    close() {
+      resultado.textContent += "\nProcessamento concluído!";
+    },
+  });
 
-    try {
-        //origem(source) é de onde os dados vem
-        await origem 
-        //o primeiro devolve um fluxo legivel, quanto ao segundo devolve uma promise que permite aguardar a tranferência
-             .pipeThrough(limpar)
-             .pipeThrough(transformador)
-             //sink
-             .pipeTo(destino)
-    } catch (erro) {
-        resultado.textContent += `Erro: ${erro.message}`;
-    }
+  try {
+    //origem(source) é de onde os dados vem
+    await origem
+      //o primeiro devolve um fluxo legivel, quanto ao segundo devolve uma promise que permite aguardar a tranferência
+      .pipeThrough(limpar)
+      .pipeThrough(transformador)
+      //sink
+      .pipeTo(destino);
+  } catch (erro) {
+    resultado.textContent += `Erro: ${erro.message}`;
+  }
 }
 
 processar.addEventListener("click", processarPedidos);
@@ -62,129 +61,175 @@ const processar = document.getElementById("processar");
 const resultado = document.getElementById("resultado");
 
 async function processarVendas() {
-    resultado.textContent = "";
+  resultado.textContent = "";
 
-    const origem = new ReadableStream({
-        start(controller) {
-            controller.enqueue("150.50");
-            controller.enqueue("89.90");
-            controller.enqueue("200.00");
-            controller.close();
-        }
-    });
+  const origem = new ReadableStream({
+    start(controller) {
+      controller.enqueue("150.50");
+      controller.enqueue("89.90");
+      controller.enqueue("200.00");
+      controller.close();
+    },
+  });
 
-    let total = 0;
+  let total = 0;
 
-    // Transformador 1: converter texto para número
-    const converter = new TransformStream({
-        transform(valor, controller) {
-            // Faça a conversão e use controller.enqueue()
-            controller.enqueue(Number(valor))
-        }
-    });
+  // Transformador 1: converter texto para número
+  const converter = new TransformStream({
+    transform(valor, controller) {
+      // Faça a conversão e use controller.enqueue()
+      controller.enqueue(Number(valor));
+    },
+  });
 
-    // Transformador 2: acumular os valores
-    const somar = new TransformStream({
-        //soma os valores vendidos 
-        transform(valor, controller) {
-            total += valor
-            controller.enqueue(valor)
-        },
+  // Transformador 2: acumular os valores
+  const somar = new TransformStream({
+    //soma os valores vendidos
+    transform(valor, controller) {
+      total += valor;
+      controller.enqueue(valor);
+    },
 
-        flush(controller) {
-            //envia o resultado final de todo o calculo que foi feito
-            controller.enqueue(`Total R$: ${total.toFixed(2)}`)
-        }
-    });
+    flush(controller) {
+      //envia o resultado final de todo o calculo que foi feito
+      controller.enqueue(`Total R$: ${total.toFixed(2)}`);
+    },
+  });
 
-    const destino = new WritableStream({
-        write(dado) {
-            resultado.textContent += `${dado}\n`;
-        },
+  const destino = new WritableStream({
+    write(dado) {
+      resultado.textContent += `${dado}\n`;
+    },
 
-        close() {
-            resultado.textContent += "\nProcessamento concluído!";
-        }
-    });
+    close() {
+      resultado.textContent += "\nProcessamento concluído!";
+    },
+  });
 
-    try {
-        await origem
-            .pipeThrough(converter)
-            .pipeThrough(somar)
-            .pipeTo(destino);
-    } catch (erro) {
-        resultado.textContent += `\nErro: ${erro.message}`;
-    }
+  try {
+    await origem.pipeThrough(converter).pipeThrough(somar).pipeTo(destino);
+  } catch (erro) {
+    resultado.textContent += `\nErro: ${erro.message}`;
+  }
 }
 
 processar.addEventListener("click", processarVendas);
-             
-
 
 ////////////verificar se o numero são finitos ou não
-
 
 const processar = document.getElementById("processar");
 const resultado = document.getElementById("resultado");
 
 async function importarVendas() {
-    resultado.textContent = "";
+  resultado.textContent = "";
 
-    const origem = new ReadableStream({
-        start(controller) {
-            controller.enqueue("150.50");
-            controller.enqueue("89.90");
-            controller.enqueue("abc");
-            controller.enqueue("-20");
-            controller.enqueue("200");
-            controller.close();
-        }
-    });
+  const origem = new ReadableStream({
+    start(controller) {
+      controller.enqueue("150.50");
+      controller.enqueue("89.90");
+      controller.enqueue("abc");
+      controller.enqueue("-20");
+      controller.enqueue("200");
+      controller.close();
+    },
+  });
 
-    let total = 0;
+  let total = 0;
 
-    const validar = new TransformStream({
-        transform(valor, controller) {
-           const numero = Number(valor)
-            //se o numero for finito, e maior que 0 ele vai ser validado
-            if(Number.isFinite(numero) && numero > 0) {
-                controller.enqueue(numero)
-            }
-        
-        }
-    });
+  const validar = new TransformStream({
+    transform(valor, controller) {
+      const numero = Number(valor);
+      //se o numero for finito, e maior que 0 ele vai ser validado
+      if (Number.isFinite(numero) && numero > 0) {
+        controller.enqueue(numero);
+      }
+    },
+  });
 
-    const somar = new TransformStream({
-        transform(valor, controller) {
-            total += valor
-            controller.enqueue(valor)
-            
-        },
+  const somar = new TransformStream({
+    transform(valor, controller) {
+      total += valor;
+      controller.enqueue(valor);
+    },
 
-        flush(controller) {
-   
-            controller.enqueue(`total R$: ${total.toFixed(2)}`)
-        }
-    });
+    flush(controller) {
+      controller.enqueue(`total R$: ${total.toFixed(2)}`);
+    },
+  });
 
-    const destino = new WritableStream({
-        write(dado) {
-            resultado.textContent += `${dado}\n`;
-        },
+  const destino = new WritableStream({
+    write(dado) {
+      resultado.textContent += `${dado}\n`;
+    },
 
-        close() {
-            resultado.textContent += "\nImportação concluída!";
-        }
-    });
+    close() {
+      resultado.textContent += "\nImportação concluída!";
+    },
+  });
 
-    try {
-        await origem
-            .pipeThrough(validar)
-            .pipeThrough(somar)
-            .pipeTo(destino);
-    } catch (erro) {
-        resultado.textContent += `\nErro: ${erro.message}`;
-    }
+  try {
+    await origem.pipeThrough(validar).pipeThrough(somar).pipeTo(destino);
+  } catch (erro) {
+    resultado.textContent += `\nErro: ${erro.message}`;
+  }
 }
 
 processar.addEventListener("click", importarVendas);
+
+///////////////////////////////
+
+// ===== PRONTO =====
+const numeros = [1, 2, 3, 4, 5, 6];
+const recebidos = [];
+const controller = new AbortController();
+
+// ===== VOCÊ COMPLETA =====
+
+// Etapa 1: dobra cada número
+const dobrar = new TransformStream({
+  transform(n, controller) {
+    // TODO 1: enfileirar o dobro de n
+    controller.enqueue(n * 2);
+  },
+});
+
+// Etapa 2: deixa passar só os maiores que 5
+const apenasMaioresQue5 = new TransformStream({
+  transform(n, controller) {
+    // TODO 2: se n > 5, enfileira; senão, descarta (sem erro)
+    if (n > 5) {
+      controller.enqueue(n);
+    } else {
+      console.log("não foi possivel");
+    }
+  },
+});
+
+// Destino: guarda o que chegar
+const coletar = new WritableStream({
+  write(n) {
+    // TODO 3: guardar n no array "recebidos"4
+    recebidos.push();
+  },
+});
+
+async function rodar() {
+  try {
+    // TODO 4: montar o pipeline
+    //   fonte: o array "numeros"
+    //   depois: dobrar -> apenasMaioresQue5 -> coletar
+    //   com o signal do controller
+    await ReadableStream.from(numeros)
+      .pipeThrough(dobrar)
+      .pipeTo(coletar, { signal: controller.signal });
+    console.log("Recebidos:", recebidos);
+  } catch (erro) {
+    console.log("Falhou:", erro.name);
+  }
+}
+
+// TODO 5 (teste de cancelamento): rode primeiro como está.
+// Depois descomente a linha abaixo, ANTES de chamar rodar(), e veja o que muda.
+// controller.abort();
+
+rodar();

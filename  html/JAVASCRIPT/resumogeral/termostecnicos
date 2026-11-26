@@ -86,3 +86,18 @@ backpressure(contrapressão) --> mecanismo que faz quem produz dados desacelerar
 Fila interna(internal queue) --> local onde os dados aguardam processamento
 
 pipeline --> sequencia de etapas de processamento
+
+Termo	Significado
+Source / sink	A fonte (de onde o dado sai) e o destino (para onde chega). Aqui, ReadableStream e WritableStream.
+
+Options object	Objeto de configuração passado como último parâmetro, como o { signal }.
+
+Shorthand property	Forma curta de escrever propriedade: { signal } equivale a { signal: signal }.
+
+Cascading failure (erro em cascata)	Um erro que causa outro. O ReferenceError do catch escondeu o TypeError real.
+
+Silent failure	Falha sem nenhuma mensagem, como o signal ignorado no pipeTo.
+
+Descartar vs. falhar	Descartar é não passar o item adiante. Falhar é interromper o fluxo todo.
+
+Debug com console.log	Imprimir valores no meio do código para ver o que está acontecendo. Você fez isso no destino, e foi uma boa prática.
